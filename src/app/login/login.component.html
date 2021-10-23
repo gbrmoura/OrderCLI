@@ -1,0 +1,12 @@
+<img src="assets/ifsp_btv.png" width="200px" height="200px" class="logo-login">
+
+<div class="container-main">
+  <z-form-material
+  [title]="'frm_title' | zTranslate"
+  [formProvider]="this"
+  [showLoading]="isLoading"
+  [showClearButton]="false"
+  [submitText]="'btn_login' | zTranslate"
+  (submitValue)="sendValue($event)"
+  ></z-form-material>
+</div>

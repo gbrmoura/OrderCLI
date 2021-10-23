@@ -1,0 +1,22 @@
+.container-main {
+  width: 30%;
+  margin: auto;
+}
+
+.logo-login {
+  margin: 3% auto;
+  display: block;
+}
+
+@media (max-width: 900px) {
+  .container-main {
+    width: 70%;
+  }
+}
+
+
+@media (max-width: 600px) {
+  .container-main {
+    width: 98%;
+  }
+}

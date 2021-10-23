@@ -1,1 +1,3 @@
-<router-outlet></router-outlet>
+<z-menu-material [titleProject]="'OrderCLI'" [showLogout]="true" [isAuth]="auth.isAuthenticated" (logout)="logout()" [menuProvider]="this">
+  <router-outlet></router-outlet>
+</z-menu-material>

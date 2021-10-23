@@ -1,6 +1,11 @@
 import { ZLanguageData } from 'zmaterial';
+import { TLogin } from './TLogin';
 
 export const Translate: ZLanguageData = {
-  pt: { },
-  en: { }
+  pt: {
+    ...TLogin.pt
+  },
+  en: {
+    ...TLogin.en
+  }
 };

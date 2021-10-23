@@ -38,6 +38,8 @@ import {
 } from 'zmaterial';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { AuthService } from './services/auth.service';
+import { ApiService } from './services/api.service';
 
 
 @NgModule({
@@ -122,5 +124,6 @@ import { MatPaginatorModule } from '@angular/material/paginator';
         ZReportBuilderModule
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
+    providers: [AuthService, ApiService]
 })
 export class GlobalModule { }
