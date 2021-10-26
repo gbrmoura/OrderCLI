@@ -1,5 +1,5 @@
 .container-main {
-  width: 30%;
+  width: 40%;
   margin: auto;
 }
 
@@ -8,14 +8,14 @@
   display: block;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1310px) {
   .container-main {
     width: 70%;
   }
 }
 
 
-@media (max-width: 600px) {
+@media (max-width: 750px) {
   .container-main {
     width: 98%;
   }

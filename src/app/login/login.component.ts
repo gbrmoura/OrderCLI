@@ -3,7 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { ZFormInputBase, ZFormInputText, ZFormProvider, ZModalService, ZTranslateService } from 'zmaterial';
 import { AuthService } from '../services/auth.service';
-import { switchMap } from 'rxjs/operators';
 import { IAPIResponse } from '../interfaces';
 
 @Component({
@@ -31,6 +30,7 @@ export class LoginComponent extends ZFormProvider implements OnInit {
         key: 'login',
         type: 'text',
         icon: 'person',
+        maxlength: 245,
         required: true,
       }),
       new ZFormInputText({
@@ -38,23 +38,27 @@ export class LoginComponent extends ZFormProvider implements OnInit {
         key: 'senha',
         type: 'password',
         icon: 'lock',
+        minlength: 5,
         required: true,
       })
     ])
   }
 
   public sendValue(value: any): void {
-
+    this.isLoading = true;
     this.auth.login(value).subscribe((res) => {
       this.auth.startSession(res.response);
+      this.isLoading = false;
 
       if (this.auth.session && this.auth.session.email) {
-        window.location.href = '/crud/produto';
+        window.location.href = '/register-users';
       } else {
-        window.location.href = '/crud/categoria';
+        window.location.href = '/register-users';
       }
 
     }, (err) => {
+      this.isLoading = false;
+
       this.modal.zModalTErrorLog({
         base: {
           title: this.tService.t('mdl_error'),
@@ -66,6 +70,10 @@ export class LoginComponent extends ZFormProvider implements OnInit {
       });
     })
 
+  }
+
+  public register(): void {
+    this.router.navigate(['/register']);
   }
 
 }

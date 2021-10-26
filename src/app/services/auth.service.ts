@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, throwError } from 'rxjs';
 import { IAPIResponse, iAuth } from '../interfaces';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -72,6 +73,18 @@ export class AuthService {
 
     return this.http.post<IAPIResponse>(`${environment.url}Autenticacao/AtualizarToken`, object, {
       headers: this.getAuthHeaders()
-    });
+    }).pipe(
+      map((res) => {
+
+        if (this.session && res.response) {
+          this.session.token = res.response.token;
+          this.session.refreshToken = res.response.refreshToken;
+
+          this.startSession(this.session)
+        }
+
+        return res;
+      })
+    );
   }
 }

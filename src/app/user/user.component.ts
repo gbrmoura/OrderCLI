@@ -2,16 +2,15 @@ import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { ZFormInputBase, ZFormInputText, ZFormProvider, ZModalService, ZTranslateService } from 'zmaterial';
-import { AuthService } from '../services/auth.service';
 import { IAPIResponse } from '../interfaces';
-import { catchError } from 'rxjs/operators';
+import { AuthService } from '../services/auth.service';
 
 @Component({
-  selector: 'app-first-register',
-  templateUrl: './first-register.component.html',
-  styleUrls: ['./first-register.component.scss']
+  selector: 'app-user',
+  templateUrl: './user.component.html',
+  styleUrls: ['./user.component.scss']
 })
-export class FirstRegisterComponent extends ZFormProvider implements OnInit {
+export class UserComponent extends ZFormProvider implements OnInit {
 
   public isLoading = false;
 
@@ -20,41 +19,62 @@ export class FirstRegisterComponent extends ZFormProvider implements OnInit {
     private auth: AuthService,
     private modal: ZModalService,
     private router: Router
-  ) { super(); }
+  ) { super() }
 
   public ngOnInit(): void { }
 
   public getInputs(): Observable<ZFormInputBase<any>[]> {
     return of([
       new ZFormInputText({
-        label: this.tService.t('frm_input_name'),
+        label: this.tService.t('frm_input_user_name'),
         key: 'nome',
         type: 'text',
         maxlength: 115,
-        icon: 'assignment_ind',
+        layout: {
+          cols: 50
+        },
+        icon: 'person',
         required: true,
       }),
       new ZFormInputText({
-        label: this.tService.t('frm_input_username'),
-        key: 'login',
+        label: this.tService.t('frm_input_user_lastname'),
+        key: 'sobrenome',
         type: 'text',
-        maxlength: 50,
-        icon: 'person',
+        maxlength: 145,
         layout: {
-          cols: 50,
+          cols: 50
+        },
+        icon: 'badge',
+        required: true,
+      }),
+      new ZFormInputText({
+        label: this.tService.t('frm_input_user_code'),
+        key: 'prontuario',
+        type: 'text',
+        maxlength: 14,
+        icon: 'subtitles',
+        required: false,
+      }),
+      new ZFormInputText({
+        label: this.tService.t('frm_input_user_email'),
+        key: 'email',
+        type: 'email',
+        maxlength: 245,
+        icon: 'email',
+        layout: {
+          cols: 50
         },
         required: true,
       }),
       new ZFormInputText({
-        label: this.tService.t('frm_input_password'),
+        label: this.tService.t('frm_input_user_password'),
         key: 'senha',
         type: 'password',
-        maxlength: 40,
         minlength: 5,
-        layout: {
-          cols: 50,
-        },
         icon: 'lock',
+        layout: {
+          cols: 50
+        },
         required: true,
       }),
     ]);
@@ -63,23 +83,26 @@ export class FirstRegisterComponent extends ZFormProvider implements OnInit {
   public sendValue(value: any): void {
     this.isLoading = true;
 
-    this.auth.firstRegister(value).subscribe(() => {
+    this.auth.registerUser(value).subscribe(() => {
       this.isLoading = false;
+
+      this.resetForm();
 
       this.modal.zModalTSuccess({
         title: this.tService.t('mdl_success'),
-        description: this.tService.t('mdl_fr_success'),
+        description: this.tService.t('mdl_user_success'),
         btnCloseTitle: this.tService.t('btn_close')
       });
 
       this.router.navigate(['/login']);
+
     }, (err) => {
       this.isLoading = false;
 
       this.modal.zModalTErrorLog({
         base: {
           title: this.tService.t('mdl_error'),
-          description: this.tService.t('mdl_fr_fail'),
+          description: this.tService.t('mdl_user_fail'),
           btnCloseTitle: this.tService.t('btn_close')
         },
         btnLogTitle: this.tService.t('btn_details'),

@@ -1,0 +1,37 @@
+<mat-tab-group (selectedTabChange)="changeTab()">
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <mat-icon class="tab-icon">person</mat-icon>
+      {{'tab_title_user' | zTranslate}}
+    </ng-template>
+
+    <z-form-material
+    [title]="'frm_title_user' | zTranslate"
+    [subtitle]="'frm_subtitle_user' | zTranslate"
+    [formProvider]="formUser"
+    [showLoading]="loadingUser"
+    [showClearButton]="true"
+    [submitText]="'btn_register' | zTranslate"
+    (submitValue)="sendUser($event)">
+    </z-form-material>
+
+  </mat-tab>
+
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <mat-icon class="tab-icon">engineering</mat-icon>
+      {{'tab_title_employeen' | zTranslate}}
+    </ng-template>
+
+    <z-form-material
+    [title]="'frm_title_employeen' | zTranslate"
+    [subtitle]="'frm_subtitle_employeen' | zTranslate"
+    [formProvider]="formEmployeen"
+    [showLoading]="loadingEmployeen"
+    [showClearButton]="true"
+    [submitText]="'btn_register' | zTranslate"
+    (submitValue)="sendEmployeen($event)">
+    </z-form-material>
+
+  </mat-tab>
+</mat-tab-group>

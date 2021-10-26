@@ -2,15 +2,16 @@
 
 <div class="container-main">
   <z-form-material
-  [title]="'frm_title_lg' | zTranslate"
+  [title]="'frm_title_user' | zTranslate"
+  [subtitle]="'frm_subtitle_user' | zTranslate"
   [formProvider]="this"
   [showLoading]="isLoading"
   [showClearButton]="false"
-  [submitText]="'btn_login' | zTranslate"
+  [submitText]="'btn_register' | zTranslate"
   (submitValue)="sendValue($event)"
   >
   <ng-template #extraActions>
-    <button mat-raised-button color="accent" (click)="register()">{{'btn_url_register' | zTranslate}}</button>
+    <button mat-raised-button color="warn" (click)="back()">{{'btn_back' | zTranslate}}</button>
   </ng-template>
 
 </z-form-material>

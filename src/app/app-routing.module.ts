@@ -1,3 +1,4 @@
+import { UserComponent } from './user/user.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { FirstRegisterComponent } from './first-register/first-register.component';
@@ -22,12 +23,20 @@ const routes: Routes = [
       hideSideBar: true
     }
   },
+  {
+    path: 'register',
+    component: UserComponent,
+    canActivate: [AuthGuard],
+    data: {
+      hideSideBar: true
+    }
+  },
 
   // ? Layzloader Routers
   {
-    path: 'crud/:screen',
+    path: 'register/users',
     canActivate: [AuthGuard],
-    loadChildren: () => import('./crud/crud.module').then(m => m.CrudModule)
+    loadChildren: () => import('./users/users.module').then(m => m.UsersModule)
   },
 
   // ? Redirect

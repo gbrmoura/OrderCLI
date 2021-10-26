@@ -1,1 +1,21 @@
-<p>first-register works!</p>
+<img src="assets/ifsp_btv.png" width="200px" height="200px" class="logo-login">
+
+<div class="container-main">
+  <z-form-material
+  [title]="'frm_title_fr' | zTranslate"
+  [subtitle]="'frm_subtitle_fr' | zTranslate"
+  [formProvider]="this"
+  [showLoading]="isLoading"
+  [showClearButton]="false"
+  [submitText]="'btn_register_fr' | zTranslate"
+  (submitValue)="sendValue($event)">
+
+  <ng-template #extraActions>
+
+    <button mat-raised-button color="warn" (click)="back()">{{'btn_back' | zTranslate}}</button>
+
+  </ng-template>
+
+  </z-form-material>
+
+</div>

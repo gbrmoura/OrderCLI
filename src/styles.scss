@@ -1,23 +1,52 @@
-
 @use '~@angular/material' as mat;
 
 @include mat.core();
 
-$OrderCLI-primary: mat.define-palette(mat.$indigo-palette);
-$OrderCLI-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+$ifsp-base: (
+  50: #e8f5e9,
+  100: #c8e6c9,
+  200: #a5d6a7,
+  300: #81c784,
+  400: #66bb6a,
+  500: #4caf50,
+  600: #43a047,
+  700: #388e3c,
+  800: #2e7d32,
+  900: #1b5e20,
+  A100: #b9f6ca,
+  A200: #69f0ae,
+  A400: #00e676,
+  A700: #00c853,
+  contrast: (
+    50: white,
+    100: white,
+    200: white,
+    300: white,
+    400: white,
+    500: white,
+    600: white,
+    700: white,
+    800: white,
+    900: white,
+    A100: rgba(black, 0.87),
+    A200: rgba(black, 0.87),
+    A400: rgba(black, 0.87),
+    A700: rgba(black, 0.87),
+  )
+);
 
-$OrderCLI-warn: mat.define-palette(mat.$red-palette);
-
-$OrderCLI-theme: mat.define-light-theme((
+$z-moodle-reports-cli-primary: mat.define-palette($ifsp-base);
+$z-moodle-reports-cli-accent: mat.define-palette(mat.$green-palette, 900, 800, 700);
+$z-moodle-reports-cli-warn: mat.define-palette(mat.$red-palette);
+$z-moodle-reports-cli-theme: mat.define-light-theme((
   color: (
-    primary: $OrderCLI-primary,
-    accent: $OrderCLI-accent,
-    warn: $OrderCLI-warn,
+    primary: $z-moodle-reports-cli-primary,
+    accent: $z-moodle-reports-cli-accent,
+    warn: $z-moodle-reports-cli-warn,
   )
 ));
 
-@include mat.all-component-themes($OrderCLI-theme);
-
+@include mat.all-component-themes($z-moodle-reports-cli-theme);
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

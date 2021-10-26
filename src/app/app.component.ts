@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { ZMenuItems, ZMenuProfile, ZMenuProvider } from 'zmaterial';
+import { ZMenuItems, ZMenuProfile, ZMenuProvider, ZTranslateService } from 'zmaterial';
 import { AuthService } from './services/auth.service';
 
 @Component({
@@ -11,7 +11,8 @@ import { AuthService } from './services/auth.service';
 export class AppComponent implements ZMenuProvider {
 
   public constructor(
-    public auth: AuthService
+    public auth: AuthService,
+    private tService: ZTranslateService
   ) { }
 
   public get menus(): Observable<ZMenuItems[]> {
@@ -21,10 +22,20 @@ export class AppComponent implements ZMenuProvider {
       if (this.auth.session.email) {
         return of([
           {
-            category: 'Cadastro',
+            category: this.tService.t('cat_register'),
+            icon: 'add',
+            itens: [ ]
+          }
+        ]);
+      }
+
+      if (this.auth.session.previlegio === 0) {
+        return of([
+          {
+            category: this.tService.t('cat_register'),
             icon: 'add',
             itens: [
-              { label: 'Produto', link: 'crud/product', icon: 'person' },
+              { label: this.tService.t('itn_users'), link: 'register/users', icon: 'person' },
             ]
           }
         ]);
@@ -32,13 +43,12 @@ export class AppComponent implements ZMenuProvider {
 
       return of([
         {
-          category: 'Cadastro',
+          category: this.tService.t('cat_register'),
           icon: 'add',
-          itens: [
-            { label: 'Produto', link: 'crud/product', icon: 'person' },
-          ]
+          itens: []
         }
       ]);
+
     }
 
     return of([]);
@@ -60,7 +70,7 @@ export class AppComponent implements ZMenuProvider {
 
       return of({
         descriptions: [
-          { icon: 'person', text: `${this.auth.session.nome}` },
+          { icon: 'badge', text: `${this.auth.session.nome}` },
         ]
       });
     }
