@@ -24,31 +24,26 @@ export class AppComponent implements ZMenuProvider {
           {
             category: this.tService.t('cat_register'),
             icon: 'add',
-            itens: [ ]
+            itens: []
           }
         ]);
       }
 
-      if (this.auth.session.previlegio === 0) {
-        return of([
-          {
-            category: this.tService.t('cat_register'),
-            icon: 'add',
-            itens: [
-              { label: this.tService.t('itn_users'), link: 'register/users', icon: 'person' },
-            ]
-          }
-        ]);
-      }
-
-      return of([
+      const menu = [
         {
           category: this.tService.t('cat_register'),
           icon: 'add',
-          itens: []
+          itens: [
+            { label: this.tService.t('itn_category'), link: 'register/category', icon: 'category' },
+          ]
         }
-      ]);
+      ];
 
+      if (this.auth.session.previlegio === 0) {
+        menu[0].itens.push({ label: this.tService.t('itn_users'), link: 'register/users', icon: 'person' });
+      }
+
+      return of(menu);
     }
 
     return of([]);

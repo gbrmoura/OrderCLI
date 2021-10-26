@@ -38,6 +38,12 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     loadChildren: () => import('./users/users.module').then(m => m.UsersModule)
   },
+  {
+    path: 'register/category',
+    canActivate: [AuthGuard],
+    loadChildren: () => import('./category/category.module').then(m => m.CategoryModule)
+  },
+
 
   // ? Redirect
   { path: '', redirectTo: '/login', pathMatch: 'full' },

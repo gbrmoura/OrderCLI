@@ -1,4 +1,5 @@
 import { ZLanguageData } from 'zmaterial';
+import { TCategory } from './TCategory';
 import { TFirstRegister } from './TFirstRegister';
 import { TGeneric } from './TGeneric';
 import { TLogin } from './TLogin';
@@ -11,13 +12,15 @@ export const Translate: ZLanguageData = {
     ...TMenu.pt,
     ...TLogin.pt,
     ...TFirstRegister.pt,
-    ...TUsers.pt
+    ...TUsers.pt,
+    ...TCategory.pt,
   },
   en: {
     ...TGeneric.en,
     ...TMenu.en,
     ...TLogin.en,
     ...TFirstRegister.en,
-    ...TUsers.en
+    ...TUsers.en,
+    ...TCategory.en,
   }
 };

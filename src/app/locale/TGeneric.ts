@@ -8,6 +8,12 @@ export const TGeneric: ZLanguageData = {
     btn_register: 'Cadastrar',
     btn_url_register: 'Cadastrar-se',
 
+
+    tab_add: 'Cadastrar',
+    tab_search: 'Consultar',
+    tab_update: 'Atualizar',
+    tab_simple_filter: 'Busca Rápida',
+
     mdl_error: 'Erro',
     mdl_success: 'Sucesso',
 
@@ -19,6 +25,10 @@ export const TGeneric: ZLanguageData = {
     btn_register: 'Register',
     btn_url_register: 'Register',
 
+    tab_add: 'Register',
+    tab_search: 'Search',
+    tab_update: 'Update',
+    tab_simple_filter: 'Quick Search',
 
     mdl_error: 'Error',
     mdl_success: 'Success',
