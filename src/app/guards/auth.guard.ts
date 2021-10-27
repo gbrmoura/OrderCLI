@@ -37,15 +37,14 @@ export class AuthGuard implements CanActivate {
       } else {
 
         if (route.component !== LoginComponent && route.component !== FirstRegisterComponent && route.component !== UserComponent && this.authService.session) {
-          // return this.authService.updateToken().pipe(
-          //   catchError((err) => {
-          //     console.log('Falha ao Atualizar Token: ', err.error);
-          //     this.authService.destroySession();
-          //     return of(false);
-          //   }),
-          //   map(() => true)
-          // );
-          return true;
+          return this.authService.updateToken().pipe(
+            catchError((err) => {
+              console.log('Falha ao Atualizar Token: ', err.error);
+              this.authService.destroySession();
+              return of(false);
+            }),
+            map(() => true)
+          );
         }
 
         return true;

@@ -34,12 +34,14 @@ import {
     ZMenuModule,
     ZFormModule,
     ZReportModule,
-    ZReportBuilderModule
+    ZReportBuilderModule,
+    ZTranslateService
 } from 'zmaterial';
 import { MatChipsModule } from '@angular/material/chips';
-import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatPaginatorIntl, MatPaginatorModule } from '@angular/material/paginator';
 import { AuthService } from './services/auth.service';
 import { ApiService } from './services/api.service';
+import { CustomPaginator } from './providers';
 
 
 @NgModule({
@@ -124,6 +126,10 @@ import { ApiService } from './services/api.service';
         ZReportBuilderModule
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
-    providers: [AuthService, ApiService]
+    providers: [
+      AuthService,
+      ApiService,
+      { provide: MatPaginatorIntl, useFactory: CustomPaginator, deps: [ZTranslateService] }
+    ]
 })
 export class GlobalModule { }

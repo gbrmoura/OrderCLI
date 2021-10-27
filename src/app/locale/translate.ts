@@ -4,6 +4,7 @@ import { TFirstRegister } from './TFirstRegister';
 import { TGeneric } from './TGeneric';
 import { TLogin } from './TLogin';
 import { TMenu } from './TMenu';
+import { TPaginator } from './TPaginator';
 import { TUsers } from './TUsers';
 
 export const Translate: ZLanguageData = {
@@ -14,6 +15,7 @@ export const Translate: ZLanguageData = {
     ...TFirstRegister.pt,
     ...TUsers.pt,
     ...TCategory.pt,
+    ...TPaginator.pt,
   },
   en: {
     ...TGeneric.en,
@@ -22,5 +24,6 @@ export const Translate: ZLanguageData = {
     ...TFirstRegister.en,
     ...TUsers.en,
     ...TCategory.en,
+    ...TPaginator.en
   }
 };

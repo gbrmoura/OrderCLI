@@ -1,4 +1,6 @@
-<mat-tab-group (selectedTabChange)="changeTab($event)">
+<mat-tab-group (selectedTabChange)="changeTab($event)" style="min-height: 80vh;" animationDuration="200ms" [selectedIndex]="currentTab">
+
+  <!-- ? Tab - Register -->
   <mat-tab>
     <ng-template mat-tab-label>
       <mat-icon class="tab-icon">add</mat-icon>
@@ -6,9 +8,9 @@
     </ng-template>
 
     <z-form-material
-    [title]="'lbl_form_category_title' | zTranslate"
-    [subtitle]="'lbl_form_category_subtitle' | zTranslate"
-    [formProvider]="formCategory"
+    [title]="'lbl_form_add_category_title' | zTranslate"
+    [subtitle]="'lbl_form_add_category_subtitle' | zTranslate"
+    [formProvider]="formCategoryAdd"
     [showLoading]="isLoadingAdd"
     [showClearButton]="true"
     [submitText]="'btn_register' | zTranslate"
@@ -17,29 +19,115 @@
 
   </mat-tab>
 
-  <mat-tab disabled>
+  <!-- ? Tab - List -->
+  <mat-tab>
     <ng-template mat-tab-label>
       <mat-icon class="tab-icon">search</mat-icon>
       {{'tab_search' | zTranslate}}
     </ng-template>
-    Content 2
+
+
+    <div *ngIf="isLoadingList" class="loading-shade">
+      <mat-spinner></mat-spinner>
+    </div>
+
+    <mat-card>
+      <mat-card-header>
+
+        <div class="container-header">
+          <mat-form-field appearance="outline" class="input-search">
+            <mat-label>{{'tab_search' | zTranslate}}</mat-label>
+            <input matInput type="text" (keyup)="filterEvent.next()" [(ngModel)]="filterStr" #input>
+            <mat-icon matSuffix>search</mat-icon>
+          </mat-form-field>
+
+          <span class="spacer"></span>
+
+          <button mat-fab (click)="refreshTable.next()"><mat-icon>refresh</mat-icon></button>
+        </div>
+
+      </mat-card-header>
+
+      <mat-card-content>
+
+        <div class="table-container" >
+
+          <table mat-table [dataSource]="dataSource" class="table-main">
+
+            <ng-container [matColumnDef]="'titulo'">
+
+              <th mat-header-cell *matHeaderCellDef>{{'frm_input_category_title' | zTranslate}}</th>
+
+              <td mat-cell *matCellDef="let row"> {{ row.titulo }}</td>
+
+            </ng-container>
+
+            <ng-container [matColumnDef]="'descricao'">
+
+              <th mat-header-cell *matHeaderCellDef>{{'frm_input_category_description' | zTranslate}}</th>
+
+              <td mat-cell *matCellDef="let row"> {{ row.descricao }}</td>
+
+            </ng-container>
+
+            <ng-container matColumnDef="actions" stickyEnd>
+              <th mat-header-cell *matHeaderCellDef class="invisible-th"></th>
+              <td mat-cell *matCellDef="let row">
+                <ng-container *ngTemplateOutlet="actionTemplate;context:{obj: row}"></ng-container>
+              </td>
+            </ng-container>
+
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+          </table>
+
+          <mat-paginator class="mat-paginator-sticky mat-elevation-z2" [length]="resultLength" [pageSize]="25" [pageSizeOptions]="[25, 50, 75, 100]"></mat-paginator>
+        </div>
+
+        <ng-template #actionTemplate let-row="obj">
+          <button mat-icon-button [matMenuTriggerFor]="menu">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+
+          <mat-menu #menu="matMenu">
+
+            <button mat-menu-item (click)="updateRow(row)">
+              <mat-icon>edit</mat-icon>
+              <span>{{'tab_update' | zTranslate}}</span>
+            </button>
+
+            <button mat-menu-item (click)="deleteRow(row)">
+              <mat-icon>delete</mat-icon>
+              <span>{{'tab_delete' | zTranslate}}</span>
+            </button>
+
+          </mat-menu>
+        </ng-template>
+      </mat-card-content>
+
+    </mat-card>
+
   </mat-tab>
 
-  <mat-tab disabled>
+  <!-- ? Tab - Update -->
+  <mat-tab [disabled]="currentTab != 2">
     <ng-template mat-tab-label>
       <mat-icon class="tab-icon">edit</mat-icon>
       {{'tab_update' | zTranslate}}
     </ng-template>
 
-    Content 3
+    <z-form-material
+    [title]="'lbl_form_update_category_title' | zTranslate"
+    [subtitle]="('lbl_form_update_category_subtitle' | zTranslate) + updateCode"
+    [formProvider]="formCategoryUpdate"
+    [showLoading]="isLoadingUpdate"
+    [showClearButton]="true"
+    [submitText]="'tab_update' | zTranslate"
+    (submitValue)="update($event)">
+    </z-form-material>
+
   </mat-tab>
 
-  <mat-tab disabled>
-    <ng-template mat-tab-label>
-      <mat-icon class="tab-icon">find_in_page</mat-icon>
-      {{'tab_simple_filter' | zTranslate}}
-    </ng-template>
-
-    Content 4
-  </mat-tab>
 </mat-tab-group>

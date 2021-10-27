@@ -1,37 +1,181 @@
 import { ApiService } from './../services/api.service';
 import { FormCategory } from './FormCategory';
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, NgZone, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ZModalService, ZTranslateService } from 'zmaterial';
 import { MatTabChangeEvent } from '@angular/material/tabs';
 import { IAPIResponse } from '../interfaces';
+import { merge, of, Subject, Subscription } from 'rxjs';
+import { catchError, debounceTime, map, startWith, switchMap, take, tap } from 'rxjs/operators';
+import { MatPaginator } from '@angular/material/paginator';
+import { ETabList } from '../enum';
 
 @Component({
   selector: 'app-category',
   templateUrl: './category.component.html',
   styleUrls: ['./category.component.scss']
 })
-export class CategoryComponent implements OnInit {
+export class CategoryComponent implements OnInit, AfterViewInit, OnDestroy {
 
-  public formCategory = new FormCategory(this.tService);
+  // Global
+  public currentTab = ETabList.Add
+
+  // Form Register
+  public formCategoryAdd = new FormCategory(this.tService);
   public isLoadingAdd = false;
+
+  // Table List
+  @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
+
+  public filterEvent: Subject<void> = new Subject();
+  public filterStr = '';
+  public refreshTable = new EventEmitter();
+  public dataSource: Subject<any[]> = new Subject();
+  public displayedColumns = ['titulo', 'descricao', 'actions'];
+  public resultLength = 0;
+  public isLoadingList = true;
+  private subscription = new Subscription();
+
+  // Form Update
+  public formCategoryUpdate = new FormCategory(this.tService);
+  public isLoadingUpdate = false;
+  public updateCode = '';
 
   constructor(
     private tService: ZTranslateService,
     private modal: ZModalService,
-    private api: ApiService
+    private api: ApiService,
+    private ngZone: NgZone
   ) { }
 
   ngOnInit(): void { }
 
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
+
+  ngAfterViewInit(): void {
+    const filterChange$ = this.filterEvent.pipe(
+      debounceTime(500)
+    );
+
+    const changesEvent$ = merge(filterChange$).pipe(
+      tap(() => this.paginator.pageIndex = 0)
+    );
+
+    this.subscription = merge(changesEvent$, this.paginator.page, this.refreshTable).pipe(
+      startWith({}),
+      switchMap(() => {
+        this.isLoadingList = true;
+
+        return this.api.listCategory({
+          TamanhoPagina: this.paginator.pageSize,
+          NumeroPagina: this.paginator.pageIndex + 1,
+        });
+      }),
+      map((data) => {
+        if (!data.response) {
+          return [];
+        }
+
+        this.resultLength = data.response.numeroRegistros;
+
+        return data.response.dados;
+      }),
+      catchError((err) => {
+        this.modal.zModalTErrorLog({
+          base: {
+            title: this.tService.t('mdl_error'),
+            description: this.tService.t('mdl_list_fail_category'),
+            btnCloseTitle: this.tService.t('btn_close')
+          },
+          btnLogTitle: this.tService.t('btn_details'),
+          log: (err.error as IAPIResponse).message
+        });
+
+        return of([]);
+      })
+    ).subscribe((data) => {
+
+      this.ngZone.run(() => {
+        this.isLoadingList = false;
+        this.dataSource.next(data);
+      });
+
+    });
+  }
+
   public changeTab(event: MatTabChangeEvent): void {
-    console.log('Trocou de Aba: ', event);
+
+    this.currentTab = event.index;
+
+    if (event.index === ETabList.List) {
+      this.refreshTable.next();
+      this.formCategoryAdd.resetForm();
+      this.formCategoryUpdate.resetForm();
+    } else if (event.index === ETabList.Update) {
+      this.formCategoryAdd.resetForm();
+    }
+
+  }
+
+  public deleteRow(value: any): void {
+    this.modal.zModalTWarningConfirm({
+      base: {
+        btnCloseTitle: this.tService.t('btn_close'),
+        description: this.tService.t('mdl_delete_question_category') + value.titulo,
+        title: this.tService.t('mdl_warning'),
+      },
+      btnConfirmTitle: this.tService.t('btn_confirm')
+    }).pipe(
+      take(1),
+      switchMap((res) => {
+
+        if (res) {
+          return this.api.deleteCategory(value);
+        }
+
+        return of(false);
+
+      })
+    ).subscribe((res) => {
+
+      if (res) {
+        this.modal.zModalTSuccess({
+          title: this.tService.t('mdl_success'),
+          description: this.tService.t('mdl_delete_success_category'),
+          btnCloseTitle: this.tService.t('btn_close')
+        });
+
+        this.refreshTable.next();
+      }
+
+    }, (err) => {
+
+      this.modal.zModalTErrorLog({
+        base: {
+          title: this.tService.t('mdl_error'),
+          description: this.tService.t('mdl_delete_fail_category'),
+          btnCloseTitle: this.tService.t('btn_close')
+        },
+        btnLogTitle: this.tService.t('btn_details'),
+        log: (err.error as IAPIResponse).message
+      });
+
+    });
+  }
+
+  public updateRow(value: any): void {
+    this.updateCode = value.codigo
+    this.formCategoryUpdate.setValueForm({ titulo: value.titulo, descricao: value.descricao });
+
+    this.currentTab = ETabList.Update;
   }
 
   public insert(value: any): void {
     this.isLoadingAdd = true;
 
     this.api.addCategory(value).subscribe(() => {
-      this.formCategory.resetForm();
+      this.formCategoryAdd.resetForm();
       this.isLoadingAdd = false;
 
       this.modal.zModalTSuccess({
@@ -47,6 +191,37 @@ export class CategoryComponent implements OnInit {
         base: {
           title: this.tService.t('mdl_error'),
           description: this.tService.t('mdl_add_fail_category'),
+          btnCloseTitle: this.tService.t('btn_close')
+        },
+        btnLogTitle: this.tService.t('btn_details'),
+        log: (err.error as IAPIResponse).message
+      });
+
+    });
+
+  }
+
+  public update(value: any): void {
+    this.isLoadingUpdate = true;
+
+    this.api.updateCategory({...value, codigo: this.updateCode}).subscribe(() => {
+      this.formCategoryUpdate.resetForm();
+      this.isLoadingUpdate = false;
+
+      this.modal.zModalTSuccess({
+        title: this.tService.t('mdl_success'),
+        description: this.tService.t('mdl_update_success_category'),
+        btnCloseTitle: this.tService.t('btn_close')
+      });
+
+      this.currentTab = ETabList.List;
+    }, (err) => {
+      this.isLoadingUpdate = false;
+
+      this.modal.zModalTErrorLog({
+        base: {
+          title: this.tService.t('mdl_error'),
+          description: this.tService.t('mdl_update_fail_category'),
           btnCloseTitle: this.tService.t('btn_close')
         },
         btnLogTitle: this.tService.t('btn_details'),

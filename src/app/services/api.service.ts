@@ -1,5 +1,5 @@
 import { environment } from './../../environments/environment';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { AuthService } from './auth.service';
@@ -20,6 +20,26 @@ export class ApiService {
     return this.http.post<IAPIResponse>(`${environment.url}Categoria/Registrar`, value, {
       headers: this.auth.getAuthHeaders()
     });
+  }
+
+  public listCategory(value: any): Observable<IAPIResponse> {
+    return this.http.get<IAPIResponse>(`${environment.url}Categoria/Listar`, {
+      headers: this.auth.getAuthHeaders(),
+      params: new HttpParams().set('TamanhoPagina', value.TamanhoPagina).set('NumeroPagina', value.NumeroPagina)
+    })
+  }
+
+  public updateCategory(value: any): Observable<IAPIResponse> {
+    return this.http.post<IAPIResponse>(`${environment.url}Categoria/Alterar`, value, {
+      headers: this.auth.getAuthHeaders()
+    });
+  }
+
+  public deleteCategory(value: any): Observable<IAPIResponse> {
+    return this.http.get<IAPIResponse>(`${environment.url}Categoria/Deletar`, {
+      headers: this.auth.getAuthHeaders(),
+      params: new HttpParams().set('codigo', value.codigo)
+    })
   }
 
 }

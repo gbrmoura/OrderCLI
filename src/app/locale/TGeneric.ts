@@ -7,15 +7,18 @@ export const TGeneric: ZLanguageData = {
     btn_back: 'Voltar',
     btn_register: 'Cadastrar',
     btn_url_register: 'Cadastrar-se',
+    btn_confirm: 'Confirmar',
 
 
     tab_add: 'Cadastrar',
     tab_search: 'Consultar',
     tab_update: 'Atualizar',
     tab_simple_filter: 'Busca Rápida',
+    tab_delete: 'Apagar',
 
     mdl_error: 'Erro',
     mdl_success: 'Sucesso',
+    mdl_warning: 'Alerta',
 
   },
   en: {
@@ -24,14 +27,19 @@ export const TGeneric: ZLanguageData = {
     btn_back: 'Back',
     btn_register: 'Register',
     btn_url_register: 'Register',
+    btn_confirm: 'Confirm',
+
 
     tab_add: 'Register',
     tab_search: 'Search',
     tab_update: 'Update',
     tab_simple_filter: 'Quick Search',
+    tab_delete: 'Delete',
 
     mdl_error: 'Error',
     mdl_success: 'Success',
+    mdl_warning: 'Warning',
+
 
   }
 };
