@@ -6,6 +6,7 @@
     "start": "ng serve",
     "build": "cp dist/OrderCLI/.htaccess dist/ && ng build && mv dist/.htaccess  dist/OrderCLI/",
     "watch": "ng build --watch --configuration development",
+    "postversion": "git push && git push --tags",
     "test": "ng test"
   },
   "private": true,
