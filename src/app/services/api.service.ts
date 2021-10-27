@@ -42,4 +42,31 @@ export class ApiService {
     })
   }
 
+ // ? Product
+public addProduct(value: any): Observable<IAPIResponse> {
+  return this.http.post<IAPIResponse>(`${environment.url}Produto/Registrar`, value, {
+    headers: this.auth.getAuthHeaders()
+  });
+}
+
+public listProduct(value: any): Observable<IAPIResponse> {
+  return this.http.get<IAPIResponse>(`${environment.url}Produto/Listar`, {
+    headers: this.auth.getAuthHeaders(),
+    params: new HttpParams().set('TamanhoPagina', value.TamanhoPagina).set('NumeroPagina', value.NumeroPagina)
+  })
+}
+
+public updateProduct(value: any): Observable<IAPIResponse> {
+  return this.http.post<IAPIResponse>(`${environment.url}Produto/Alterar`, value, {
+    headers: this.auth.getAuthHeaders()
+  });
+}
+
+public deleteProduct(value: any): Observable<IAPIResponse> {
+  return this.http.get<IAPIResponse>(`${environment.url}Produto/Deletar`, {
+    headers: this.auth.getAuthHeaders(),
+    params: new HttpParams().set('codigo', value.codigo)
+  })
+}
+
 }

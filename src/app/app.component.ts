@@ -35,6 +35,7 @@ export class AppComponent implements ZMenuProvider {
           icon: 'add',
           itens: [
             { label: this.tService.t('itn_category'), link: 'register/category', icon: 'category' },
+            { label: this.tService.t('itn_produtct'), link: 'register/product', icon: 'inventory_2' },
           ]
         }
       ];
