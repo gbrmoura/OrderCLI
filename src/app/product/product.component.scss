@@ -2,6 +2,13 @@
   margin-right: 8px;
 }
 
+.full-table-container {
+  position: relative;
+  min-height: 100vh;
+  background-color: white;
+  padding-top: 2%;
+}
+
 .input-search {
   width: 100%;
   margin-right: 20px;
@@ -41,11 +48,11 @@
 }
 
 .mat-paginator-sticky {
-  position: absolute;
+  position: fixed;
   bottom: 0;
   right: 0;
   width: 100%;
-  z-index: 100;
+  z-index: 1;
 }
 
 .mat-header-row {

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { ZMenuItems, ZMenuProfile, ZMenuProvider, ZTranslateService } from 'zmaterial';
+import { getMenus } from './functions';
 import { AuthService } from './services/auth.service';
 
 @Component({
@@ -18,33 +19,7 @@ export class AppComponent implements ZMenuProvider {
   public get menus(): Observable<ZMenuItems[]> {
 
     if (this.auth.session) {
-
-      if (this.auth.session.email) {
-        return of([
-          {
-            category: this.tService.t('cat_register'),
-            icon: 'add',
-            itens: []
-          }
-        ]);
-      }
-
-      const menu = [
-        {
-          category: this.tService.t('cat_register'),
-          icon: 'add',
-          itens: [
-            { label: this.tService.t('itn_category'), link: 'register/category', icon: 'category' },
-            { label: this.tService.t('itn_produtct'), link: 'register/product', icon: 'inventory_2' },
-          ]
-        }
-      ];
-
-      if (this.auth.session.previlegio === 0) {
-        menu[0].itens.push({ label: this.tService.t('itn_users'), link: 'register/users', icon: 'person' });
-      }
-
-      return of(menu);
+      return getMenus(this.auth.session.previlegio, this.auth.session, this.tService);
     }
 
     return of([]);

@@ -50,10 +50,11 @@ export class LoginComponent extends ZFormProvider implements OnInit {
       this.auth.startSession(res.response);
       this.isLoading = false;
 
+      // TODO: Colocar Rota Correta
       if (this.auth.session && this.auth.session.email) {
-        window.location.href = '/register-users';
+        window.location.href = '/dashboard';
       } else {
-        window.location.href = '/register-users';
+        window.location.href = '/dashboard';
       }
 
     }, (err) => {

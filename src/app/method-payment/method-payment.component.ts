@@ -10,11 +10,11 @@ import { MatPaginator } from '@angular/material/paginator';
 import { EApiCrud, ETabList } from '../enum';
 
 @Component({
-  selector: 'app-category',
-  templateUrl: './category.component.html',
-  styleUrls: ['./category.component.scss']
+  selector: 'app-method-payment',
+  templateUrl: './method-payment.component.html',
+  styleUrls: ['./method-payment.component.scss']
 })
-export class CategoryComponent implements OnInit, AfterViewInit, OnDestroy {
+export class MethodPaymentComponent implements OnInit, AfterViewInit, OnDestroy {
 
   // Global
   public currentTab = ETabList.Add
@@ -30,7 +30,7 @@ export class CategoryComponent implements OnInit, AfterViewInit, OnDestroy {
   public filterStr = '';
   public refreshTable = new EventEmitter();
   public dataSource: Subject<any[]> = new Subject();
-  public displayedColumns = ['codigo', 'titulo', 'descricao', 'actions'];
+  public displayedColumns = ['codigo', 'titulo', 'actions'];
   public resultLength = 0;
   public isLoadingList = true;
   private subscription = new Subscription();
@@ -71,12 +71,12 @@ export class CategoryComponent implements OnInit, AfterViewInit, OnDestroy {
           TamanhoPagina: this.paginator.pageSize,
           NumeroPagina: this.paginator.pageIndex + 1,
           CampoPesquisa: this.filterStr
-        }, EApiCrud.Categoria).pipe(
+        }, EApiCrud.MetodoPagamento).pipe(
           catchError((err) => {
             this.modal.zModalTErrorLog({
               base: {
                 title: this.tService.t('mdl_error'),
-                description: this.tService.t('mdl_list_fail_category'),
+                description: this.tService.t('mdl_list_fail_methodPayment'),
                 btnCloseTitle: this.tService.t('btn_close')
               },
               btnLogTitle: this.tService.t('btn_details'),
@@ -100,7 +100,7 @@ export class CategoryComponent implements OnInit, AfterViewInit, OnDestroy {
         this.modal.zModalTErrorLog({
           base: {
             title: this.tService.t('mdl_error'),
-            description: this.tService.t('mdl_list_fail_category'),
+            description: this.tService.t('mdl_list_fail_methodPayment'),
             btnCloseTitle: this.tService.t('btn_close')
           },
           btnLogTitle: this.tService.t('btn_details'),
@@ -137,7 +137,7 @@ export class CategoryComponent implements OnInit, AfterViewInit, OnDestroy {
     this.modal.zModalTWarningConfirm({
       base: {
         btnCloseTitle: this.tService.t('btn_close'),
-        description: this.tService.t('mdl_delete_question_category') + value.titulo,
+        description: this.tService.t('mdl_delete_question_methodPayment') + value.titulo,
         title: this.tService.t('mdl_warning'),
       },
       btnConfirmTitle: this.tService.t('btn_confirm')
@@ -146,7 +146,7 @@ export class CategoryComponent implements OnInit, AfterViewInit, OnDestroy {
       switchMap((res) => {
 
         if (res) {
-          return this.api.delete(value, EApiCrud.Categoria);
+          return this.api.delete(value, EApiCrud.MetodoPagamento);
         }
 
         return of(false);
@@ -157,7 +157,7 @@ export class CategoryComponent implements OnInit, AfterViewInit, OnDestroy {
       if (res) {
         this.modal.zModalTSuccess({
           title: this.tService.t('mdl_success'),
-          description: this.tService.t('mdl_delete_success_category'),
+          description: this.tService.t('mdl_delete_success_methodPayment'),
           btnCloseTitle: this.tService.t('btn_close')
         });
 
@@ -169,7 +169,7 @@ export class CategoryComponent implements OnInit, AfterViewInit, OnDestroy {
       this.modal.zModalTErrorLog({
         base: {
           title: this.tService.t('mdl_error'),
-          description: this.tService.t('mdl_delete_fail_category'),
+          description: this.tService.t('mdl_delete_fail_methodPayment'),
           btnCloseTitle: this.tService.t('btn_close')
         },
         btnLogTitle: this.tService.t('btn_details'),
@@ -189,13 +189,13 @@ export class CategoryComponent implements OnInit, AfterViewInit, OnDestroy {
   public insert(value: any): void {
     this.isLoadingAdd = true;
 
-    this.api.insert(value, EApiCrud.Categoria).subscribe(() => {
+    this.api.insert(value, EApiCrud.MetodoPagamento).subscribe(() => {
       this.formCategoryAdd.resetForm();
       this.isLoadingAdd = false;
 
       this.modal.zModalTSuccess({
         title: this.tService.t('mdl_success'),
-        description: this.tService.t('mdl_add_success_category'),
+        description: this.tService.t('mdl_add_success_methodPayment'),
         btnCloseTitle: this.tService.t('btn_close')
       });
 
@@ -205,7 +205,7 @@ export class CategoryComponent implements OnInit, AfterViewInit, OnDestroy {
       this.modal.zModalTErrorLog({
         base: {
           title: this.tService.t('mdl_error'),
-          description: this.tService.t('mdl_add_fail_category'),
+          description: this.tService.t('mdl_add_fail_methodPayment'),
           btnCloseTitle: this.tService.t('btn_close')
         },
         btnLogTitle: this.tService.t('btn_details'),
@@ -219,13 +219,13 @@ export class CategoryComponent implements OnInit, AfterViewInit, OnDestroy {
   public update(value: any): void {
     this.isLoadingUpdate = true;
 
-    this.api.update({...value, codigo: this.updateCode}, EApiCrud.Categoria).subscribe(() => {
+    this.api.update({ ...value, codigo: this.updateCode }, EApiCrud.MetodoPagamento).subscribe(() => {
       this.formCategoryUpdate.resetForm();
       this.isLoadingUpdate = false;
 
       this.modal.zModalTSuccess({
         title: this.tService.t('mdl_success'),
-        description: this.tService.t('mdl_update_success_category'),
+        description: this.tService.t('mdl_update_success_methodPayment'),
         btnCloseTitle: this.tService.t('btn_close')
       });
 
@@ -236,7 +236,7 @@ export class CategoryComponent implements OnInit, AfterViewInit, OnDestroy {
       this.modal.zModalTErrorLog({
         base: {
           title: this.tService.t('mdl_error'),
-          description: this.tService.t('mdl_update_fail_category'),
+          description: this.tService.t('mdl_update_fail_methodPayment'),
           btnCloseTitle: this.tService.t('btn_close')
         },
         btnLogTitle: this.tService.t('btn_details'),

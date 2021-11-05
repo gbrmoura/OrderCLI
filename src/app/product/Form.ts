@@ -1,9 +1,10 @@
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ZFormInputBase, ZFormInputNumber, ZFormInputSelect, ZFormInputText, ZFormInputTextArea, ZFormProvider, ZSearchResult, ZTranslateService } from 'zmaterial';
+import { EApiCrud } from '../enum';
 import { ApiService } from '../services/api.service';
 
-export class FormProduct extends ZFormProvider {
+export class Form extends ZFormProvider {
 
   public constructor(private tService: ZTranslateService, private api: ApiService) { super(); }
 
@@ -18,7 +19,7 @@ export class FormProduct extends ZFormProvider {
 
           const search = (value || '');
 
-          return this.api.listCategory({ TamanhoPagina: 15, NumeroPagina: 1 }).pipe(
+          return this.api.list({ TamanhoPagina: 15, NumeroPagina: 1, CampoPesquisa: search }, EApiCrud.Categoria).pipe(
             map((result) => {
 
               if (!result.response) {

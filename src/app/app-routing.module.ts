@@ -48,8 +48,16 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     loadChildren: () => import('./product/product.module').then(m => m.ProductModule)
   },
-
-
+  {
+    path: 'register/methodPayment',
+    canActivate: [AuthGuard],
+    loadChildren: () => import('./method-payment/method-payment.module').then(m => m.MethodPaymentModule)
+  },
+  {
+    path: 'dashboard',
+    canActivate: [AuthGuard],
+    loadChildren: () => import('./dashboard-master/dashboard-master.module').then(m => m.DashboardMasterModule)
+  },
 
   // ? Redirect
   { path: '', redirectTo: '/login', pathMatch: 'full' },

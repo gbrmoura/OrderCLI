@@ -1,7 +1,7 @@
 import { Observable, of } from 'rxjs';
 import { ZFormInputBase, ZFormInputText, ZFormInputTextArea, ZFormProvider, ZTranslateService } from 'zmaterial';
 
-export class FormCategory extends ZFormProvider {
+export class Form extends ZFormProvider {
 
   public constructor(private tService: ZTranslateService) { super(); }
 

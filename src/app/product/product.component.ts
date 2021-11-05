@@ -4,10 +4,10 @@ import { MatTabChangeEvent } from '@angular/material/tabs';
 import { merge, of, Subject, Subscription } from 'rxjs';
 import { catchError, debounceTime, map, startWith, switchMap, take, tap } from 'rxjs/operators';
 import { ZModalService, ZTranslateService } from 'zmaterial';
-import { ETabList } from '../enum';
+import { EApiCrud, ETabList } from '../enum';
 import { IAPIResponse } from '../interfaces';
 import { ApiService } from '../services/api.service';
-import { FormProduct } from './FormProduct';
+import { Form } from './Form';
 
 @Component({
   selector: 'app-product',
@@ -20,7 +20,7 @@ export class ProductComponent implements OnInit, AfterViewInit, OnDestroy {
 public currentTab = ETabList.Add
 
 // Form Register
-public formAdd = new FormProduct(this.tService, this.api);
+public formAdd = new Form(this.tService, this.api);
 public isLoadingAdd = false;
 
 // Table List
@@ -30,13 +30,13 @@ public filterEvent: Subject<void> = new Subject();
 public filterStr = '';
 public refreshTable = new EventEmitter();
 public dataSource: Subject<any[]> = new Subject();
-public displayedColumns = ['titulo', 'descricao', 'actions'];
+public displayedColumns = ['codigo', 'titulo', 'descricao', 'actions'];
 public resultLength = 0;
 public isLoadingList = true;
 private subscription = new Subscription();
 
 // Form Update
-public formUpdate = new FormProduct(this.tService, this.api);
+public formUpdate = new Form(this.tService, this.api);
 public isLoadingUpdate = false;
 public updateCode = '';
 
@@ -67,10 +67,25 @@ ngAfterViewInit(): void {
     switchMap(() => {
       this.isLoadingList = true;
 
-      return this.api.listProduct({
+      return this.api.list({
         TamanhoPagina: this.paginator.pageSize,
         NumeroPagina: this.paginator.pageIndex + 1,
-      });
+        CampoPesquisa: this.filterStr
+      }, EApiCrud.Produto).pipe(
+        catchError((err) => {
+          this.modal.zModalTErrorLog({
+            base: {
+              title: this.tService.t('mdl_error'),
+              description: this.tService.t('mdl_list_fail_product'),
+              btnCloseTitle: this.tService.t('btn_close')
+            },
+            btnLogTitle: this.tService.t('btn_details'),
+            log: (err.error as IAPIResponse).message
+          });
+
+          return of((err.error as IAPIResponse));
+        })
+      );
     }),
     map((data) => {
       if (!data.response) {
@@ -131,7 +146,7 @@ public deleteRow(value: any): void {
     switchMap((res) => {
 
       if (res) {
-        return this.api.deleteCategory(value);
+        return this.api.delete(value, EApiCrud.Produto);
       }
 
       return of(false);
@@ -174,7 +189,7 @@ public updateRow(value: any): void {
 public insert(value: any): void {
   this.isLoadingAdd = true;
 
-  this.api.addProduct({...value, categoriaCodigo: value.categoriaCodigo.codigo}).subscribe(() => {
+  this.api.insert({...value, categoriaCodigo: value.categoriaCodigo.codigo}, EApiCrud.Produto).subscribe(() => {
     this.formAdd.resetForm();
     this.isLoadingAdd = false;
 
@@ -204,7 +219,7 @@ public insert(value: any): void {
 public update(value: any): void {
   this.isLoadingUpdate = true;
 
-  this.api.updateProduct({...value, codigo: this.updateCode, categoriaCodigo: value.categoriaCodigo.codigo}).subscribe(() => {
+  this.api.update({...value, codigo: this.updateCode, categoriaCodigo: value.categoriaCodigo.codigo}, EApiCrud.Produto).subscribe(() => {
     this.formUpdate.resetForm();
     this.isLoadingUpdate = false;
 

@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot, UrlTree } from '@angular/router';
+import { ActivatedRouteSnapshot, CanActivate, Route, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable, of } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import { catchError, map, switchMap } from 'rxjs/operators';
+import { ZTranslateService } from 'zmaterial';
 import { FirstRegisterComponent } from '../first-register/first-register.component';
+import { getMenus } from '../functions';
 import { LoginComponent } from '../login/login.component';
 import { AuthService } from '../services/auth.service';
 import { UserComponent } from '../user/user.component';
@@ -12,7 +14,7 @@ import { UserComponent } from '../user/user.component';
 })
 export class AuthGuard implements CanActivate {
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private tService: ZTranslateService) { }
 
   canActivate(
     route: ActivatedRouteSnapshot,
@@ -27,23 +29,50 @@ export class AuthGuard implements CanActivate {
       } else if (this.authService.isAuthenticated && (route.component === LoginComponent || route.component === FirstRegisterComponent || route.component === UserComponent)) {
         console.log('Usuário Já Está Autenticado');
 
+        // TODO: Colocar Rota Correta
         if (this.authService.session && this.authService.session.email) {
-          window.location.href = '/register/users';
+          window.location.href = '/dashboard';
         } else {
-          window.location.href = '/register/users';
+          window.location.href = '/dashboard';
         }
 
         return false;
       } else {
 
         if (route.component !== LoginComponent && route.component !== FirstRegisterComponent && route.component !== UserComponent && this.authService.session) {
+
           return this.authService.updateToken().pipe(
             catchError((err) => {
               console.log('Falha ao Atualizar Token: ', err.error);
               this.authService.destroySession();
               return of(false);
             }),
-            map(() => true)
+            switchMap(() => {
+              if (!route.routeConfig || !route.routeConfig.path || !this.authService.session) {
+                return of(false);
+              }
+
+              return getMenus(this.authService.session.previlegio, this.authService.session, this.tService).pipe(
+                map((menus) => {
+
+                  const blockRouter = menus.find((m) => m.itens.find((i) => i.link === (route.routeConfig as Route).path));
+
+                  if (!blockRouter) {
+                    // TODO: Colocar Rota Correta
+                    if (this.authService.session && this.authService.session.email) {
+                      window.location.href = '/dashboard';
+                    } else {
+                      window.location.href = '/dashboard';
+                    }
+
+                    return false;
+                  }
+
+                  return true;
+                })
+              );
+
+            }),
           );
         }
 
