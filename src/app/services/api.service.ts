@@ -42,4 +42,12 @@ export class ApiService {
     })
   }
 
+  public image(id: number, crud: string): string {
+    if (!this.auth.session) {
+      return '';
+    }
+
+    return `${environment.url}${crud}/${EApiCrudFunction.Imagem}?Codigo=${id}&Token=${this.auth.session.token}&RefreshToken=${this.auth.session.refreshToken}`
+  }
+
 }

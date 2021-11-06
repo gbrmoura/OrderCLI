@@ -7,6 +7,7 @@ export const TProduct: ZLanguageData = {
     lbl_form_update_product_title: 'Atualizar Produto',
 
     frm_input_product_price: 'Preço',
+    frm_input_product_image: 'Foto do Produto',
 
     mdl_add_success_product: 'Produto Cadastrado com Sucesso.',
     mdl_add_fail_product: 'Falha ao Cadastrar Produto.',
@@ -25,6 +26,8 @@ export const TProduct: ZLanguageData = {
     lbl_form_update_product_title: 'Update Product',
 
     frm_input_product_price: 'Price',
+    frm_input_product_image: 'Product Photo',
+
 
     mdl_add_success_product: 'Successfully Registered Product.',
     mdl_add_fail_product: 'Failed to Register Product.',

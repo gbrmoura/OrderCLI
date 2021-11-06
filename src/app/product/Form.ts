@@ -1,6 +1,6 @@
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { ZFormInputBase, ZFormInputNumber, ZFormInputSelect, ZFormInputText, ZFormInputTextArea, ZFormProvider, ZSearchResult, ZTranslateService } from 'zmaterial';
+import { ZFormInputBase, ZFormInputFile, ZFormInputNumber, ZFormInputSelect, ZFormInputText, ZFormInputTextArea, ZFormProvider, ZSearchResult, ZTranslateService } from 'zmaterial';
 import { EApiCrud } from '../enum';
 import { ApiService } from '../services/api.service';
 
@@ -10,6 +10,11 @@ export class Form extends ZFormProvider {
 
   public getInputs(): Observable<ZFormInputBase<any>[]> {
     return of([
+      new ZFormInputFile({
+        label: this.tService.t('frm_input_product_image'),
+        key: 'imagem',
+        accept: 'image/*',
+      }),
       new ZFormInputSelect<string, any>({
         label: this.tService.t('itn_category'),
         key: 'categoriaCodigo',

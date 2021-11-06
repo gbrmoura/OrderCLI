@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, EventEmitter, NgZone, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTabChangeEvent } from '@angular/material/tabs';
-import { merge, of, Subject, Subscription } from 'rxjs';
+import { merge, Observable, of, Subject, Subscription } from 'rxjs';
 import { catchError, debounceTime, map, startWith, switchMap, take, tap } from 'rxjs/operators';
 import { ZModalService, ZTranslateService } from 'zmaterial';
 import { EApiCrud, ETabList } from '../enum';
@@ -30,7 +30,7 @@ public filterEvent: Subject<void> = new Subject();
 public filterStr = '';
 public refreshTable = new EventEmitter();
 public dataSource: Subject<any[]> = new Subject();
-public displayedColumns = ['codigo', 'titulo', 'descricao', 'actions'];
+public displayedColumns = ['codigo', 'imagem', 'titulo', 'descricao', 'categoria', 'actions'];
 public resultLength = 0;
 public isLoadingList = true;
 private subscription = new Subscription();
@@ -43,7 +43,7 @@ public updateCode = '';
 constructor(
   private tService: ZTranslateService,
   private modal: ZModalService,
-  private api: ApiService,
+  public api: ApiService,
   private ngZone: NgZone
 ) { }
 
@@ -119,6 +119,22 @@ ngAfterViewInit(): void {
   });
 }
 
+private toBase64(file: File): Observable<string | ArrayBuffer | null> {
+
+  return new Observable<string | ArrayBuffer | null>((obs) => {
+
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+
+    reader.onload = () => {
+      obs.next(reader.result);
+      obs.complete();
+    };
+
+  });
+
+}
+
 public changeTab(event: MatTabChangeEvent): void {
 
   this.currentTab = event.index;
@@ -181,7 +197,7 @@ public deleteRow(value: any): void {
 
 public updateRow(value: any): void {
   this.updateCode = value.codigo
-  this.formUpdate.setValueForm({ titulo: value.titulo, descricao: value.descricao, categoriaCodigo: value.categoriaCodigo });
+  this.formUpdate.setValueForm({ titulo: value.titulo, descricao: value.descricao, categoriaCodigo: value.categoria, imagem: '', valor: value.valor});
 
   this.currentTab = ETabList.Update;
 }
@@ -189,7 +205,9 @@ public updateRow(value: any): void {
 public insert(value: any): void {
   this.isLoadingAdd = true;
 
-  this.api.insert({...value, categoriaCodigo: value.categoriaCodigo.codigo}, EApiCrud.Produto).subscribe(() => {
+  this.toBase64(value.imagem).pipe(
+    switchMap((photo) => this.api.insert({...value, categoriaCodigo: value.categoriaCodigo.codigo, imagem: photo}, EApiCrud.Produto))
+  ).subscribe(() => {
     this.formAdd.resetForm();
     this.isLoadingAdd = false;
 
@@ -219,7 +237,9 @@ public insert(value: any): void {
 public update(value: any): void {
   this.isLoadingUpdate = true;
 
-  this.api.update({...value, codigo: this.updateCode, categoriaCodigo: value.categoriaCodigo.codigo}, EApiCrud.Produto).subscribe(() => {
+  (value.imagem ? this.toBase64(value.imagem) : of(this.api.image(Number(this.updateCode), 'Produto'))).pipe(
+    switchMap((photo) => this.api.update({...value, codigo: this.updateCode, categoriaCodigo: value.categoriaCodigo.codigo, imagem: photo}, EApiCrud.Produto))
+  ).subscribe(() => {
     this.formUpdate.resetForm();
     this.isLoadingUpdate = false;
 
