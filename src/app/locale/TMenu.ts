@@ -8,6 +8,7 @@ export const TMenu: ZLanguageData = {
     itn_users: 'Usuários',
     itn_category: 'Categoria',
     itn_produtct: 'Produto',
+    itn_inventory: 'Estoque',
     itn_methodPayment: 'Método de Pagamento',
     int_dashboard: 'Painel de Controle',
   },
@@ -18,6 +19,7 @@ export const TMenu: ZLanguageData = {
     itn_users: 'Users',
     itn_category: 'Category',
     itn_produtct: 'Product',
+    itn_inventory: 'Inventory',
     itn_methodPayment: 'Method Payment',
     int_dashboard: 'Dashboard',
   }

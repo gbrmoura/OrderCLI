@@ -1,0 +1,8 @@
+<z-form-material
+[title]="'lbl_form_add_inventory_title' | zTranslate"
+[formProvider]="this"
+[showLoading]="isLoading"
+[showClearButton]="false"
+[submitText]="'btn_register' | zTranslate"
+(submitValue)="sendValue($event)"
+>

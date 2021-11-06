@@ -2,6 +2,7 @@ import { ZLanguageData } from 'zmaterial';
 import { TCategory } from './TCategory';
 import { TFirstRegister } from './TFirstRegister';
 import { TGeneric } from './TGeneric';
+import { TInventory } from './TInventory';
 import { TLogin } from './TLogin';
 import { TMenu } from './TMenu';
 import { TMethodPayment } from './TMethodPayment';
@@ -19,7 +20,8 @@ export const Translate: ZLanguageData = {
     ...TCategory.pt,
     ...TPaginator.pt,
     ...TProduct.pt,
-    ...TMethodPayment.pt
+    ...TMethodPayment.pt,
+    ...TInventory.pt
   },
   en: {
     ...TGeneric.en,
@@ -30,6 +32,7 @@ export const Translate: ZLanguageData = {
     ...TCategory.en,
     ...TPaginator.en,
     ...TProduct.en,
-    ...TMethodPayment.en
+    ...TMethodPayment.en,
+    ...TInventory.en
   }
 };

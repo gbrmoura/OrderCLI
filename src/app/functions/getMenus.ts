@@ -22,7 +22,8 @@ export function getMenus(privilege: 0 | 1 | 2, user: iAuth, tService: ZTranslate
       icon: 'add',
       itens: [
         { label: tService.t('itn_category'), link: 'register/category', icon: 'category' },
-        { label: tService.t('itn_produtct'), link: 'register/product', icon: 'inventory_2' },
+        { label: tService.t('itn_produtct'), link: 'register/product', icon: 'sell' },
+        { label: tService.t('itn_inventory'), link: 'register/inventory', icon: 'inventory' },
         { label: tService.t('itn_methodPayment'), link: 'register/methodPayment', icon: 'credit_card' },
       ]
     },
