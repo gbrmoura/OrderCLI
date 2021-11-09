@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ApiService } from 'src/app/services/api.service';
 
 @Component({
@@ -9,9 +9,13 @@ import { ApiService } from 'src/app/services/api.service';
 export class ItemComponent implements OnInit {
 
   @Input() item: any;
+  @Input() category: any;
+
+  @Output() insertCart = new EventEmitter<any>();
 
   public ratingStar = 0;
   public startCountStar = 5;
+  public badge = 0;
 
   public ratingArr: number[] = [];
 
@@ -38,6 +42,16 @@ export class ItemComponent implements OnInit {
       return 'star_border';
     }
   }
+
+  public addItem(): void {
+
+    if (this.badge < this.item.quantidade) {
+      this.badge++;
+    }
+
+    this.insertCart.next(this.item);
+  }
+
 
 
 }
