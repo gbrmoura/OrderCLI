@@ -1,0 +1,44 @@
+<mat-card class="item-container mat-elevation-z4">
+  <img mat-card-image [src]="api.image(item.codigo, 'Produto')" height="300">
+  <mat-card-content>
+    <mat-card-title>{{item.titulo}}</mat-card-title>
+
+    <p class="item-description">{{item.descricao}}</p>
+
+    <mat-list>
+      <mat-list-item>
+        <mat-icon class="item-tags-icon">category</mat-icon>
+        <strong>Categoria</strong>: Salgados
+      </mat-list-item>
+      <mat-list-item>
+        <mat-icon class="item-tags-icon" [ngClass]="item.quantidade > 0 ? 'item-tags-success' : 'item-tags-error'">inventory
+        </mat-icon>
+        <strong>Quantidade</strong>: {{ item.quantidade }}
+      </mat-list-item>
+    </mat-list>
+
+    <p class="item-price">{{ item.valor | currency: 'BRL':true:'1.2-2' }}</p>
+
+  </mat-card-content>
+
+  <mat-card-actions>
+    <button mat-icon-button color="accent" [matTooltip]="'Adicionar ao Carrinho'" class="item-shop-card" [disabled]="item.quantidade <= 0">
+      <mat-icon>shopping_cart</mat-icon>
+    </button>
+  </mat-card-actions>
+
+  <mat-card-footer>
+    <div class="item-review-container">
+      <span class="item-review-title"><strong>Avaliação -</strong> {{ratingStar}} / {{startCountStar}}</span>
+
+      <div class="item-review-container-star">
+        <button mat-icon-button color="primary" class="item-review-star" *ngFor="let id of ratingArr; let i = index;"
+          (click)="updateStar(i + 1)" [matTooltip]=" (id + 1) + ''" matTooltipPosition="above">
+          <mat-icon>
+            {{ showIcon(i) }}
+          </mat-icon>
+        </button>
+      </div>
+    </div>
+  </mat-card-footer>
+</mat-card>

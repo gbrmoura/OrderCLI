@@ -29,9 +29,8 @@ export class AuthGuard implements CanActivate {
       } else if (this.authService.isAuthenticated && (route.component === LoginComponent || route.component === FirstRegisterComponent || route.component === UserComponent)) {
         console.log('Usuário Já Está Autenticado');
 
-        // TODO: Colocar Rota Correta
-        if (this.authService.session && this.authService.session.email) {
-          window.location.href = '/dashboard';
+        if (this.authService.session && (this.authService.session.email || this.authService.session.prontuario)) {
+          window.location.href = '/menu';
         } else {
           window.location.href = '/dashboard';
         }
@@ -58,9 +57,9 @@ export class AuthGuard implements CanActivate {
                   const blockRouter = menus.find((m) => m.itens.find((i) => i.link === (route.routeConfig as Route).path));
 
                   if (!blockRouter) {
-                    // TODO: Colocar Rota Correta
-                    if (this.authService.session && this.authService.session.email) {
-                      window.location.href = '/dashboard';
+
+                    if (this.authService.session && (this.authService.session.email || this.authService.session.prontuario)) {
+                      window.location.href = '/menu';
                     } else {
                       window.location.href = '/dashboard';
                     }

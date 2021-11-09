@@ -63,6 +63,14 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     loadChildren: () => import('./dashboard-master/dashboard-master.module').then(m => m.DashboardMasterModule)
   },
+  {
+    path: 'menu',
+    canActivate: [AuthGuard],
+    data: {
+      hideSideBar: true
+    },
+    loadChildren: () => import('./menu/menu.module').then(m => m.MenuModule)
+  },
 
 
   // ? Redirect

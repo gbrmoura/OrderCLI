@@ -5,6 +5,7 @@ import { TGeneric } from './TGeneric';
 import { TInventory } from './TInventory';
 import { TLogin } from './TLogin';
 import { TMenu } from './TMenu';
+import { TMenuFood } from './TMenuFood';
 import { TMethodPayment } from './TMethodPayment';
 import { TPaginator } from './TPaginator';
 import { TProduct } from './TProduct';
@@ -21,7 +22,8 @@ export const Translate: ZLanguageData = {
     ...TPaginator.pt,
     ...TProduct.pt,
     ...TMethodPayment.pt,
-    ...TInventory.pt
+    ...TInventory.pt,
+    ...TMenuFood.pt
   },
   en: {
     ...TGeneric.en,
@@ -33,6 +35,7 @@ export const Translate: ZLanguageData = {
     ...TPaginator.en,
     ...TProduct.en,
     ...TMethodPayment.en,
-    ...TInventory.en
+    ...TInventory.en,
+    ...TMenuFood.en
   }
 };

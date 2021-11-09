@@ -4,13 +4,13 @@ import { iAuth } from '../interfaces';
 
 export function getMenus(privilege: 0 | 1 | 2, user: iAuth, tService: ZTranslateService): Observable<ZMenuItems[]> {
 
-  if (user.email) {
+  if (user.email || user.prontuario) {
     return of([
       {
         category: tService.t('cat_dashboard'),
         icon: 'grid_view',
         itens: [
-          { label: tService.t('int_dashboard'), link: 'dashboard', icon: 'dashboard' },
+          { label: tService.t('int_dashboard'), link: 'menu', icon: 'dashboard' },
         ]
       }
     ]);

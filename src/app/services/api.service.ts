@@ -50,4 +50,11 @@ export class ApiService {
     return `${environment.url}${crud}/${EApiCrudFunction.Imagem}?Codigo=${id}&Token=${this.auth.session.token}&RefreshToken=${this.auth.session.refreshToken}`
   }
 
+  public menu(value: any): Observable<IAPIResponse> {
+    return this.http.get<IAPIResponse>(`${environment.url}Cardapio`, {
+      headers: this.auth.getAuthHeaders(),
+      params: new HttpParams().set('TamanhoPagina', value.TamanhoPagina).set('NumeroPagina', value.NumeroPagina).set('CampoPesquisa', value.CampoPesquisa)
+    })
+  }
+
 }

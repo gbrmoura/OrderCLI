@@ -23,6 +23,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 // Toast
 import { ToastrModule } from 'ngx-toastr';
@@ -75,6 +76,7 @@ import { CustomPaginator } from './providers';
         MatDialogModule,
         MatStepperModule,
         MatGridListModule,
+        MatSnackBarModule,
 
         // Toast
         ToastrModule.forRoot(),
@@ -113,6 +115,7 @@ import { CustomPaginator } from './providers';
         MatGridListModule,
         MatChipsModule,
         MatPaginatorModule,
+        MatSnackBarModule,
 
         // Toast
         ToastrModule,

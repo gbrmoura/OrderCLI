@@ -1,0 +1,3 @@
+<div *ngFor="let category of items">
+  <app-item *ngFor="let item of category.produtos" [item]="item"></app-item>
+</div>

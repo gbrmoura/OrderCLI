@@ -1,0 +1,74 @@
+.item-container {
+  width: 4000px;
+  max-width: 400px;
+  min-width: 400px;
+  height: 700px;
+  min-height: 700px;
+  max-height: 700px;
+  margin: 10px;
+  float: left;
+}
+
+.item-description {
+  max-height: 100px;
+  text-align: justify;
+  overflow: auto;
+}
+
+.item-tags-icon {
+  margin-right: 8px;
+  color: #1b5e20;
+  padding: 7px;
+  width: auto;
+  height: auto;
+  border-radius: 5px;
+  background-color: #e4f0e5;
+}
+
+.item-tags-success {
+  color: #1b5e20;
+  background-color: #e4f0e5;
+}
+
+.item-tags-error {
+  color: red;
+  background-color: #ffc8c8;
+}
+
+.item-review-container {
+  width: 100%;
+  margin: 20px auto;
+}
+
+.item-review-title {
+  text-align: center;
+  font-size: 1.4em;
+  margin: 10px auto;
+  width: 100%;
+  display: block;
+}
+
+.item-review-container-star {
+  margin: auto;
+  width: fit-content;
+}
+
+.item-review-star {
+  height: 20px;
+  width: 25px;
+  line-height: 20px;
+}
+
+.item-shop-card {
+  transform: scale(1.5);
+  margin: auto;
+  display: block;
+}
+
+.item-price {
+  text-align: center;
+  font-size: 2.5em;
+  display: block;
+  margin: 15px auto;
+  width: 100%;
+}
