@@ -1,5 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ApiService } from 'src/app/services/api.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-item',
@@ -16,16 +18,23 @@ export class ItemComponent implements OnInit {
   public ratingStar = 0;
   public startCountStar = 5;
   public badge = 0;
+  public eventFavorite = false;
 
   public ratingArr: number[] = [];
 
-  constructor(public api: ApiService) { }
+  constructor(
+    public api: ApiService,
+    private snackBar: MatSnackBar,
+    private auth: AuthService
+  ) { }
 
   ngOnInit(): void {
 
     for (let index = 0; index < this.startCountStar; index++) {
       this.ratingArr.push(index);
     }
+
+    this.eventFavorite = this.item.favorito;
 
   }
 
@@ -52,6 +61,26 @@ export class ItemComponent implements OnInit {
     this.insertCart.next(this.item);
   }
 
+  public favorite(item: any): void {
+    if (!this.auth.session) {
+      return;
+    }
+
+    this.eventFavorite = !this.eventFavorite;
+
+    const object = {
+      usuarioCodigo: this.auth.session.codigo,
+      produtoCodigo: item.codigo,
+      estado: this.eventFavorite
+    };
+
+    this.api.favorite(object).subscribe(() => {
+      this.snackBar.open('Sucesso', '', { duration: 1500 });
+    }, (err) => {
+      this.snackBar.open('Error', '', { duration: 1500 });
+    })
+
+  }
 
 
 }

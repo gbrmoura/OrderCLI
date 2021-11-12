@@ -1,0 +1,39 @@
+.header-menu {
+  width: 98%;
+  display: block;
+  margin: 25px auto;
+}
+
+.header-menu-search {
+  width: 80%;
+  margin: 10px auto;
+  display: block;
+}
+
+.btn-floating {
+  transform: scale(1.2);
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.generator-itmes {
+  margin-left: 35px;
+}
+
+@media only screen and (max-width: 920px) {
+  .generator-itmes {
+    margin-left: 25px;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .generator-itmes {
+    margin-left: 0px;
+  }
+}

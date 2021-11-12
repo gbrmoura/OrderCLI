@@ -15,6 +15,16 @@
         </mat-icon>
         <strong>{{'frm_input_inventory_amount' | zTranslate}}</strong>: {{ item.quantidade }}
       </mat-list-item>
+      <mat-list-item>
+        <mat-icon class="item-tags-icon">star_half</mat-icon>
+        <strong>{{'title_note_star' | zTranslate}}</strong>:
+        <button mat-icon-button color="primary" class="item-review-star" *ngFor="let id of ratingArr; let i = index;"
+        (click)="updateStar(i + 1)" [matTooltip]=" (id + 1) + ''" matTooltipPosition="above">
+        <mat-icon>
+          {{ showIcon(i) }}
+        </mat-icon>
+      </button>
+      </mat-list-item>
     </mat-list>
 
     <p class="item-price">{{ item.valor | currency: 'BRL':true:'1.2-2' }}</p>
@@ -23,25 +33,11 @@
 
   <mat-card-actions style="display: flex;">
     <button mat-icon-button color="accent" [matTooltip]="'btn_add_cart' | zTranslate" class="item-shop-card" [disabled]="item.quantidade <= 0 || badge === item.quantidade" (click)="addItem()">
-      <mat-icon [matBadge]="badge" [matBadgeHidden]="badge === 0">shopping_cart</mat-icon>
+      <mat-icon [matBadge]="badge" [matBadgeHidden]="badge === 0" matBadgeSize="small">add_shopping_cart</mat-icon>
     </button>
-    <button mat-icon-button color="warn" [matTooltip]="'btn_add_favorite' | zTranslate" class="item-shop-card">
-      <mat-icon>{{ item.quantidade > 0 ?  'favorite' : 'favorite_border' }}</mat-icon>
+    <button mat-icon-button color="warn" [matTooltip]="'btn_add_favorite' | zTranslate" class="item-shop-card" (click)="favorite(item)">
+      <mat-icon>{{ eventFavorite ?  'favorite' : 'favorite_border' }}</mat-icon>
     </button>
   </mat-card-actions>
 
-  <mat-card-footer>
-    <div class="item-review-container">
-      <span class="item-review-title"><strong>{{'title_note_star' | zTranslate}} -</strong> {{ratingStar}} / {{startCountStar}}</span>
-
-      <div class="item-review-container-star">
-        <button mat-icon-button color="primary" class="item-review-star" *ngFor="let id of ratingArr; let i = index;"
-          (click)="updateStar(i + 1)" [matTooltip]=" (id + 1) + ''" matTooltipPosition="above">
-          <mat-icon>
-            {{ showIcon(i) }}
-          </mat-icon>
-        </button>
-      </div>
-    </div>
-  </mat-card-footer>
 </mat-card>

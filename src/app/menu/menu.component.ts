@@ -9,6 +9,8 @@ import { ApiService } from '../services/api.service';
 export class MenuComponent implements OnInit {
 
   public items: any[] = [];
+  public countAddItem = 0;
+  public sumItems = 0;
 
   constructor(private api: ApiService) { }
 
@@ -23,6 +25,8 @@ export class MenuComponent implements OnInit {
   }
 
   public addCart(item: any): void {
+    this.countAddItem++;
+    this.sumItems += item.valor;
     console.log('Adicionar: ', item);
   }
 

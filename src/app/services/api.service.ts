@@ -3,7 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { AuthService } from './auth.service';
-import { IAPIResponse } from '../interfaces';
+import { IAPIResponse, iAuth } from '../interfaces';
 import { EApiCrud, EApiCrudFunction } from '../enum/EAPI';
 
 @Injectable({
@@ -53,8 +53,18 @@ export class ApiService {
   public menu(value: any): Observable<IAPIResponse> {
     return this.http.get<IAPIResponse>(`${environment.url}Cardapio`, {
       headers: this.auth.getAuthHeaders(),
-      params: new HttpParams().set('TamanhoPagina', value.TamanhoPagina).set('NumeroPagina', value.NumeroPagina).set('CampoPesquisa', value.CampoPesquisa)
+      params: new HttpParams()
+        .set('TamanhoPagina', value.TamanhoPagina)
+        .set('NumeroPagina', value.NumeroPagina)
+        .set('CampoPesquisa', value.CampoPesquisa)
+        .set('UsuarioCodigo', (this.auth.session as iAuth).codigo)
     })
+  }
+
+  public favorite(value: any): Observable<IAPIResponse> {
+    return this.http.post<IAPIResponse>(`${environment.url}Cardapio/Favorito`, value, {
+      headers: this.auth.getAuthHeaders()
+    });
   }
 
 }

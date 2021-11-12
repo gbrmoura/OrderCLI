@@ -1,8 +1,29 @@
-<div *ngFor="let category of items">
+<!-- Campo de Busca -->
+<div class="header-menu">
+
+  <mat-form-field appearance="outline" class="header-menu-search">
+    <mat-label>Buscar Produto</mat-label>
+    <input matInput />
+    <mat-icon matSuffix>search</mat-icon>
+  </mat-form-field>
+  <mat-paginator [length]="200" [pageSizeOptions]="[25, 50, 75, 100]"></mat-paginator>
+
+</div>
+
+
+
+<!-- Gera Items do Menu -->
+<div *ngFor="let category of items" class="generator-itmes">
   <app-item
-    *ngFor="let item of category.produtos"
-    [item]="item"
-    [category]="{codigo: category.codigo, titulo: category.titulo}"
-    (insertCart)="addCart($event)">
+  style="float: left;"
+  *ngFor="let item of category.produtos"
+  [item]="item"
+  [category]="{ codigo: category.codigo, titulo: category.titulo }"
+  (insertCart)="addCart($event)">
   </app-item>
 </div>
+
+<!-- Floating Button Cart -->
+<button mat-fab color="accent" class="btn-floating" [matTooltip]="('tooltip_total_value' | zTranslate) + (sumItems | currency: 'BRL':true:'1.2-2')" matTooltipPosition="left">
+  <mat-icon [matBadge]="countAddItem" [matBadgeHidden]="countAddItem === 0" matBadgeSize="medium">shopping_cart</mat-icon>
+</button>
