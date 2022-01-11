@@ -25,7 +25,10 @@ export class ApiService {
   public list(value: any, crud: EApiCrud): Observable<IAPIResponse> {
     return this.http.get<IAPIResponse>(`${environment.url}${crud}/${EApiCrudFunction.Listar}`, {
       headers: this.auth.getAuthHeaders(),
-      params: new HttpParams().set('TamanhoPagina', value.TamanhoPagina).set('NumeroPagina', value.NumeroPagina).set('CampoPesquisa', value.CampoPesquisa)
+      params: new HttpParams()
+        .set('TamanhoPagina', value.TamanhoPagina)
+        .set('NumeroPagina', value.NumeroPagina)
+        .set('CampoPesquisa', value.CampoPesquisa)
     })
   }
 
@@ -57,7 +60,7 @@ export class ApiService {
         .set('TamanhoPagina', value.TamanhoPagina)
         .set('NumeroPagina', value.NumeroPagina)
         .set('CampoPesquisa', value.CampoPesquisa)
-        .set('UsuarioCodigo', (this.auth.session as iAuth).codigo)
+        // .set('UsuarioCodigo', (this.auth.session as iAuth).codigo)
     })
   }
 

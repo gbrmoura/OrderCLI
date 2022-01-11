@@ -19,7 +19,7 @@ export class MenuComponent implements OnInit {
     this.api.menu({ TamanhoPagina: 30, NumeroPagina: 1, CampoPesquisa: '' }).subscribe((res) => {
       console.log(res.response);
 
-      this.items = res.response;
+      this.items = res.response.dados;
     }, (err) => console.log(err.error))
 
   }
