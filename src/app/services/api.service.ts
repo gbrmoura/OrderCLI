@@ -70,4 +70,10 @@ export class ApiService {
     });
   }
 
+  public control(value: any): Observable<IAPIResponse> {
+    return this.http.post<IAPIResponse>(`${environment.url}/${EApiCrud.Estoque}/Controle`, value, {
+      headers: this.auth.getAuthHeaders()
+    });
+  }
+
 }

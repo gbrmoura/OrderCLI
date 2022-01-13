@@ -1,8 +1,96 @@
-<z-form-material
-[title]="'lbl_form_add_inventory_title' | zTranslate"
-[formProvider]="this"
-[showLoading]="isLoading"
-[showClearButton]="false"
-[submitText]="'btn_register' | zTranslate"
-(submitValue)="sendValue($event)"
->
+
+
+<mat-tab-group (selectedTabChange)="changeTab($event)" style="min-height: 80vh;"  animationDuration="200ms"
+  [selectedIndex]="currentTab">
+
+  <!-- ? Tab - Register -->
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <mat-icon class="tab-icon">add</mat-icon>
+      {{'tab_add' | zTranslate}}
+    </ng-template>
+
+    <z-form-material
+      [title]="'lbl_form_add_inventory_title' | zTranslate"
+      [formProvider]="formInventoryAdd"
+      [showLoading]="isLoading"
+      [showClearButton]="true"
+      [submitText]="'btn_register' | zTranslate"
+      (submitValue)="insert($event)"
+      >
+    </z-form-material>
+
+  </mat-tab>
+
+  <!-- ? Tab - List -->
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <mat-icon class="tab-icon">search</mat-icon>
+      {{'tab_search' | zTranslate}}
+    </ng-template>
+
+    <div class="full-table-container mat-elevation-z3">
+      <div *ngIf="isLoadingList" class="loading-shade">
+        <mat-spinner></mat-spinner>
+      </div>
+
+      <div class="container-header">
+        <mat-form-field appearance="outline" class="input-search">
+          <mat-label>{{'tab_search' | zTranslate}}</mat-label>
+          <input matInput type="text" (keyup)="filterEvent.next()" [(ngModel)]="filterStr" #input>
+          <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+
+        <span class="spacer"></span>
+
+        <button mat-fab (click)="refreshTable.next()">
+          <mat-icon>refresh</mat-icon>
+        </button>
+      </div>
+
+      <div class="table-container">
+
+        <table mat-table [dataSource]="dataSource" class="table-main">
+
+          <ng-container [matColumnDef]="'codigo'">
+            <th mat-header-cell *matHeaderCellDef>ID</th>
+            <td mat-cell *matCellDef="let row"> {{ row.codigo }}</td>
+          </ng-container>
+
+          <ng-container [matColumnDef]="'produto'">
+            <th mat-header-cell *matHeaderCellDef>{{'frm_input_inventory_product' | zTranslate}}</th>
+            <td mat-cell *matCellDef="let row"> {{ row.produto.titulo }}</td>
+          </ng-container>
+
+          <ng-container [matColumnDef]="'quantidade'">
+            <th mat-header-cell *matHeaderCellDef>{{'frm_input_inventory_amount' | zTranslate}}</th>
+            <td mat-cell *matCellDef="let row"> {{ row.quantidade }}</td>
+          </ng-container>
+
+          <ng-container [matColumnDef]="'funcionario'">
+            <th mat-header-cell *matHeaderCellDef>{{'frm_input_inventory_worker' | zTranslate}}</th>
+            <td mat-cell *matCellDef="let row"> {{ row.funcionario.nome }}</td>
+          </ng-container>
+
+          <ng-container [matColumnDef]="'observacao'">
+            <th mat-header-cell *matHeaderCellDef>{{'frm_input_inventory_observation' | zTranslate}}</th>
+            <td mat-cell *matCellDef="let row"> {{ row.observacao }}</td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+        </table>
+
+        <div class="mat-paginator-sticky-container">
+          <mat-paginator class="mat-paginator-sticky mat-elevation-z2" [length]="resultLength" [pageSize]="25"
+            [pageSizeOptions]="[25, 50, 75, 100]"></mat-paginator>
+        </div>
+
+      </div>
+
+    </div>
+
+  </mat-tab>
+
+</mat-tab-group>

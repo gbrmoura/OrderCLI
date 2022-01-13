@@ -1,89 +1,143 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Component, EventEmitter, OnInit, OnDestroy, AfterViewInit, ViewChild, NgZone } from '@angular/core';
+import { merge, Observable, of, Subject, Subscription } from 'rxjs';
+import { catchError, debounceTime, map, startWith, switchMap, tap } from 'rxjs/operators';
 import { ZFormInputBase, ZFormInputNumber, ZFormInputSelect, ZFormProvider, ZModalService, ZSearchResult, ZTranslateService } from 'zmaterial';
-import { EApiCrud } from '../enum';
+import { EApiCrud, ETabList } from '../enum';
 import { IAPIResponse } from '../interfaces';
 import { ApiService } from '../services/api.service';
+import { MatTabChangeEvent } from '@angular/material/tabs';
+import { Form } from './Forms';
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-inventory',
   templateUrl: './inventory.component.html',
   styleUrls: ['./inventory.component.scss']
 })
-export class InventoryComponent extends ZFormProvider implements OnInit {
+export class InventoryComponent implements OnInit, AfterViewInit, OnDestroy {
+  
+  // Global
+  public currentTab = ETabList.Add
+
+  // Form Add
+  public formInventoryAdd = new Form(this.tService, this.api);
+  public isLoadingAdd = false;
+
+  // Form List
+  @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
+
+  public filterStr = '';
+  public filterEvent: Subject<void> = new Subject();
+  public dataSource: Subject<any[]> = new Subject();
+  public displayedColumns = ['codigo', 'produto', 'quantidade', 'funcionario', 'observacao'];
+  public resultLength = 0;
+  public isLoadingList = true;
+
+  // Others
+  public refreshTable = new EventEmitter();
+  private subscription = new Subscription();
 
   public isLoading = false;
 
   constructor(
     private api: ApiService,
     private tService: ZTranslateService,
-    private modal: ZModalService
-  ) { super(); }
+    private modal: ZModalService,
+    private ngZone: NgZone
+  ) {  }
 
   ngOnInit(): void { }
 
-  getInputs(): Observable<ZFormInputBase<any>[]> {
-    return of([
-      new ZFormInputSelect<string, any>({
-        label: this.tService.t('itn_produtct'),
-        key: 'produtoCodigo',
-        icon: 'sell',
-        required: true,
-        searchItens: (value: string, numberOfItens: number): Observable<ZSearchResult<any>> => {
-
-          const search = (value || '');
-
-          return this.api.list({ TamanhoPagina: 15, NumeroPagina: 1, CampoPesquisa: search }, EApiCrud.Produto).pipe(
-            map((result) => {
-
-              if (!result.response) {
-                return {
-                  items: [],
-                  totalItems: 0
-                };
-              }
-
-              return {
-                items: result.response.dados,
-                totalItems: result.response.numeroRegistros
-              }
-
-            })
-          );
-
-        },
-        firstDisplaySelect: (element: any) => element.titulo + '',
-        secondaryDisplaySelect: (element: any) => element.categoria.titulo + ''
-      }),
-      new ZFormInputNumber({
-        label: this.tService.t('frm_input_inventory_amount'),
-        key: 'quantidade',
-        icon: 'view_agenda',
-        required: true,
-        min: 0,
-        step: 1,
-      })
-    ]);
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
-  public sendValue(value: any): void {
-    const obj = {
-      produtoCodigo: value.produtoCodigo.codigo,
-      quantidade: value.quantidade
-    }
+  ngAfterViewInit(): void {
+    const filterChange$ = this.filterEvent.pipe(
+      debounceTime(500)
+    );
 
+    const changesEvent$ = merge(filterChange$).pipe(
+      tap(() => this.paginator.pageIndex = 0)
+    );
+
+    this.subscription = merge(changesEvent$, this.paginator.page, this.refreshTable).pipe(
+      startWith({}),
+      switchMap(() => {
+        this.isLoadingList = true;
+
+        return this.api.list({
+          TamanhoPagina: this.paginator.pageSize,
+          NumeroPagina: this.paginator.pageIndex + 1,
+          CampoPesquisa: this.filterStr}, EApiCrud.Estoque).pipe(
+          catchError((err) => {
+            this.modal.zModalTErrorLog({
+              base: {
+                title: this.tService.t('mdl_error'),
+                description: this.tService.t('mdl_list_fail_inventory'),
+                btnCloseTitle: this.tService.t('btn_close')
+              },
+              btnLogTitle: this.tService.t('btn_details'),
+              log: (err.error as IAPIResponse).message
+            });
+
+            return of((err.error as IAPIResponse));
+          })
+        );
+      }),
+      map((data) => {
+        if (!data.response) {
+          return [];
+        }
+
+        this.resultLength = data.response.numeroRegistros;
+
+        return data.response.dados;
+      }),
+      catchError((err) => {
+        this.modal.zModalTErrorLog({
+          base: {
+            title: this.tService.t('mdl_error'),
+            description: this.tService.t('mdl_list_fail_inventory'),
+            btnCloseTitle: this.tService.t('btn_close')
+          },
+          btnLogTitle: this.tService.t('btn_details'),
+          log: (err.error as IAPIResponse).message
+        });
+
+        return of([]);
+      })
+    ).subscribe((data) => {
+
+      this.ngZone.run(() => {
+        this.isLoadingList = false;
+        this.dataSource.next(data);
+      });
+
+    });
+  }
+
+  public insert(value: any): void {
     this.isLoading = true;
 
-    this.api.insert(obj, EApiCrud.Estoque).subscribe(() => {
-      this.resetForm();
-      this.isLoading = false;
+    const payload = {
+      tipo: value.tipo.value,
+      quantidade: value.quantidade,
+      produtoCodigo: value.produtoCodigo.codigo,
+      observacao: value.observacao,
+    }
+
+    this.api.control(payload).subscribe(() => {
+      this.formInventoryAdd.resetForm();
+      this.isLoadingAdd = false;
 
       this.modal.zModalTSuccess({
         title: this.tService.t('mdl_success'),
         description: this.tService.t('mdl_add_success_inventory'),
         btnCloseTitle: this.tService.t('btn_close')
       });
+
+      this.currentTab = ETabList.List;
     }, (err) => {
       this.isLoading = false;
 
@@ -96,7 +150,18 @@ export class InventoryComponent extends ZFormProvider implements OnInit {
         btnLogTitle: this.tService.t('btn_details'),
         log: (err.error as IAPIResponse).message
       });
+
     })
+  }
+
+  public changeTab(event: MatTabChangeEvent): void {
+
+    this.currentTab = event.index;
+    if (event.index === ETabList.List) {
+      this.refreshTable.next();
+      this.formInventoryAdd.resetForm();
+    }
+
   }
 
 }
