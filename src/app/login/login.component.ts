@@ -50,11 +50,15 @@ export class LoginComponent extends ZFormProvider implements OnInit {
       this.auth.startSession(res.response);
       this.isLoading = false;
 
-      if (this.auth.session && (this.auth.session.email || this.auth.session.prontuario)) {
-        window.location.href = '/menu';
-      } else {
+      if (this.auth.session) {
         window.location.href = '/dashboard';
       }
+
+      // if (this.auth.session && (this.auth.session.email || this.auth.session.prontuario)) {
+      //   window.location.href = '/menu';
+      // } else {
+      //   window.location.href = '/dashboard';
+      // }
 
     }, (err) => {
       this.isLoading = false;

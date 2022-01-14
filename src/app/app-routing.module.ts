@@ -66,9 +66,9 @@ const routes: Routes = [
   {
     path: 'menu',
     canActivate: [AuthGuard],
-    data: {
-      hideSideBar: true
-    },
+    // data: {
+    //   hideSideBar: true
+    // },
     loadChildren: () => import('./menu/menu.module').then(m => m.MenuModule)
   },
 

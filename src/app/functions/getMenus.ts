@@ -7,10 +7,17 @@ export function getMenus(privilege: 0 | 1 | 2, user: iAuth, tService: ZTranslate
   if (user.email || user.prontuario) {
     return of([
       {
-        category: tService.t('cat_dashboard'),
+        category: tService.t('cat_menu'),
         icon: 'grid_view',
         itens: [
-          { label: tService.t('int_dashboard'), link: 'menu', icon: 'dashboard' },
+          { label: tService.t('int_menu'), link: 'menu', icon: 'restaurant_menu' },
+        ]
+      },
+      {
+        category: tService.t('cat_order'),
+        icon: 'list_alt',
+        itens: [
+          { label: tService.t('int_orders'), link: 'menu', icon: 'reorder' },
         ]
       }
     ]);

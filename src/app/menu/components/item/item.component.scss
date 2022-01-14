@@ -1,16 +1,20 @@
+.mat-card-image {
+  margin-top: 0px !important;
+}
+
 .item-container {
   width: 400px;
   max-width: 400px;
   min-width: 400px;
   height: 650px;
-  min-height: 650px;
-  max-height: 650px;
+  min-height: 620px;
+  max-height: 620px;
   margin: 15px;
 }
 
 .item-description {
-  max-height: 50px;
-  min-height: 50px;
+  max-height: 20px;
+  min-height: 20px;
   text-align: justify;
   overflow: auto;
 }
@@ -64,8 +68,10 @@
 }
 
 .item-price {
+  max-height: 35px;
+  min-height: 35px;
   text-align: center;
-  font-size: 2.5em;
+  font-size: 2.8rem;
   display: block;
   margin: 15px auto;
   width: 100%;

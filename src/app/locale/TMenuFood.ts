@@ -7,6 +7,7 @@ export const TMenuFood: ZLanguageData = {
     tooltip_total_value: 'Valor Total ',
 
     btn_add_cart: 'Adicionar ao Carrinho',
+    btn_rev_cart: 'Remover do Carrinho',
     btn_add_favorite: 'Adicionar aos Favoritos',
   },
   en: {
@@ -15,6 +16,7 @@ export const TMenuFood: ZLanguageData = {
     tooltip_total_value: 'Total Value ',
 
     btn_add_cart: 'Add to Cart',
+    btn_rev_cart: 'Remove of Cart',
     btn_add_favorite: 'Add to Favorite',
 
 

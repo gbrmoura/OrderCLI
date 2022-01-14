@@ -61,6 +61,15 @@ export class ItemComponent implements OnInit {
     this.insertCart.next(this.item);
   }
 
+  public removeItem(): void {
+    
+    if (this.badge > this.item.quantidade) {
+      this.badge--;
+    }
+
+    this.insertCart.next(this.item);
+  }
+
   public favorite(item: any): void {
     if (!this.auth.session) {
       return;
