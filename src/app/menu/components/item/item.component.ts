@@ -15,12 +15,8 @@ export class ItemComponent implements OnInit {
 
   @Output() insertCart = new EventEmitter<any>();
 
-  public ratingStar = 0;
-  public startCountStar = 5;
   public badge = 0;
   public eventFavorite = false;
-
-  public ratingArr: number[] = [];
 
   constructor(
     public api: ApiService,
@@ -29,27 +25,7 @@ export class ItemComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-
-    for (let index = 0; index < this.startCountStar; index++) {
-      this.ratingArr.push(index);
-    }
-
     this.eventFavorite = this.item.favorito;
-
-  }
-
-  public updateStar(rating: number): void {
-    console.log('New Rating: ', rating);
-
-    this.ratingStar = rating;
-  }
-
-  public showIcon(index: number) {
-    if (this.ratingStar >= index + 1) {
-      return 'star';
-    } else {
-      return 'star_border';
-    }
   }
 
   public addItem(): void {
@@ -62,7 +38,7 @@ export class ItemComponent implements OnInit {
   }
 
   public removeItem(): void {
-    
+
     if (this.badge > this.item.quantidade) {
       this.badge--;
     }

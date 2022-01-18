@@ -6,6 +6,7 @@ import { AuthGuard } from './guards/auth.guard';
 import { LoginComponent } from './login/login.component';
 
 const routes: Routes = [
+
   // ? Components Routers
   {
     path: 'login',
@@ -66,10 +67,18 @@ const routes: Routes = [
   {
     path: 'menu',
     canActivate: [AuthGuard],
-    // data: {
-    //   hideSideBar: true
-    // },
+    data: {
+      hideSideBar: true
+    },
     loadChildren: () => import('./menu/menu.module').then(m => m.MenuModule)
+  },
+  {
+    path: 'shopping',
+    canActivate: [AuthGuard],
+    data: {
+      hideSideBar: true
+    },
+    loadChildren: () => import('./shopping/shopping.module').then(m => m.ShoppingModule)
   },
 
 

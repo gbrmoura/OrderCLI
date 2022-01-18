@@ -6,6 +6,7 @@ export const TMenu: ZLanguageData = {
     cat_dashboard: 'Painel',
     cat_menu: 'Cardápio',
     cat_order: 'Pedidos',
+    cat_shopping: 'Compras',
 
     itn_users: 'Usuários',
     itn_category: 'Categoria',
@@ -15,12 +16,16 @@ export const TMenu: ZLanguageData = {
     int_dashboard: 'Painel de Controle',
     int_menu: 'Produtos',
     int_orders: 'Pedidos',
+    int_shopping: 'Carrinho',
+
+    mdl_list_fail_menu: 'Falha ao listar os produtos',
   },
   en: {
     cat_register: 'Register',
     cat_dashboard: 'Panel',
     cat_menu: 'Menu',
     cat_order: 'Order',
+    cat_shopping: 'Shopping',
 
     itn_users: 'Users',
     itn_category: 'Category',
@@ -30,5 +35,8 @@ export const TMenu: ZLanguageData = {
     int_dashboard: 'Dashboard',
     int_menu: 'Products',
     int_orders: 'Orders',
+    int_shopping: 'Shopping',
+
+    mdl_list_fail_menu: 'Failed to list products',
   }
 };

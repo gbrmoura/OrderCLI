@@ -1,3 +1,9 @@
+.container-header {
+  width: 90%;
+  margin: 10px auto;
+  display: block;
+}
+
 .header-menu {
   width: 98%;
   display: block;
@@ -5,9 +11,17 @@
 }
 
 .header-menu-search {
-  width: 80%;
-  margin: 10px auto;
-  display: block;
+  width: 85%;
+}
+
+.header-button-order {
+  transform: scale(1.3);
+}
+
+.header-div-order {
+  width: 10%;
+  display: inline-block;
+  margin-left: 2%;
 }
 
 .btn-floating {

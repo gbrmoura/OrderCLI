@@ -51,6 +51,8 @@ export class AuthGuard implements CanActivate {
                 return of(false);
               }
 
+              console.log(this.authService.session);
+
               return getMenus(this.authService.session.previlegio, this.authService.session, this.tService).pipe(
                 map((menus) => {
 

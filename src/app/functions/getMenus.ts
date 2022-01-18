@@ -11,13 +11,14 @@ export function getMenus(privilege: 0 | 1 | 2, user: iAuth, tService: ZTranslate
         icon: 'grid_view',
         itens: [
           { label: tService.t('int_menu'), link: 'menu', icon: 'restaurant_menu' },
+          { label: tService.t('int_shopping'), link: 'shopping', icon: 'shopping_cart'},
         ]
       },
       {
         category: tService.t('cat_order'),
         icon: 'list_alt',
         itens: [
-          { label: tService.t('int_orders'), link: 'menu', icon: 'reorder' },
+          { label: tService.t('int_orders'), link: '', icon: 'reorder' },
         ]
       }
     ]);
