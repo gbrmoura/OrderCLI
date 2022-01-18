@@ -1,29 +1,31 @@
+<!-- Campo de loading -->
+<div *ngIf="isLoading" class="loading-shade">
+  <mat-spinner></mat-spinner>
+</div>
+
 <!-- Campo de Busca -->
-<div class="header-menu">
+<div class="container-header">
 
-  <div class="container-header">
+  <mat-form-field appearance="outline" class="input-search">
+    <mat-label>{{'tab_search' | zTranslate}}</mat-label>
+    <input matInput type="text" (keyup)="filterEvent.next()" [(ngModel)]="filterStr" #input>
+    <mat-icon matSuffix>search</mat-icon>
+  </mat-form-field>
 
-    <mat-form-field appearance="outline" class="header-menu-search">
-      <mat-label>{{'tab_search' | zTranslate}}</mat-label>
-      <input matInput type="text" (keyup)="filterEvent.next()" [(ngModel)]="filterStr" #input>
-      <mat-icon matSuffix>search</mat-icon>
-    </mat-form-field>
+  <button mat-stroked-button color="accent" class="button-order">
+    {{'btn_orders' | zTranslate}}
+    <mat-icon>list_alt</mat-icon>
+  </button>
 
-    <!-- <button mat-icon-button class="header-button-order" color="accent" [matTooltip]="('tooltip_order_item' | zTranslate)">
-      <mat-icon>list_alt</mat-icon>
-    </button> -->
+  <span class="spacer"></span>
 
-    <div class="header-div-order">
-      <button mat-stroked-button color="accent" class="header-button-order">
-        {{'btn_orders' | zTranslate}}
-        <mat-icon>list_alt</mat-icon>
-      </button>
-    </div>
-  </div>
-
-  <mat-paginator [length]="200" [pageSizeOptions]="[25, 50, 75, 100]"></mat-paginator>
+  <button mat-fab (click)="refreshTable.next()">
+    <mat-icon>refresh</mat-icon>
+  </button>
 
 </div>
+
+<mat-paginator [length]="200" [pageSizeOptions]="[25, 50, 75, 100]"></mat-paginator>
 
 <!-- Gera Items do Menu -->
 <div *ngFor="let category of items" class="generator-itmes">

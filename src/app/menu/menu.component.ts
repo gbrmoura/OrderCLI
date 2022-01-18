@@ -24,6 +24,8 @@ export class MenuComponent implements OnInit, AfterViewInit, OnDestroy{
   public filterStr = '';
   public refreshTable = new EventEmitter();
 
+  public isLoading = false;
+
   private subscription = new Subscription();
 
   constructor(
@@ -40,6 +42,7 @@ export class MenuComponent implements OnInit, AfterViewInit, OnDestroy{
   }
 
   ngAfterViewInit(): void {
+    this.isLoading = true;
 
     const filterChange$ = this.filterEvent.pipe(
       debounceTime(500)
@@ -52,6 +55,7 @@ export class MenuComponent implements OnInit, AfterViewInit, OnDestroy{
     this.subscription = merge(changesEvent$, this.paginator.page, this.refreshTable).pipe(
       startWith({}),
       switchMap(() => {
+        this.isLoading = true;
         return this.api.menu({ TamanhoPagina: 30, NumeroPagina: 1, CampoPesquisa: this.filterStr }).pipe(
           catchError((err) => {
             this.modal.zModalTErrorLog({
@@ -93,6 +97,7 @@ export class MenuComponent implements OnInit, AfterViewInit, OnDestroy{
     ).subscribe((data) => {
 
       this.ngZone.run(() => {
+        this.isLoading = false;
         this.items = data;
       });
 
