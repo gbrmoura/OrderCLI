@@ -1,0 +1,32 @@
+.loading-shade {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.15);
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.container-header {
+  width: 98vw;
+  display: flex;
+  margin: auto;
+  margin-top: 1%;
+}
+
+.button-order {
+  width: 8%;
+}
+
+.shopping-item {
+  width: 60vw;
+  display: flex;
+  margin: auto;
+  margin-top: 1%;
+  margin-left: 1%;
+  float: left;
+}

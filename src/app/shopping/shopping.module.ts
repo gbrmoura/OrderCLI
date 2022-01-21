@@ -4,11 +4,12 @@ import { CommonModule } from '@angular/common';
 
 import { ShoppingRoutingModule } from './shopping-routing.module';
 import { ShoppingComponent } from './shopping.component';
-
+import { ShoppingItemComponent } from './components/shopping-item/shopping-item.component';
 
 @NgModule({
   declarations: [
-    ShoppingComponent
+    ShoppingComponent,
+    ShoppingItemComponent
   ],
   imports: [
     CommonModule,

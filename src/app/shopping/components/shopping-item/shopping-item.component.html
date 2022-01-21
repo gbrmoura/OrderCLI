@@ -1,0 +1,41 @@
+<mat-card class="shopping-item-container">
+
+
+  <div class="row">
+
+    <!-- Campo para a imagem -->
+    <div class="col-md-2">
+      <div class="image-container">
+        <img mat-card-image [src]="api.image(item.codigo, 'Produto')" class="image">
+      </div>
+    </div>
+
+    <!-- Descrição das coisas -->
+    <div class="col-md-4">
+      <div class="description-container">
+        <h3 mat-card-title>{{ item.titulo }}</h3>
+        <p mat-card-subtitle>{{ item.descricao }}</p>
+      </div>
+    </div>
+
+    <!-- Quantidade dos item -->
+    <div class="col-md-4">
+      <div class="quantity-container">
+        <p>Quantidade: {{item.quantidade}}</p>
+        <button>remover</button>
+      </div>
+    </div>
+
+    <!-- Valor total dos itens -->
+    <div class="col-md-2">
+      <div class="price-container">
+        <p>R$ {{item.valor}}</p>
+      </div>
+    </div>
+
+  </div>
+
+
+
+
+</mat-card>

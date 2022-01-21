@@ -17,7 +17,7 @@
     <mat-icon matSuffix>search</mat-icon>
   </mat-form-field>
 
-  <button mat-stroked-button color="accent" class="button-order">
+  <button mat-stroked-button color="accent" class="button-order" (click)="shopping()">
     {{ "btn_orders" | zTranslate }}
     <mat-icon>list_alt</mat-icon>
   </button>
@@ -52,7 +52,7 @@
   class="btn-floating"
   [matTooltip]="('tooltip_total_value' | zTranslate) + (sumItems | currency: 'BRL':true:'1.2-2')"
   matTooltipPosition="left"
-  (click)="navigate()"
+  (click)="shopping()"
 >
   <mat-icon
     [matBadge]="countAddItem"

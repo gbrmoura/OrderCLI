@@ -9,6 +9,7 @@ import { TMenuFood } from './TMenuFood';
 import { TMethodPayment } from './TMethodPayment';
 import { TPaginator } from './TPaginator';
 import { TProduct } from './TProduct';
+import { TShopping } from './TShopping';
 import { TUsers } from './TUsers';
 
 export const Translate: ZLanguageData = {
@@ -23,7 +24,8 @@ export const Translate: ZLanguageData = {
     ...TProduct.pt,
     ...TMethodPayment.pt,
     ...TInventory.pt,
-    ...TMenuFood.pt
+    ...TMenuFood.pt,
+    ...TShopping.pt
   },
   en: {
     ...TGeneric.en,
@@ -36,6 +38,7 @@ export const Translate: ZLanguageData = {
     ...TProduct.en,
     ...TMethodPayment.en,
     ...TInventory.en,
-    ...TMenuFood.en
+    ...TMenuFood.en,
+    ...TShopping.en
   }
 };

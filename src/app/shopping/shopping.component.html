@@ -1,0 +1,24 @@
+<!-- Campo de loading -->
+<div *ngIf="isLoading" class="loading-shade">
+  <mat-spinner></mat-spinner>
+</div>
+
+<!-- Campo de Busca -->
+<div class="container-header">
+
+  <button mat-stroked-button color="accent" class="button-order" (click)="back()">
+    <mat-icon>arrow_back</mat-icon>
+    {{ "btn_back" | zTranslate }}
+  </button>
+
+</div>
+
+
+<!-- Lista de Itens Selecionados -->
+<div *ngFor="let item of items" class="shopping-item">
+  <shopping-item [item]="item">
+  </shopping-item>
+</div>
+
+
+<!-- Form de Novos Campos -->

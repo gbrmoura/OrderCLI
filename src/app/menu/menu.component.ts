@@ -112,8 +112,12 @@ export class MenuComponent implements OnInit, AfterViewInit, OnDestroy{
     console.log('Adicionar: ', item);
   }
 
-  public navigate(): void {
+  public shopping(): void {
     this.router.navigateByUrl('shopping');
+  }
+
+  public ordering(): void {
+    this.router.navigateByUrl('order');
   }
 
 }
