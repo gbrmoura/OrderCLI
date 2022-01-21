@@ -14,7 +14,7 @@ import { UserComponent } from './user/user.component';
     AppComponent,
     LoginComponent,
     FirstRegisterComponent,
-    UserComponent
+    UserComponent,
   ],
   imports: [
     BrowserModule,

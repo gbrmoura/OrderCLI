@@ -5,15 +5,20 @@
 
 <!-- Campo de Busca -->
 <div class="container-header">
-
   <mat-form-field appearance="outline" class="input-search">
-    <mat-label>{{'tab_search' | zTranslate}}</mat-label>
-    <input matInput type="text" (keyup)="filterEvent.next()" [(ngModel)]="filterStr" #input>
+    <mat-label>{{ "tab_search" | zTranslate }}</mat-label>
+    <input
+      matInput
+      type="text"
+      (keyup)="filterEvent.next()"
+      [(ngModel)]="filterStr"
+      #input
+    />
     <mat-icon matSuffix>search</mat-icon>
   </mat-form-field>
 
   <button mat-stroked-button color="accent" class="button-order">
-    {{'btn_orders' | zTranslate}}
+    {{ "btn_orders" | zTranslate }}
     <mat-icon>list_alt</mat-icon>
   </button>
 
@@ -22,22 +27,37 @@
   <button mat-fab (click)="refreshTable.next()">
     <mat-icon>refresh</mat-icon>
   </button>
-
 </div>
 
-<mat-paginator [length]="200" [pageSizeOptions]="[25, 50, 75, 100]"></mat-paginator>
+<mat-paginator
+  [length]="200"
+  [pageSizeOptions]="[25, 50, 75, 100]"
+></mat-paginator>
 
 <!-- Gera Items do Menu -->
 <div *ngFor="let category of items" class="generator-itmes">
   <app-item
-  style="float: left;"
-  [item]="category"
-  [category]="category.categoria"
-  (insertCart)="addCart($event)">
+    style="float: left"
+    [item]="category"
+    [category]="category.categoria"
+    (insertCart)="addCart($event)"
+  >
   </app-item>
 </div>
 
 <!-- Floating Button Cart -->
-<button mat-fab color="accent" class="btn-floating" [matTooltip]="('tooltip_total_value' | zTranslate) + (sumItems | currency: 'BRL':true:'1.2-2')" matTooltipPosition="left">
-  <mat-icon [matBadge]="countAddItem" [matBadgeHidden]="countAddItem === 0" matBadgeSize="medium">shopping_cart</mat-icon>
+<button
+  mat-fab
+  color="accent"
+  class="btn-floating"
+  [matTooltip]="('tooltip_total_value' | zTranslate) + (sumItems | currency: 'BRL':true:'1.2-2')"
+  matTooltipPosition="left"
+  (click)="navigate()"
+>
+  <mat-icon
+    [matBadge]="countAddItem"
+    [matBadgeHidden]="countAddItem === 0"
+    matBadgeSize="medium"
+    >shopping_cart</mat-icon
+  >
 </button>

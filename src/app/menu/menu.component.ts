@@ -5,6 +5,7 @@ import { catchError, debounceTime, map, startWith, switchMap, tap } from 'rxjs/o
 import { ApiService } from '../services/api.service';
 import { ZModalService, ZTranslateService } from 'zmaterial';
 import { IAPIResponse } from '../interfaces';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-menu',
@@ -32,7 +33,8 @@ export class MenuComponent implements OnInit, AfterViewInit, OnDestroy{
     private api: ApiService,
     private modal: ZModalService,
     private tService: ZTranslateService,
-    private ngZone: NgZone) { }
+    private ngZone: NgZone,
+    private router: Router) { }
 
 
   ngOnInit(): void { }
@@ -108,6 +110,10 @@ export class MenuComponent implements OnInit, AfterViewInit, OnDestroy{
     this.countAddItem++;
     this.sumItems += item.valor;
     console.log('Adicionar: ', item);
+  }
+
+  public navigate(): void {
+    this.router.navigateByUrl('shopping');
   }
 
 }

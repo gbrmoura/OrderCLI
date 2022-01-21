@@ -80,6 +80,14 @@ const routes: Routes = [
     },
     loadChildren: () => import('./shopping/shopping.module').then(m => m.ShoppingModule)
   },
+  {
+    path: 'order',
+    canActivate: [AuthGuard],
+    data: {
+      hideSideBar: true
+    },
+    loadChildren: () => import('./order/order.module').then(m => m.OrderModule)
+  },
 
 
   // ? Redirect
