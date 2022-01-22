@@ -1,3 +1,6 @@
+import { AuthService } from 'src/app/services/auth.service';
+import { iShopping } from './../interfaces/iShopping';
+import { ShoppingService } from './../services/shopping.service';
 import { AfterViewInit, Component, EventEmitter, OnInit, ViewChild, OnDestroy, NgZone } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { merge, of, Subject, Subscription } from 'rxjs';
@@ -34,17 +37,26 @@ export class MenuComponent implements OnInit, AfterViewInit, OnDestroy{
     private modal: ZModalService,
     private tService: ZTranslateService,
     private ngZone: NgZone,
-    private router: Router) { }
+    private router: Router,
+    private shopp: ShoppingService,
+    private auth: AuthService) { }
 
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.isLoading = true;
+
+    if (this.shopp.isShoppingValid()) {
+      var shopItens = this.shopp.getShopping(this.auth.session?.codigo);
+      this.sumItems = shopItens.reduce((x, z) => x + z.valor * z.quantidade, 0);
+      this.countAddItem = shopItens.reduce((x, z) => x + z.quantidade, 0);
+    }
+  }
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
 
   ngAfterViewInit(): void {
-    this.isLoading = true;
 
     const filterChange$ = this.filterEvent.pipe(
       debounceTime(500)
@@ -109,7 +121,14 @@ export class MenuComponent implements OnInit, AfterViewInit, OnDestroy{
   public addCart(item: any): void {
     this.countAddItem++;
     this.sumItems += item.valor;
-    console.log('Adicionar: ', item);
+    this.shopp.addShopping({
+      user: this.auth.session?.codigo as number,
+      codigo: item.codigo,
+      titulo: item.titulo,
+      descricao: item.descricao,
+      valor: item.valor,
+      quantidade: 1
+    }, this.auth.session?.codigo);
   }
 
   public shopping(): void {

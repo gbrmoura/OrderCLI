@@ -3,19 +3,56 @@
   <mat-spinner></mat-spinner>
 </div>
 
-<!-- Campo de Busca -->
-<!-- <div class="container-header">
-  <button mat-stroked-button color="accent" class="button-order" (click)="back()">
-    <mat-icon>arrow_back</mat-icon>
-    {{ "btn_back" | zTranslate }}
-  </button>
-</div> -->
-
-
 <!-- Lista de Itens Selecionados -->
 <div class="shopping-list">
+
   <div *ngFor="let item of items">
-    <shopping-item class="shopping-list-item" [item]="item"></shopping-item>
+    <div class="shopping-list-item">
+      <div class="row">
+
+        <!-- Campo para a imagem -->
+        <div class="col-md-2 margin-auto">
+          <div class="shopping-list-image-container">
+            <img mat-card-image [src]="api.image(item.codigo, 'Produto')" class="shopping-list-image">
+          </div>
+        </div>
+
+        <!-- Descrição das coisas -->
+        <div class="col-md-4 margin-auto">
+          <div class="shopping-list-description-container">
+            <h3 class="shopping-list-title">{{ item.titulo }}</h3>
+            <p class="shopping-list-subtitle">{{ item.descricao }}</p>
+          </div>
+        </div>
+
+        <!-- Quantidade dos item -->
+        <div class="col-md-3 margin-auto">
+          <div class="shopping-list-quantity-container">
+            <h5 class="shopping-list-description-row">{{'frm_label_quantity' | zTranslate}}:</h5>
+            <p class="shopping-list-value-row">{{item.quantidade}}</p>
+          </div>
+        </div>
+
+        <!-- Valor total dos itens -->
+        <div class="col-md-2 margin-auto">
+          <div class="shopping-list-price-container">
+            <h5 class="shopping-list-description-row">{{'frm_label_total_value' | zTranslate}}:</h5>
+            <p class="shopping-list-value-row">R$ {{item.valor}}</p>
+          </div>
+        </div>
+
+        <!-- Remover -->
+        <div class="col-md-1 margin-auto">
+          <div class="shopping-list-remove-container">
+            <button mat-icon-button color="warn" (click)="removeItem(item)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="line"></div>
+    </div>
   </div>
 </div>
 
@@ -27,11 +64,17 @@
 
     <!-- Total de Itens -->
     <div class="shopping-resume-item">
-      <h3 class="shopping-resume-subtitle">{{ "frm_label_value_title" | zTranslate }}</h3>
-      <p class="shopping-resume-value">{{ totalValue }}</p>
+      <div class="row">
+        <div class="col-md-12">
+          <h3 class="shopping-resume-subtitle">{{ "frm_label_value_title" | zTranslate }}:</h3>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <p class="shopping-resume-value">R$ {{ totalValue }}</p>
+        </div>
+      </div>
     </div>
-
-    <!-- Escolher metodo de pagamento -->
 
     <!-- Botoes -->
     <button mat-flat-button color="accent" class="shopping-resume-button">

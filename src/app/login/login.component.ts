@@ -1,3 +1,4 @@
+import { ShoppingService } from './../services/shopping.service';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { Observable, of } from 'rxjs';
@@ -18,8 +19,9 @@ export class LoginComponent extends ZFormProvider implements OnInit {
     private tService: ZTranslateService,
     private auth: AuthService,
     private modal: ZModalService,
-    private router: Router
-  ) { super(); }
+    private router: Router,
+    private shop: ShoppingService
+    ) { super(); }
 
   public ngOnInit(): void { }
 
@@ -47,7 +49,9 @@ export class LoginComponent extends ZFormProvider implements OnInit {
   public sendValue(value: any): void {
     this.isLoading = true;
     this.auth.login(value).subscribe((res) => {
+
       this.auth.startSession(res.response);
+
       this.isLoading = false;
 
       if (this.auth.session) {

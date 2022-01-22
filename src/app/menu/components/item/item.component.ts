@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ApiService } from 'src/app/services/api.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { ShoppingService } from 'src/app/services/shopping.service';
 
 @Component({
   selector: 'app-item',
@@ -21,11 +22,18 @@ export class ItemComponent implements OnInit {
   constructor(
     public api: ApiService,
     private snackBar: MatSnackBar,
-    private auth: AuthService
+    private auth: AuthService,
+    private shop: ShoppingService
   ) { }
 
   ngOnInit(): void {
     this.eventFavorite = this.item.favorito;
+    var items = this.shop.getShopping(this.auth.session?.codigo);
+    var item = items.filter(item => item.codigo === this.item.codigo);
+
+    if (item && item.length > 0) {
+      this.badge = item[0].quantidade;
+    }
   }
 
   public addItem(): void {

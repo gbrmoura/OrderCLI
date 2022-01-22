@@ -6,14 +6,14 @@ export const TShopping: ZLanguageData = {
     btn_proceed_to_checkout: 'Finalizar compra',
 
     frm_label_resume_title: 'Resumo da compra',
-    frm_label_value_title: 'Valor',
+    frm_label_value_title: 'Valor Total',
   },
   en: {
     btn_continue_shopping: 'Continue shopping',
     btn_proceed_to_checkout: 'Proceed to checkout',
 
     frm_label_resume_title: 'Resume',
-    frm_label_value_title: 'Value',
+    frm_label_value_title: 'Total Value',
 
   }
 };

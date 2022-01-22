@@ -44,6 +44,7 @@ import { MatPaginatorIntl, MatPaginatorModule } from '@angular/material/paginato
 import { AuthService } from './services/auth.service';
 import { ApiService } from './services/api.service';
 import { CustomPaginator } from './providers';
+import { ShoppingService } from './services/shopping.service';
 
 
 @NgModule({
@@ -135,6 +136,7 @@ import { CustomPaginator } from './providers';
     providers: [
       AuthService,
       ApiService,
+      ShoppingService,
       { provide: MatPaginatorIntl, useFactory: CustomPaginator, deps: [ZTranslateService] }
     ]
 })

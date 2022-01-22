@@ -18,23 +18,6 @@
   margin-top: 1%;
 }
 
-.shopping-list {
-  width: 60vw;
-  margin: auto;
-  margin-left: 1%;
-  margin-top: 1%;
-  display: block;
-  float: left;
-  border: rgba(0, 0, 0, 0.15) 1px solid;
-  border-radius: 3px;
-  box-shadow: rgba(0, 0, 0, 0.15) 0px 0px 5px;
-  padding: 4px;
-
-  &-item{
-    width: 100%;
-  }
-}
-
 .shopping-resume {
   width: 36vw;
   margin: auto;
@@ -49,10 +32,11 @@
 
   &-item {
     width: 95%;
+    height: 10vh;
     display: block;
     margin: auto;
-    margin-top: 1%;
-    margin-bottom: 1%;
+    margin-top: 2%;
+    margin-bottom: 10%;
   }
 
   &-button {
@@ -73,16 +57,104 @@
 
   &-subtitle {
     font-size: 1.4em;
-    margin-bottom: 0px !important;
+    margin-bottom: 4% !important;
+    color: grey;
+    text-align: left;
   }
 
   &-value {
-    font-size: 1.8em;
+    font-size: 4em;
+    color: black;
+    margin-bottom: 0px !important;
+    margin-left: 2%;
+    text-align: left;
+  }
+
+
+}
+
+ // list
+
+ .shopping-list {
+  width: 60vw;
+  margin: auto;
+  margin-left: 1%;
+  margin-top: 1%;
+  display: block;
+  float: left;
+  border: rgba(0, 0, 0, 0.15) 1px solid;
+  border-radius: 3px;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 0px 5px;
+  padding: 4px;
+
+  &-item {
+    height: 15vh;
+  }
+
+  &-image-container {
+    padding: 5px;
+  }
+
+  &-image {
+    width: 8vw;
+    min-width: 8vw;
+    max-width: 8vw;
+    height: 13vh;
+    min-height: 13vh;
+    max-height: 13vh;
+    border-radius: 3px 0px 0px 3px !important;
+    margin: 0px !important;
+  }
+
+  &-line {
+    height: 1px;
+    width: 99%;
+    margin: auto;
+    display: block;
+    background: rgba(0, 0, 0, 0.15);
+  }
+
+  &-row {
+    margin-top: 1%;
+  }
+
+  &-margin-auto {
+    margin: auto;
+  }
+
+  &-quantity-container {
+    text-align: center;
+    padding: 0px !important;
+    margin: 0px !important;
+    border-top: 0px solid transparent !important;
+    vertical-align: middle;
+  }
+
+
+  &-title {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: black;
+    margin-bottom: 0px !important;
+  }
+
+  &-subtitle {
+    font-size: 1em;
+    margin-bottom: 0px !important;
+  }
+
+  &-description-row {
+    font-size: 0.9em;
+    color: grey;
+    margin-bottom: 2% !important;
+    text-align: center;
+  }
+
+  &-value-row {
+    font-size: 1.2em;
     color: black;
     margin-bottom: 0px !important;
     text-align: center;
   }
-
-
 
 }
