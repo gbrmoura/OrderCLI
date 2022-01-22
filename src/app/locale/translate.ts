@@ -1,3 +1,4 @@
+import { TShoppingItem } from './TShoppingItem';
 import { ZLanguageData } from 'zmaterial';
 import { TCategory } from './TCategory';
 import { TFirstRegister } from './TFirstRegister';
@@ -25,7 +26,8 @@ export const Translate: ZLanguageData = {
     ...TMethodPayment.pt,
     ...TInventory.pt,
     ...TMenuFood.pt,
-    ...TShopping.pt
+    ...TShopping.pt,
+    ...TShoppingItem.pt
   },
   en: {
     ...TGeneric.en,
@@ -39,6 +41,7 @@ export const Translate: ZLanguageData = {
     ...TMethodPayment.en,
     ...TInventory.en,
     ...TMenuFood.en,
-    ...TShopping.en
+    ...TShopping.en,
+    ...TShoppingItem.en
   }
 };

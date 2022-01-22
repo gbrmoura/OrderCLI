@@ -1,41 +1,48 @@
-<mat-card class="shopping-item-container">
-
+<div class="item">
 
   <div class="row">
 
     <!-- Campo para a imagem -->
-    <div class="col-md-2">
+    <div class="col-md-2 margin-auto">
       <div class="image-container">
         <img mat-card-image [src]="api.image(item.codigo, 'Produto')" class="image">
       </div>
     </div>
 
     <!-- Descrição das coisas -->
-    <div class="col-md-4">
+    <div class="col-md-4 margin-auto">
       <div class="description-container">
-        <h3 mat-card-title>{{ item.titulo }}</h3>
-        <p mat-card-subtitle>{{ item.descricao }}</p>
+        <h3 class="title">{{ item.titulo }}</h3>
+        <p class="subtitle">{{ item.descricao }}</p>
       </div>
     </div>
 
     <!-- Quantidade dos item -->
-    <div class="col-md-4">
+    <div class="col-md-3 margin-auto">
       <div class="quantity-container">
-        <p>Quantidade: {{item.quantidade}}</p>
-        <button>remover</button>
+        <h5 class="description-row">{{'frm_label_quantity' | zTranslate}}:</h5>
+        <p class="value-row">{{item.quantidade}}</p>
       </div>
     </div>
 
     <!-- Valor total dos itens -->
-    <div class="col-md-2">
+    <div class="col-md-2 margin-auto">
       <div class="price-container">
-        <p>R$ {{item.valor}}</p>
+        <h5 class="description-row">{{'frm_label_total_value' | zTranslate}}:</h5>
+        <p class="value-row">R$ {{item.valor}}</p>
       </div>
     </div>
 
+    <!-- Remover -->
+    <div class="col-md-1 margin-auto">
+      <div class="remove-container">
+        <button mat-icon-button color="warn">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+    </div>
   </div>
 
+  <div class="line"></div>
 
-
-
-</mat-card>
+</div>

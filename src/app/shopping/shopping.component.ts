@@ -13,6 +13,7 @@ export class ShoppingComponent implements OnInit {
   public isLoading = false;
 
   public items: any[] = [];
+  public totalValue: any;
 
   public constructor(
     private tService: ZTranslateService,
@@ -24,17 +25,27 @@ export class ShoppingComponent implements OnInit {
       codigo: 1,
       titulo: 'Coxinha',
       descricao: 'Salgado frito com base de trigo',
-      valor: 10,
-      quantidate: 1,
+      valor: 7.99,
+      quantidade: 1,
     });
 
     this.items.push({
       codigo: 3,
       titulo: 'Coca-cola',
       descricao: 'Refrigerante sabor cola',
-      valor: 20,
-      quantidate: 1,
+      valor: 5.29,
+      quantidade: 1,
     });
+
+    this.items.push({
+      codigo: 4,
+      titulo: 'Suco de laranja',
+      descricao: 'Suco de agua com laranja',
+      valor: 7.50,
+      quantidade: 2,
+    });
+
+    this.totalValue = this.items.reduce((acc, item) => acc + item.valor * item.quantidade, 0);
   }
 
   public back(): void {
