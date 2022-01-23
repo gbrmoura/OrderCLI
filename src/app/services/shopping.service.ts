@@ -74,6 +74,17 @@ export class ShoppingService {
     this.setShopping(this.shopping);
   }
 
+  public clearShopping(user: number | any): void {
+    this.shopping = this.getShopping(user);
+    this.shopping.forEach((item, index) => {
+      if (item.user === user) {
+        this.shopping.splice(index, 1);
+      }
+    });
+
+    this.setShopping(this.shopping);
+  }
+
   public destroyShopping(): void {
     localStorage.removeItem('order_shopping');
     this.shopping = [];

@@ -2,7 +2,8 @@ export enum EApiCrud {
   Categoria = 'Categoria',
   Produto = 'Produto',
   MetodoPagamento = 'MetodoPagamento',
-  Estoque = 'Estoque'
+  Estoque = 'Estoque',
+  Pedido = 'Pedido',
 }
 
 export enum EApiCrudFunction {

@@ -81,7 +81,7 @@ const routes: Routes = [
     loadChildren: () => import('./shopping/shopping.module').then(m => m.ShoppingModule)
   },
   {
-    path: 'shopping/resume',
+    path: 'shopping/checkout',
     canActivate: [AuthGuard],
     data: {
       hideSideBar: true

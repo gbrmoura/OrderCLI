@@ -8,7 +8,7 @@ export const TGeneric: ZLanguageData = {
     btn_register: 'Cadastrar',
     btn_url_register: 'Cadastrar-se',
     btn_confirm: 'Confirmar',
-
+    btn_cancel: 'Cancelar',
 
     tab_add: 'Cadastrar',
     tab_search: 'Consultar',
@@ -28,7 +28,7 @@ export const TGeneric: ZLanguageData = {
     btn_register: 'Register',
     btn_url_register: 'Register',
     btn_confirm: 'Confirm',
-
+    btn_cancel: 'Cancel',
 
     tab_add: 'Register',
     tab_search: 'Search',
