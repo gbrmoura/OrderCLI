@@ -41,6 +41,10 @@ export class ShoppingComponent implements OnInit {
     this.router.navigateByUrl('/menu');
   }
 
+  public checkout(): void {
+    this.router.navigateByUrl('/shopping/resume');
+  }
+
   public removeItem(item: any): void {
     this.shop.removeShopping(item, this.auth.session?.codigo);
     this.updateScreen();
