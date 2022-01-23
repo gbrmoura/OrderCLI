@@ -41,11 +41,34 @@ export class ShoppingComponent implements OnInit {
     this.router.navigateByUrl('/menu');
   }
 
-  // Shoping Itens Cart
   public removeItem(item: any): void {
     this.shop.removeShopping(item, this.auth.session?.codigo);
+    this.updateScreen();
+  }
+
+  public plusItem(item: any): void {
+    this.api.get(item.codigo, EApiCrud.Produto).subscribe(
+      (data: any) => {
+        if (data.response && item.quantidade < data.response.quantidade) {
+          this.shop.addShopping(item, this.auth.session?.codigo);
+          this.updateScreen();
+        }
+      }, (error: any) => {
+        console.error(error);
+      }
+    );
+  }
+
+  public minusItem(item: any): void {
+    if (item.quantidade >= 2) {
+      this.shop.minusShopping(item, this.auth.session?.codigo);
+      this.updateScreen();
+    }
+  }
+
+  private updateScreen(): void {
     this.items = this.shop.getShopping(this.auth.session?.codigo);
-    this.totalValue = this.items.reduce((acc, item) => acc + item.valor * item.quantidade, 0);
+    this.totalValue = this.items.reduce((acc, item) => acc + item.valor * item.quantidade, 0).toFixed(2);;
   }
 
 }

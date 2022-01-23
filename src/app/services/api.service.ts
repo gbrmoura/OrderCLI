@@ -45,6 +45,13 @@ export class ApiService {
     })
   }
 
+  public get(value: any, crud: EApiCrud): Observable<IAPIResponse> {
+    return this.http.get<IAPIResponse>(`${environment.url}${crud}/${EApiCrudFunction.Consultar}`, {
+      headers: this.auth.getAuthHeaders(),
+      params: new HttpParams().set('codigo', value)
+    })
+  }
+
   public image(id: number, crud: string): string {
     if (!this.auth.session) {
       return '';

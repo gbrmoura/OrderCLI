@@ -10,5 +10,6 @@ export enum EApiCrudFunction {
   Listar = 'Listar',
   Alterar = 'Alterar',
   Deletar = 'Deletar',
-  Imagem = 'Imagem'
+  Imagem = 'Imagem',
+  Consultar = 'Consultar'
 }

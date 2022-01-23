@@ -157,4 +157,30 @@
     text-align: center;
   }
 
+  &-btn-plus {
+    color: green;
+  }
+
+  &-btn-minus {
+    color: red;
+  }
+
+  &-mat-icon {
+    width: 16px !important;
+    height: 16px !important;
+    line-height: 16px !important;
+    font-size: 1em !important;
+  }
+
+
+
+  &-input {
+    text-align: center;
+    font-size: 1.2em;
+    color: black;
+    width: 20% !important;
+    border: none;
+    background-color: white;
+  }
+
 }

@@ -11,14 +11,14 @@
       <div class="row">
 
         <!-- Campo para a imagem -->
-        <div class="col-md-2 margin-auto">
+        <div class="col-md-2 shopping-list-margin-auto">
           <div class="shopping-list-image-container">
             <img mat-card-image [src]="api.image(item.codigo, 'Produto')" class="shopping-list-image">
           </div>
         </div>
 
         <!-- Descrição das coisas -->
-        <div class="col-md-4 margin-auto">
+        <div class="col-md-4 shopping-list-margin-auto">
           <div class="shopping-list-description-container">
             <h3 class="shopping-list-title">{{ item.titulo }}</h3>
             <p class="shopping-list-subtitle">{{ item.descricao }}</p>
@@ -26,15 +26,25 @@
         </div>
 
         <!-- Quantidade dos item -->
-        <div class="col-md-3 margin-auto">
+        <div class="col-md-3 shopping-list-margin-auto">
           <div class="shopping-list-quantity-container">
             <h5 class="shopping-list-description-row">{{'frm_label_quantity' | zTranslate}}:</h5>
-            <p class="shopping-list-value-row">{{item.quantidade}}</p>
+
+            <button mat-icon-button type="button" class="shopping-list-btn-minus" (click)="minusItem(item)">
+              <mat-icon class="shopping-list-mat-icon">arrow_back_ios</mat-icon>
+            </button>
+
+            <input type="text" class="shopping-list-input" [(ngModel)]="item.quantidade" disabled>
+
+            <button mat-icon-button type="button" class="shopping-list-btn-plus" (click)="plusItem(item)">
+              <mat-icon class="shopping-list-mat-icon">arrow_forward_ios</mat-icon>
+            </button>
+
           </div>
         </div>
 
         <!-- Valor total dos itens -->
-        <div class="col-md-2 margin-auto">
+        <div class="col-md-2 shopping-list-margin-auto">
           <div class="shopping-list-price-container">
             <h5 class="shopping-list-description-row">{{'frm_label_total_value' | zTranslate}}:</h5>
             <p class="shopping-list-value-row">R$ {{item.valor}}</p>
@@ -42,15 +52,15 @@
         </div>
 
         <!-- Remover -->
-        <div class="col-md-1 margin-auto">
+        <div class="col-md-1 shopping-list-margin-auto">
           <div class="shopping-list-remove-container">
             <button mat-icon-button color="warn" (click)="removeItem(item)">
               <mat-icon>delete</mat-icon>
             </button>
           </div>
         </div>
-      </div>
 
+      </div>
       <div class="line"></div>
     </div>
   </div>

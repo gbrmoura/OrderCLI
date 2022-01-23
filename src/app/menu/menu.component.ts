@@ -9,6 +9,7 @@ import { ApiService } from '../services/api.service';
 import { ZModalService, ZTranslateService } from 'zmaterial';
 import { IAPIResponse } from '../interfaces';
 import { Router } from '@angular/router';
+import { ThrowStmt } from '@angular/compiler';
 
 @Component({
   selector: 'app-menu',
@@ -132,7 +133,15 @@ export class MenuComponent implements OnInit, AfterViewInit, OnDestroy{
   }
 
   public shopping(): void {
-    this.router.navigateByUrl('shopping');
+    if (this.countAddItem === 0 || this.countAddItem < 0) {
+      this.modal.zModalTWarning({
+        title: this.tService.t('mdl_warning'),
+        description: this.tService.t('mdl_shopping_warning'),
+        btnCloseTitle: this.tService.t('btn_close'),
+      });
+    } else {
+      this.router.navigateByUrl('shopping');
+    }
   }
 
   public ordering(): void {

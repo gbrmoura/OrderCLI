@@ -36,7 +36,7 @@ export class ShoppingService {
     if (this.shopping.find(e => e.codigo === shopping.codigo)) {
       this.shopping.forEach((item, index) => {
         if (item.codigo === shopping.codigo) {
-          this.shopping[index].quantidade += shopping.quantidade;
+          this.shopping[index].quantidade += 1;
         }
       });
     } else {
@@ -45,6 +45,23 @@ export class ShoppingService {
 
     this.setShopping(this.shopping);
   }
+
+  public minusShopping(shopping: iShopping, user: number | any): void {
+    this.shopping = this.getShopping(user);
+
+    if (this.shopping.find(e => e.codigo === shopping.codigo)) {
+      this.shopping.forEach((item, index) => {
+        if (item.codigo === shopping.codigo) {
+          this.shopping[index].quantidade -= 1;
+        }
+      });
+    } else {
+      this.shopping.push(shopping);
+    }
+
+    this.setShopping(this.shopping);
+  }
+
 
   public removeShopping(shopping: iShopping, user: number | any): void {
     this.shopping = this.getShopping(user);
