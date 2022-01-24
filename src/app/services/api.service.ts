@@ -83,4 +83,19 @@ export class ApiService {
     });
   }
 
+  // order
+  public cancel(value: any): Observable<IAPIResponse> {
+    return this.http.get<IAPIResponse>(`${environment.url}${EApiCrud.Pedido}/Cancelar`, {
+      headers: this.auth.getAuthHeaders(),
+      params: new HttpParams().set('codigo', value)
+    });
+  }
+
+  public withdraw(value: any): Observable<IAPIResponse> {
+    return this.http.get<IAPIResponse>(`${environment.url}${EApiCrud.Pedido}/Retirar`, {
+      headers: this.auth.getAuthHeaders(),
+      params: new HttpParams().set('codigo', value)
+    });
+  }
+
 }

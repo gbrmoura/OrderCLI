@@ -89,6 +89,11 @@
             <span>{{'tab_view' | zTranslate}}</span>
           </button>
 
+          <button mat-menu-item (click)="cancelOrder(row)">
+            <mat-icon>cancel</mat-icon>
+            <span>{{'tab_order_cancel' | zTranslate}}</span>
+          </button>
+
         </mat-menu>
 
       </ng-template>

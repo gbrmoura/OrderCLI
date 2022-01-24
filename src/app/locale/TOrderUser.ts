@@ -8,6 +8,11 @@ export const TOrderUser: ZLanguageData = {
     frm_input_order_user_status: 'Status',
 
     mdl_order_user_error_list: 'Falha ao listar os pedidos',
+    mdl_delete_question_order_user: 'Deseja cancelar o pedido de código: ',
+    mdl_delete_success_order_user: 'Pedido cancelado com sucesso',
+    mdl_delete_fail_order_user: 'Falha ao cancelar o pedido',
+
+    tab_order_cancel: 'Cancelar',
 
   },
   en: {
@@ -17,5 +22,11 @@ export const TOrderUser: ZLanguageData = {
     frm_input_order_user_status: 'Status',
 
     mdl_order_user_error_list: 'Failed to list orders',
+    mdl_delete_question_order_user: 'Do you want to cancel the order of code: ',
+    mdl_delete_success_order_user: 'Order canceled successfully',
+    mdl_delete_fail_order_user: 'Failed to cancel order',
+
+    tab_order_cancel: 'Cancel',
+
   }
 };

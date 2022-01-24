@@ -2,7 +2,7 @@ import { AfterViewInit, Component, EventEmitter, NgZone, OnInit, ViewChild } fro
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTabChangeEvent } from '@angular/material/tabs';
 import { merge, of, Subject, Subscription } from 'rxjs';
-import { catchError, debounceTime, map, startWith, switchMap, tap } from 'rxjs/operators';
+import { catchError, debounceTime, map, startWith, switchMap, take, tap } from 'rxjs/operators';
 import { ZModalService, ZTranslateService } from 'zmaterial';
 import { EApiCrud, ETabList } from '../enum';
 import { IAPIResponse } from '../interfaces';
@@ -110,6 +110,53 @@ export class OrderUserComponent implements OnInit, AfterViewInit {
   public viewRow(value: any): void {
     this.orderCode = value.codigo;
     this.currentTab = 1;
+  }
+
+  public cancelOrder(value: any): void {
+
+    this.modal.zModalTWarningConfirm({
+      base: {
+        btnCloseTitle: this.tService.t('btn_close'),
+        description: this.tService.t('mdl_delete_question_order_user') + value.codigo + '?',
+        title: this.tService.t('mdl_warning'),
+      },
+      btnConfirmTitle: this.tService.t('btn_confirm')
+    }).pipe(
+      take(1),
+      switchMap((res) => {
+
+        if (res) {
+          return this.api.cancel(value.codigo);
+        }
+
+        return of(false);
+
+      })
+    ).subscribe((res) => {
+
+      if (res) {
+        this.modal.zModalTSuccess({
+          title: this.tService.t('mdl_success'),
+          description: this.tService.t('mdl_delete_success_order_user'),
+          btnCloseTitle: this.tService.t('btn_close')
+        });
+
+        this.refreshTable.next();
+      }
+
+    }, (err) => {
+
+      this.modal.zModalTErrorLog({
+        base: {
+          title: this.tService.t('mdl_error'),
+          description: this.tService.t('mdl_delete_fail_order_user'),
+          btnCloseTitle: this.tService.t('btn_close')
+        },
+        btnLogTitle: this.tService.t('btn_details'),
+        log: (err.error as IAPIResponse).message
+      });
+
+    });
   }
 
   public changeTab(event: MatTabChangeEvent): void {
