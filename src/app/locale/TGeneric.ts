@@ -15,6 +15,7 @@ export const TGeneric: ZLanguageData = {
     tab_update: 'Atualizar',
     tab_simple_filter: 'Busca Rápida',
     tab_delete: 'Apagar',
+    tab_view: 'Visualizar',
 
     mdl_error: 'Erro',
     mdl_success: 'Sucesso',
@@ -35,6 +36,7 @@ export const TGeneric: ZLanguageData = {
     tab_update: 'Update',
     tab_simple_filter: 'Quick Search',
     tab_delete: 'Delete',
+    tab_view: 'View',
 
     mdl_error: 'Error',
     mdl_success: 'Success',

@@ -89,12 +89,12 @@ const routes: Routes = [
     loadChildren: () => import('./checkout/checkout.module').then(m => m.CheckoutModule)
   },
   {
-    path: 'order',
+    path: 'order/user',
     canActivate: [AuthGuard],
     data: {
       hideSideBar: true
     },
-    loadChildren: () => import('./order/order.module').then(m => m.OrderModule)
+    loadChildren: () => import('./order-user/order-user.module').then(m => m.OrderUserModule)
   },
 
 

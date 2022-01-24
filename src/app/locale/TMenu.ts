@@ -17,6 +17,7 @@ export const TMenu: ZLanguageData = {
     int_menu: 'Produtos',
     int_orders: 'Pedidos',
     int_shopping: 'Carrinho',
+    int_order: 'Pedido',
 
     mdl_list_fail_menu: 'Falha ao listar os produtos',
     mdl_shopping_warning: 'Nenhum produto foi adicionado ao carrinho',
@@ -38,6 +39,7 @@ export const TMenu: ZLanguageData = {
     int_menu: 'Products',
     int_orders: 'Orders',
     int_shopping: 'Shopping',
+    int_order: 'Order',
 
     mdl_list_fail_menu: 'Failed to list products',
     mdl_shopping_warning: 'No product was added to the cart',

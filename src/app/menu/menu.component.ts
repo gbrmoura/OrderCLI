@@ -145,7 +145,7 @@ export class MenuComponent implements OnInit, AfterViewInit, OnDestroy{
   }
 
   public ordering(): void {
-    this.router.navigateByUrl('order');
+    this.router.navigateByUrl('order/user');
   }
 
 }

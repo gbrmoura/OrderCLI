@@ -13,6 +13,7 @@ export function getMenus(privilege: 0 | 1 | 2, user: iAuth, tService: ZTranslate
           { label: tService.t('int_menu'), link: 'menu', icon: 'restaurant_menu' },
           { label: tService.t('int_shopping'), link: 'shopping', icon: 'shopping_cart'},
           { label: tService.t('int_checkout'), link: 'shopping/checkout', icon: 'payment' },
+          { label: tService.t('int_order'), link: 'order/user', icon: 'receipt' },
         ]
       },
       {
