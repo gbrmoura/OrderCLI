@@ -20,7 +20,12 @@
           <mat-icon matSuffix>search</mat-icon>
         </mat-form-field>
 
-        <span class="spacer"></span>
+        <button mat-stroked-button color="accent" class="button-order" (click)="shopping()">
+          <!-- {{ "btn_orders" | zTranslate }} -->
+          <mat-icon>shopping_cart</mat-icon>
+        </button>
+
+        <div class="spacer"></div>
 
         <button mat-fab (click)="refreshTable.next()">
           <mat-icon>refresh</mat-icon>
@@ -108,7 +113,127 @@
       {{'tab_view' | zTranslate}}
     </ng-template>
 
+    <div class="full-table-container mat-elevation-z3">
+      <div *ngIf="isLoadingView" class="loading-shade">
+        <mat-spinner></mat-spinner>
+      </div>
 
+      <div class="view-container">
+        <div class="row">
+
+          <div class="col-md-12">
+            <div class="row">
+
+              <!-- codigo -->
+              <div class="col-md-3">
+                <div class="form-group">
+                  <mat-form-field appearance="outline" class="view-container-input">
+                    <mat-label>{{'frm_input_order_user_id' | zTranslate}}</mat-label>
+                    <input matInput value="{{orderData?.codigo}}" readonly>
+                    <mat-icon matSuffix>tag</mat-icon>
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <!-- data -->
+              <div class="col-md-6">
+                <div class="form-group">
+                  <mat-form-field appearance="outline" class="view-container-input">
+                    <mat-label>{{'frm_input_order_user_date' | zTranslate}}</mat-label>
+                    <input matInput value="{{orderData?.data}}" readonly>
+                    <mat-icon matSuffix>event</mat-icon>
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <!-- status -->
+              <div class="col-md-3">
+                <div class="form-group">
+                  <mat-form-field appearance="outline" class="view-container-input">
+                    <mat-label>{{'frm_input_order_user_status' | zTranslate}}</mat-label>
+                    <input matInput value="{{orderData?.status}}" readonly>
+                    <mat-icon matSuffix>category</mat-icon>
+                  </mat-form-field>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- observacao -->
+          <div class="col-md-12">
+            <div class="form-group">
+              <mat-form-field appearance="outline" class="view-container-input">
+                <mat-label>{{'frm_input_order_user_payment' | zTranslate}}</mat-label>
+                <input matInput value="{{orderData?.metodoPagamento?.titulo}}" readonly="">
+                <mat-icon matSuffix>description</mat-icon>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <!-- observacao -->
+          <div class="col-md-12">
+            <div class="form-group">
+              <mat-form-field appearance="outline" class="view-container-input">
+                <mat-label>{{'frm_input_order_user_observation' | zTranslate}}</mat-label>
+                <textarea matInput value="{{orderData?.observacao}}" readonly=""></textarea>
+                <mat-icon matSuffix>description</mat-icon>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <!-- items do pedido -->
+          <div class="col-md-12">
+
+            <div class="shopping-list">
+
+              <div *ngFor="let item of orderData?.items">
+                <div class="shopping-list-item">
+                  <div class="row">
+
+                    <!-- imagem -->
+                    <div class="col-md-2 shopping-list-margin-auto">
+                      <div class="shopping-list-image-container">
+                        <img mat-card-image [src]="api.image(item.produtoCodigo, 'Produto')" class="shopping-list-image">
+                      </div>
+                    </div>
+
+                    <!-- description -->
+                    <div class="col-md-4 shopping-list-margin-auto">
+                      <div class="shopping-list-description-container">
+                        <h3 class="shopping-list-title">{{ item.titulo }}</h3>
+                        <p class="shopping-list-subtitle">{{ item.descricao }}</p>
+                      </div>
+                    </div>
+
+                    <!-- quantidade -->
+                    <div class="col-md-3 shopping-list-margin-auto">
+                      <div class="shopping-list-quantity-container">
+                        <h5 class="shopping-list-description-row">{{'frm_label_quantity' | zTranslate}}:</h5>
+                        <p class="shopping-list-value-row">{{item.quantidade}}</p>
+                      </div>
+                    </div>
+
+                    <!-- valor total -->
+                    <div class="col-md-2 shopping-list-margin-auto">
+                      <div class="shopping-list-price-container">
+                        <h5 class="shopping-list-description-row">{{'frm_label_total_value' | zTranslate}}:</h5>
+                        <p class="shopping-list-value-row">R$ {{item.valorTotal}}</p>
+                      </div>
+                    </div>
+
+                  </div>
+                  <div class="line"></div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+    </div>
   </mat-tab>
 
 </mat-tab-group>

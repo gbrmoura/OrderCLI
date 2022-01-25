@@ -76,12 +76,7 @@ export class ShoppingService {
 
   public clearShopping(user: number | any): void {
     this.shopping = this.getShopping(user);
-    this.shopping.forEach((item, index) => {
-      if (item.user === user) {
-        this.shopping.splice(index, 1);
-      }
-    });
-
+    this.shopping = this.shopping.filter(e => e.user !== user);
     this.setShopping(this.shopping);
   }
 

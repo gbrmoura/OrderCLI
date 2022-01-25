@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, EventEmitter, NgZone, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTabChangeEvent } from '@angular/material/tabs';
+import { Router } from '@angular/router';
 import { merge, of, Subject, Subscription } from 'rxjs';
 import { catchError, debounceTime, map, startWith, switchMap, take, tap } from 'rxjs/operators';
 import { ZModalService, ZTranslateService } from 'zmaterial';
@@ -31,13 +32,15 @@ export class OrderUserComponent implements OnInit, AfterViewInit {
   private subscription = new Subscription();
 
   // Tab View
-  private orderCode: any = 0;
+  public orderData: any;
+  public isLoadingView = true;
 
   constructor(
     private tService: ZTranslateService,
     private modal: ZModalService,
-    private api: ApiService,
-    private ngZone: NgZone
+    public api: ApiService,
+    private ngZone: NgZone,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -108,8 +111,35 @@ export class OrderUserComponent implements OnInit, AfterViewInit {
   }
 
   public viewRow(value: any): void {
-    this.orderCode = value.codigo;
-    this.currentTab = 1;
+    this.isLoadingView = true;
+
+    console.log(value.codigo);
+
+    this.api.get(value.codigo, EApiCrud.Pedido).subscribe((data) => {
+
+      console.log(data.response);
+
+      this.ngZone.run(() => {
+        this.isLoadingView = false;
+        this.orderData = data.response;
+        this.currentTab = 1;
+      })
+
+    }, (err) => {
+      this.isLoadingView = false;
+      this.currentTab = 0;
+      this.modal.zModalTErrorLog({
+        base: {
+          title: this.tService.t('mdl_error'),
+          description: this.tService.t('mdl_order_user_error_view'),
+          btnCloseTitle: this.tService.t('btn_close')
+        },
+        btnLogTitle: this.tService.t('btn_details'),
+        log: (err.error as IAPIResponse).message
+      });
+    });
+
+
   }
 
   public cancelOrder(value: any): void {
@@ -140,10 +170,8 @@ export class OrderUserComponent implements OnInit, AfterViewInit {
           description: this.tService.t('mdl_delete_success_order_user'),
           btnCloseTitle: this.tService.t('btn_close')
         });
-
         this.refreshTable.next();
       }
-
     }, (err) => {
 
       this.modal.zModalTErrorLog({
@@ -164,6 +192,10 @@ export class OrderUserComponent implements OnInit, AfterViewInit {
     if (event.index === ETabList.List) {
       this.refreshTable.next();
     }
+  }
+
+  public shopping(): void {
+    this.router.navigateByUrl('/menu');
   }
 
 }
