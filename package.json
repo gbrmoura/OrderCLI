@@ -4,6 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "build2": "ng build",
     "build": "cp dist/OrderCLI/.htaccess dist/ && ng build && mv dist/.htaccess dist/OrderCLI/ && npm run zipFile",
     "zipFile": "cd dist && \"C:\\Program Files\\7-Zip\\7z.exe\" a -r OrderCLI.zip -w OrderCLI -mem=AES256",
     "watch": "ng build --watch --configuration development",
