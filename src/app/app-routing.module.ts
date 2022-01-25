@@ -96,6 +96,11 @@ const routes: Routes = [
     },
     loadChildren: () => import('./order-user/order-user.module').then(m => m.OrderUserModule)
   },
+  {
+    path: 'order/worker',
+    canActivate: [AuthGuard],
+    loadChildren: () => import('./order-worker/order-worker.module').then(m => m.OrderWorkerModule)
+  },
 
 
   // ? Redirect

@@ -42,6 +42,7 @@ export function getMenus(privilege: 0 | 1 | 2, user: iAuth, tService: ZTranslate
       icon: 'grid_view',
       itens: [
         { label: tService.t('int_dashboard'), link: 'dashboard', icon: 'dashboard' },
+        { label: tService.t('int_order'), link: 'order/worker', icon: 'receipt' },
       ]
     }
   ];

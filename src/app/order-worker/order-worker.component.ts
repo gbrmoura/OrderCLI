@@ -12,10 +12,10 @@ import { ApiService } from '../services/api.service';
 
 @Component({
   selector: 'app-order',
-  templateUrl: './order-user.component.html',
-  styleUrls: ['./order-user.component.scss']
+  templateUrl: './order-worker.component.html',
+  styleUrls: ['./order-worker.component.scss']
 })
-export class OrderUserComponent implements OnInit, AfterViewInit {
+export class OrderWorkerComponent implements OnInit, AfterViewInit {
 
   // Global
   public currentTab = 0;
@@ -112,6 +112,50 @@ export class OrderUserComponent implements OnInit, AfterViewInit {
     });
   }
 
+  public checkOrder(value: any): void {
+    this.modal.zModalTWarningConfirm({
+      base: {
+        btnCloseTitle: this.tService.t('btn_close'),
+        description: this.tService.t('mdl_check_question_order_user') + value.codigo + '?',
+        title: this.tService.t('mdl_warning'),
+      },
+      btnConfirmTitle: this.tService.t('btn_confirm')
+    }).pipe(
+      take(1),
+      switchMap((res) => {
+
+        if (res) {
+          return this.api.withdraw(value.codigo);
+        }
+
+        return of(false);
+
+      })
+    ).subscribe((res) => {
+
+      if (res) {
+        this.modal.zModalTSuccess({
+          title: this.tService.t('mdl_success'),
+          description: this.tService.t('mdl_check_success_order_user'),
+          btnCloseTitle: this.tService.t('btn_close')
+        });
+        this.refreshTable.next();
+      }
+    }, (err) => {
+
+      this.modal.zModalTErrorLog({
+        base: {
+          title: this.tService.t('mdl_error'),
+          description: this.tService.t('mdl_check_fail_order_user'),
+          btnCloseTitle: this.tService.t('btn_close')
+        },
+        btnLogTitle: this.tService.t('btn_details'),
+        log: (err.error as IAPIResponse).message
+      });
+
+    });
+  }
+
   public viewRow(value: any): void {
     this.isLoadingView = true;
 
@@ -194,10 +238,6 @@ export class OrderUserComponent implements OnInit, AfterViewInit {
     if (event.index === ETabList.List) {
       this.refreshTable.next();
     }
-  }
-
-  public shopping(): void {
-    this.router.navigateByUrl('/menu');
   }
 
 }
