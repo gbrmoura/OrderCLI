@@ -3,8 +3,6 @@
 }
 
 .full-table-container {
-  position: relative;
-  min-height: 100vh;
   background-color: white;
   padding-top: 2%;
 }
@@ -18,10 +16,6 @@
   width: 60vw;
   display: flex;
   margin: auto;
-}
-
-.spacer {
-  flex: 1 1 auto;
 }
 
 .loading-shade {
@@ -48,26 +42,6 @@
   width: 100%;
 }
 
-.mat-paginator-sticky {
-  position: fixed;
-  bottom: 0;
-  right: 0;
-  width: 100%;
-  z-index: 1;
-}
-
-.mat-header-row {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-}
-
-
-.mat-column {
-  min-width: 50px;
-  padding-right: 8px;
-}
-
 td.mat-column-actions {
   width: 20px;
   padding-right: 8px;
@@ -90,9 +64,20 @@ td.mat-cell, th.mat-header-cell {
   box-shadow: 0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%)
 }
 
-
 .view-container-input {
   width: 100%;
+}
+
+.shopping-list-image {
+  width: 8vw;
+  min-width: 8vw;
+  max-width: 8vw;
+  height: 13vh;
+  min-height: 13vh;
+  max-height: 13vh;
+  border-radius: 3px 0px 0px 3px !important;
+  margin: 0px !important;
+  padding: 5px;
 }
 
 .shopping-list {
@@ -101,50 +86,9 @@ td.mat-cell, th.mat-header-cell {
   padding: 4px;
   border: rgb(0 0 0 / 12%) 1px solid;
 
-
-  &-item {
-    height: 15vh;
-  }
-
-  &-image-container {
-    padding: 5px;
-  }
-
-  &-image {
-    width: 8vw;
-    min-width: 8vw;
-    max-width: 8vw;
-    height: 13vh;
-    min-height: 13vh;
-    max-height: 13vh;
-    border-radius: 3px 0px 0px 3px !important;
-    margin: 0px !important;
-  }
-
-  &-line {
-    height: 1px;
-    width: 99%;
-    margin: auto;
-    display: block;
-    background: rgba(0, 0, 0, 0.15);
-  }
-
-  &-row {
-    margin-top: 1%;
-  }
-
-  &-margin-auto {
+  &-margin {
     margin: auto;
   }
-
-  &-quantity-container {
-    text-align: center;
-    padding: 0px !important;
-    margin: 0px !important;
-    border-top: 0px solid transparent !important;
-    vertical-align: middle;
-  }
-
 
   &-title {
     font-size: 1.2em;

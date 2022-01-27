@@ -192,14 +192,14 @@
                   <div class="row">
 
                     <!-- imagem -->
-                    <div class="col-md-2 shopping-list-margin-auto">
+                    <div class="col-md-2 shopping-list-margin">
                       <div class="shopping-list-image-container">
                         <img mat-card-image [src]="api.image(item.produtoCodigo, 'Produto')" class="shopping-list-image">
                       </div>
                     </div>
 
                     <!-- description -->
-                    <div class="col-md-4 shopping-list-margin-auto">
+                    <div class="col-md-4 shopping-list-margin">
                       <div class="shopping-list-description-container">
                         <h3 class="shopping-list-title">{{ item.titulo }}</h3>
                         <p class="shopping-list-subtitle">{{ item.descricao }}</p>
@@ -207,7 +207,7 @@
                     </div>
 
                     <!-- quantidade -->
-                    <div class="col-md-3 shopping-list-margin-auto">
+                    <div class="col-md-3 shopping-list-margin">
                       <div class="shopping-list-quantity-container">
                         <h5 class="shopping-list-description-row">{{'frm_label_quantity' | zTranslate}}:</h5>
                         <p class="shopping-list-value-row">{{item.quantidade}}</p>
@@ -215,7 +215,7 @@
                     </div>
 
                     <!-- valor total -->
-                    <div class="col-md-2 shopping-list-margin-auto">
+                    <div class="col-md-2 shopping-list-margin">
                       <div class="shopping-list-price-container">
                         <h5 class="shopping-list-description-row">{{'frm_label_total_value' | zTranslate}}:</h5>
                         <p class="shopping-list-value-row">R$ {{item.valorTotal}}</p>
