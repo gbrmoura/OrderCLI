@@ -2,9 +2,9 @@ import { Observable, of } from 'rxjs';
 import { ZMenuItems, ZTranslateService } from 'zmaterial';
 import { iAuth } from '../interfaces';
 
-export function getMenus(privilege: 0 | 1 | 2, user: iAuth, tService: ZTranslateService): Observable<ZMenuItems[]> {
+export function getMenus(privilege: 0 | 1 | 2 | 3, user: iAuth, tService: ZTranslateService): Observable<ZMenuItems[]> {
 
-  if (user.email || user.prontuario) {
+  if (user.previlegio === 3) {
     return of([
       {
         category: tService.t('cat_menu'),
