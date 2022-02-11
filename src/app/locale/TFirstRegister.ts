@@ -5,6 +5,7 @@ export const TFirstRegister: ZLanguageData = {
     frm_title_fr: 'Primeiro Registro',
     frm_subtitle_fr: 'Esse Cadastro Será Utilizado como Usuário Master dentro do Sistema.',
     frm_input_name: 'Nome Completo',
+    frm_input_email: 'E-mail',
 
     btn_register_fr: 'Cadastrar-se',
 
@@ -15,6 +16,7 @@ export const TFirstRegister: ZLanguageData = {
     frm_title_fr: 'First Register',
     frm_subtitle_fr: 'This Registration will be used as a Master User within the System.',
     frm_input_name: 'Full Name',
+    rm_input_email: 'Email',
 
     btn_register_fr: 'Register',
 

@@ -35,6 +35,14 @@ export class FirstRegisterComponent extends ZFormProvider implements OnInit {
         required: true,
       }),
       new ZFormInputText({
+        label: this.tService.t('frm_input_email'),
+        key: 'email',
+        type: 'email',
+        maxlength: 115,
+        icon: 'email',
+        required: true,
+      }),
+      new ZFormInputText({
         label: this.tService.t('frm_input_username'),
         key: 'login',
         type: 'text',
