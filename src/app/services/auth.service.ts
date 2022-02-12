@@ -1,10 +1,11 @@
 import { environment } from './../../environments/environment';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, throwError } from 'rxjs';
 import { IAPIResponse, iAuth } from '../interfaces';
 import { map } from 'rxjs/operators';
+import { EApiCrud, EApiCrudFunction, EAuthCrud } from '../enum';
 
 @Injectable({
   providedIn: 'root'
@@ -60,6 +61,22 @@ export class AuthService {
 
   public registerEmployee(object: { nome: string, login: string, senha: string, previlegio: number }): Observable<IAPIResponse> {
     return this.http.post<IAPIResponse>(`${environment.url}Autenticacao/Funcionario/Registrar`, object, {
+      headers: this.getAuthHeaders()
+    });
+  }
+
+  public list(value: any, crud: EAuthCrud): Observable<IAPIResponse> {
+    return this.http.get<IAPIResponse>(`${environment.url}Autenticacao/${crud}/${EApiCrudFunction.Listar}`, {
+      headers: this.getAuthHeaders(),
+      params: new HttpParams()
+        .set('TamanhoPagina', value.TamanhoPagina)
+        .set('NumeroPagina', value.NumeroPagina)
+        .set('CampoPesquisa', value.CampoPesquisa)
+    })
+  }
+
+  public update(value: any, crud: EAuthCrud): Observable<IAPIResponse> {
+    return this.http.post<IAPIResponse>(`${environment.url}Autenticacao/${crud}/${EApiCrudFunction.Alterar}`, value, {
       headers: this.getAuthHeaders()
     });
   }

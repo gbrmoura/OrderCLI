@@ -1,5 +1,5 @@
-<mat-tab-group (selectedTabChange)="changeTab()">
-  
+<mat-tab-group (selectedTabChange)="changeTab($event)" [selectedIndex]="currentTab">
+
   <mat-tab>
     <ng-template mat-tab-label>
       <mat-icon class="tab-icon">engineering</mat-icon>
@@ -9,7 +9,7 @@
     <z-form-material
     [title]="'frm_title_employeen' | zTranslate"
     [subtitle]="'frm_subtitle_employeen' | zTranslate"
-    [formProvider]="formEmployeen"
+    [formProvider]="formAdd"
     [showLoading]="loadingEmployeen"
     [showClearButton]="true"
     [submitText]="'btn_register' | zTranslate"
@@ -18,22 +18,110 @@
 
   </mat-tab>
 
+  <!-- ? Tab - List -->
   <mat-tab>
     <ng-template mat-tab-label>
-      <mat-icon class="tab-icon">person</mat-icon>
-      {{'tab_title_user' | zTranslate}}
+      <mat-icon class="tab-icon">search</mat-icon>
+      {{'tab_search' | zTranslate}}
+    </ng-template>
+
+    <div class="full-table-container mat-elevation-z3">
+      <div *ngIf="isLoadingList" class="loading-shade">
+        <mat-spinner></mat-spinner>
+      </div>
+
+      <div class="container-header">
+        <mat-form-field appearance="outline" class="input-search">
+          <mat-label>{{'tab_search' | zTranslate}}</mat-label>
+          <input matInput type="text" (keyup)="filterEvent.next()" [(ngModel)]="filterStr" #input>
+          <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+
+        <span class="spacer"></span>
+
+        <button mat-fab (click)="refreshTable.next()">
+          <mat-icon>refresh</mat-icon>
+        </button>
+      </div>
+
+      <div class="table-container">
+
+        <table mat-table [dataSource]="dataSource" class="table-main">
+
+          <ng-container [matColumnDef]="'nome'">
+            <th mat-header-cell *matHeaderCellDef>{{'frm_input_user_name' | zTranslate}}</th>
+            <td mat-cell *matCellDef="let row"> {{ row.nome }}</td>
+          </ng-container>
+
+          <ng-container [matColumnDef]="'email'">
+            <th mat-header-cell *matHeaderCellDef>{{'frm_input_user_email' | zTranslate}}</th>
+            <td mat-cell *matCellDef="let row"> {{ row.email }}</td>
+          </ng-container>
+
+          <ng-container [matColumnDef]="'login'">
+            <th mat-header-cell *matHeaderCellDef>{{'frm_input_login' | zTranslate}}</th>
+            <td mat-cell *matCellDef="let row"> {{ row.login }}</td>
+          </ng-container>
+
+          <ng-container [matColumnDef]="'previlegio'">
+            <th mat-header-cell *matHeaderCellDef>{{'frm_input_employeen_privilege' | zTranslate}}</th>
+            <td mat-cell *matCellDef="let row"> {{ row.previlegio.descricao }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="actions" stickyEnd>
+            <th mat-header-cell *matHeaderCellDef class="invisible-th"></th>
+            <td mat-cell *matCellDef="let row">
+              <ng-container *ngTemplateOutlet="actionTemplate;context:{obj: row}"></ng-container>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+        </table>
+
+        <div class="mat-paginator-sticky-container">
+          <mat-paginator class="mat-paginator-sticky mat-elevation-z2" [length]="resultLength" [pageSize]="25"
+            [pageSizeOptions]="[25, 50, 75, 100]"></mat-paginator>
+        </div>
+
+      </div>
+
+      <ng-template #actionTemplate let-row="obj">
+        <button mat-icon-button [matMenuTriggerFor]="menu">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+
+        <mat-menu #menu="matMenu">
+
+          <button mat-menu-item (click)="updateRow(row)">
+            <mat-icon>edit</mat-icon>
+            <span>{{'tab_update' | zTranslate}}</span>
+          </button>
+
+        </mat-menu>
+      </ng-template>
+
+    </div>
+
+  </mat-tab>
+
+  <!-- ? Tab - Update -->
+  <mat-tab [disabled]="currentTab != 2">
+    <ng-template mat-tab-label>
+      <mat-icon class="tab-icon">edit</mat-icon>
+      {{'tab_update' | zTranslate}}
     </ng-template>
 
     <z-form-material
-    [title]="'frm_title_user' | zTranslate"
-    [subtitle]="'frm_subtitle_user' | zTranslate"
-    [formProvider]="formUser"
-    [showLoading]="loadingUser"
-    [showClearButton]="true"
-    [submitText]="'btn_register' | zTranslate"
-    (submitValue)="sendUser($event)">
+    [title]="'lbl_form_update_employeen_title' | zTranslate"
+    [subtitle]="('lbl_form_update_employeen_subtitle' | zTranslate) + updateCode"
+    [formProvider]="formUpdate"
+    [showLoading]="isLoadingUpdate"
+    [showClearButton]="false"
+    [submitText]="'tab_update' | zTranslate"
+    (submitValue)="updateEmployeen($event)">
     </z-form-material>
-
   </mat-tab>
-  
+
 </mat-tab-group>

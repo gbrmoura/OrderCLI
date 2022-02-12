@@ -12,6 +12,7 @@ export const TUsers: ZLanguageData = {
     frm_input_user_password: 'Senha',
     frm_input_user_email: 'E-mail',
     frm_input_employeen_privilege: 'Privilégio',
+    frm_input_login: 'Login',
 
     frm_input_select_master: 'Master',
     frm_input_select_admin: 'Administrador',
@@ -28,6 +29,13 @@ export const TUsers: ZLanguageData = {
 
     mdl_employeen_success: 'Funcionário Cadastrado com Sucesso.',
     mdl_employeen_fail: 'Falha ao Cadastrar Funcionário.',
+    mdl_employeen_update_success: 'Funcionário Atualizado com Sucesso.',
+    mdl_employeen_update_fail: 'Falha ao Atualizar Funcionário.',
+
+    mdl_list_fail_employeen: 'Falha ao Listar Funcionários.',
+
+    lbl_form_update_employeen_title: 'Atualizar Funcionário',
+    lbl_form_update_employeen_subtitle: 'Atualize os dados do Funcionário.',
   },
   en: {
 
@@ -40,6 +48,7 @@ export const TUsers: ZLanguageData = {
     frm_input_user_password: 'Password',
     frm_input_user_email: 'E-mail',
     frm_input_employeen_privilege: 'Privilege',
+    frm_input_login: 'Login',
 
     frm_input_select_master: 'Master',
     frm_input_select_admin: 'Admin',
@@ -56,5 +65,12 @@ export const TUsers: ZLanguageData = {
 
     mdl_employeen_success: 'Successfully Registered Employee.',
     mdl_employeen_fail: 'Failed to Enroll Employee.',
+    mdl_employeen_update_success: 'Successfully Updated Employee.',
+    mdl_employeen_update_fail: 'Failed to Update Employee.',
+
+    mdl_list_fail_employeen: 'Failed to List Employees.',
+
+    lbl_form_update_employeen_title: 'Update Employee',
+    lbl_form_update_employeen_subtitle: 'Update the Employee Data.',
   }
 };

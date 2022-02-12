@@ -6,6 +6,11 @@ export enum EApiCrud {
   Pedido = 'Pedido',
 }
 
+export enum EAuthCrud {
+  Usuario = 'Usuario',
+  Funcionario = 'Funcionario',
+}
+
 export enum EApiCrudFunction {
   Registrar = 'Registrar',
   Listar = 'Listar',

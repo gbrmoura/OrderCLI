@@ -1,7 +1,7 @@
 import { Observable, of } from 'rxjs';
 import { ZFormInputBase, ZFormInputSelect, ZFormInputText, ZFormProvider, ZSearchResult, ZTranslateService } from 'zmaterial';
 
-export class FormEmployeen extends ZFormProvider {
+export class FormUpdate extends ZFormProvider {
 
   public constructor(
     private tService: ZTranslateService
@@ -31,21 +31,6 @@ export class FormEmployeen extends ZFormProvider {
         type: 'text',
         maxlength: 50,
         icon: 'person',
-        layout: {
-          cols: 50,
-        },
-        required: true,
-      }),
-      new ZFormInputText({
-        label: this.tService.t('frm_input_password'),
-        key: 'senha',
-        type: 'password',
-        maxlength: 40,
-        minlength: 5,
-        layout: {
-          cols: 50,
-        },
-        icon: 'lock',
         required: true,
       }),
       new ZFormInputSelect<string, any>({
@@ -56,6 +41,7 @@ export class FormEmployeen extends ZFormProvider {
         debounceTime: 1500,
         searchItens: (value: string, numberOfItens: number): Observable<ZSearchResult<any>> => {
 
+          const search = (value || '');
           const zsearch: ZSearchResult<any> = {
             totalItems: 3,
             items: [
