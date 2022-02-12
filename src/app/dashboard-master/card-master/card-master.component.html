@@ -1,0 +1,19 @@
+<mat-card class="item-container mat-elevation-z4">
+
+  <mat-card-content>
+
+    <mat-card-title>{{order.codigo}}</mat-card-title>
+    <p class="item-description">{{order.data}}</p>
+
+    <mat-list>
+
+      <mat-list-item>
+        <mat-icon class="item-tags-icon">credit_card</mat-icon>
+        <strong>{{'itn_category' | zTranslate}}</strong>: {{ order.metodoPagamento.descricao }}
+      </mat-list-item>
+
+    </mat-list>
+
+  </mat-card-content>
+
+</mat-card>

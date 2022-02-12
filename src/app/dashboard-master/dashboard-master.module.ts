@@ -4,11 +4,13 @@ import { CommonModule } from '@angular/common';
 
 import { DashboardMasterRoutingModule } from './dashboard-master-routing.module';
 import { DashboardMasterComponent } from './dashboard-master.component';
+import { CardMasterComponent } from './card-master/card-master.component';
 
 
 @NgModule({
   declarations: [
-    DashboardMasterComponent
+    DashboardMasterComponent,
+    CardMasterComponent
   ],
   imports: [
     CommonModule,

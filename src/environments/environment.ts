@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  url: 'http://api.gabrielalves.net/api/'
+  // url: 'http://api.gabrielalves.net/api/'
+  url: 'http://localhost:5040/api/'
 };
 
 /*
