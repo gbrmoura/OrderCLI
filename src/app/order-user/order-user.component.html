@@ -49,12 +49,12 @@
 
           <ng-container [matColumnDef]="'metodoPagamento'">
             <th mat-header-cell *matHeaderCellDef>{{'frm_input_order_user_payment' | zTranslate}}</th>
-            <td mat-cell *matCellDef="let row"> {{ row.metodoPagamento }}</td>
+            <td mat-cell *matCellDef="let row"> {{ row.metodoPagamento.titulo }}</td>
           </ng-container>
 
           <ng-container [matColumnDef]="'usuario'">
             <th mat-header-cell *matHeaderCellDef>{{'frm_input_order_user_user' | zTranslate}}</th>
-            <td mat-cell *matCellDef="let row"> {{ row.usuario }}</td>
+            <td mat-cell *matCellDef="let row"> {{ row.usuario.nome }}</td>
           </ng-container>
 
           <ng-container [matColumnDef]="'status'">
@@ -106,7 +106,7 @@
 
   </mat-tab>
 
-  <!-- ? Tab - Register -->
+  <!-- ? Tab - View -->
   <mat-tab [disabled]="currentTab != 1">
     <ng-template mat-tab-label>
       <mat-icon class="tab-icon">wysiwyg</mat-icon>
@@ -160,7 +160,7 @@
             </div>
           </div>
 
-          <!-- observacao -->
+          <!-- metodo de pagamento -->
           <div class="col-md-12">
             <div class="form-group">
               <mat-form-field appearance="outline" class="view-container-input">
@@ -194,15 +194,15 @@
                     <!-- imagem -->
                     <div class="col-md-2 shopping-list-margin">
                       <div class="shopping-list-image-container">
-                        <img mat-card-image [src]="api.image(item.produtoCodigo, 'Produto')" class="shopping-list-image">
+                        <img mat-card-image [src]="api.image(item.produto.codigo, 'Produto')" class="shopping-list-image">
                       </div>
                     </div>
 
                     <!-- description -->
                     <div class="col-md-4 shopping-list-margin">
                       <div class="shopping-list-description-container">
-                        <h3 class="shopping-list-title">{{ item.titulo }}</h3>
-                        <p class="shopping-list-subtitle">{{ item.descricao }}</p>
+                        <h3 class="shopping-list-title">{{ item.produto.titulo }}</h3>
+                        <p class="shopping-list-subtitle">{{ item.produto.descricao }}</p>
                       </div>
                     </div>
 

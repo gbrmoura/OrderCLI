@@ -57,7 +57,7 @@ export class ApiService {
       return '';
     }
 
-    return `${environment.url}${crud}/${EApiCrudFunction.Imagem}?Codigo=${id}&Token=${this.auth.session.token}&RefreshToken=${this.auth.session.refreshToken}`
+    return `${environment.url}${crud}/${EApiCrudFunction.Imagem}?Codigo=${id}&Token=${this.auth.session.token}`
   }
 
   public menu(value: any): Observable<IAPIResponse> {
@@ -78,7 +78,7 @@ export class ApiService {
   }
 
   public control(value: any): Observable<IAPIResponse> {
-    return this.http.post<IAPIResponse>(`${environment.url}/${EApiCrud.Estoque}/Controle`, value, {
+    return this.http.post<IAPIResponse>(`${environment.url}${EApiCrud.Estoque}/Controle`, value, {
       headers: this.auth.getAuthHeaders()
     });
   }

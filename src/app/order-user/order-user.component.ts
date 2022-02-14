@@ -11,7 +11,7 @@ import { IAPIResponse } from '../interfaces';
 import { ApiService } from '../services/api.service';
 
 @Component({
-  selector: 'app-order',
+  selector: 'app-order-user',
   templateUrl: './order-user.component.html',
   styleUrls: ['./order-user.component.scss']
 })
@@ -114,9 +114,6 @@ export class OrderUserComponent implements OnInit, AfterViewInit {
 
   public viewRow(value: any): void {
     this.isLoadingView = true;
-
-    console.log(value.codigo);
-
     this.api.get(value.codigo, EApiCrud.Pedido).subscribe((data) => {
 
       console.log(data.response);

@@ -32,9 +32,8 @@ export class AppComponent implements ZMenuProvider {
       if (this.auth.session.email) {
         return of({
           descriptions: [
-            { icon: 'person', text: `${this.auth.session.nome} ${this.auth.session.sobrenome}` },
+            { icon: 'person', text: `${this.auth.session.nome}` },
             { icon: 'email', text: this.auth.session.email as string },
-            { icon: 'badge', text: this.auth.session.prontuario as string },
           ]
         });
       }

@@ -15,7 +15,7 @@ import { MatPaginator } from '@angular/material/paginator';
   styleUrls: ['./inventory.component.scss']
 })
 export class InventoryComponent implements OnInit, AfterViewInit, OnDestroy {
-  
+
   // Global
   public currentTab = ETabList.Add
 
@@ -118,7 +118,7 @@ export class InventoryComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   public insert(value: any): void {
-    this.isLoading = true;
+    this.isLoadingAdd = true;
 
     const payload = {
       tipo: value.tipo.value,
@@ -139,7 +139,7 @@ export class InventoryComponent implements OnInit, AfterViewInit, OnDestroy {
 
       this.currentTab = ETabList.List;
     }, (err) => {
-      this.isLoading = false;
+      this.isLoadingAdd = false;
 
       this.modal.zModalTErrorLog({
         base: {
@@ -157,6 +157,7 @@ export class InventoryComponent implements OnInit, AfterViewInit, OnDestroy {
   public changeTab(event: MatTabChangeEvent): void {
 
     this.currentTab = event.index;
+
     if (event.index === ETabList.List) {
       this.refreshTable.next();
       this.formInventoryAdd.resetForm();

@@ -44,12 +44,12 @@
 
           <ng-container [matColumnDef]="'metodoPagamento'">
             <th mat-header-cell *matHeaderCellDef>{{'frm_input_order_user_payment' | zTranslate}}</th>
-            <td mat-cell *matCellDef="let row"> {{ row.metodoPagamento }}</td>
+            <td mat-cell *matCellDef="let row"> {{ row.metodoPagamento.titulo }}</td>
           </ng-container>
 
           <ng-container [matColumnDef]="'usuario'">
             <th mat-header-cell *matHeaderCellDef>{{'frm_input_order_user_user' | zTranslate}}</th>
-            <td mat-cell *matCellDef="let row"> {{ row.usuario }}</td>
+            <td mat-cell *matCellDef="let row"> {{ row.usuario.nome }}</td>
           </ng-container>
 
           <ng-container [matColumnDef]="'status'">
@@ -192,22 +192,22 @@
                   <div class="row">
 
                     <!-- imagem -->
-                    <div class="col-md-2 shopping-list-margin-auto">
+                    <div class="col-md-2 shopping-list-margin">
                       <div class="shopping-list-image-container">
-                        <img mat-card-image [src]="api.image(item.produtoCodigo, 'Produto')" class="shopping-list-image">
+                        <img mat-card-image [src]="api.image(item.produto.codigo, 'Produto')" class="shopping-list-image">
                       </div>
                     </div>
 
                     <!-- description -->
-                    <div class="col-md-4 shopping-list-margin-auto">
+                    <div class="col-md-4 shopping-list-margin">
                       <div class="shopping-list-description-container">
-                        <h3 class="shopping-list-title">{{ item.titulo }}</h3>
-                        <p class="shopping-list-subtitle">{{ item.descricao }}</p>
+                        <h3 class="shopping-list-title">{{ item.produto.titulo }}</h3>
+                        <p class="shopping-list-subtitle">{{ item.produto.descricao }}</p>
                       </div>
                     </div>
 
                     <!-- quantidade -->
-                    <div class="col-md-3 shopping-list-margin-auto">
+                    <div class="col-md-3 shopping-list-margin">
                       <div class="shopping-list-quantity-container">
                         <h5 class="shopping-list-description-row">{{'frm_label_quantity' | zTranslate}}:</h5>
                         <p class="shopping-list-value-row">{{item.quantidade}}</p>
@@ -215,10 +215,10 @@
                     </div>
 
                     <!-- valor total -->
-                    <div class="col-md-2 shopping-list-margin-auto">
+                    <div class="col-md-2 shopping-list-margin">
                       <div class="shopping-list-price-container">
                         <h5 class="shopping-list-description-row">{{'frm_label_total_value' | zTranslate}}:</h5>
-                        <p class="shopping-list-value-row">R$ {{item.valorTotal}}</p>
+                        <p class="shopping-list-value-row">R$ {{item.valor}}</p>
                       </div>
                     </div>
 

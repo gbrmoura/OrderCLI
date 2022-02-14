@@ -11,7 +11,7 @@ import { IAPIResponse } from '../interfaces';
 import { ApiService } from '../services/api.service';
 
 @Component({
-  selector: 'app-order',
+  selector: 'app-order-worker',
   templateUrl: './order-worker.component.html',
   styleUrls: ['./order-worker.component.scss']
 })
@@ -107,6 +107,7 @@ export class OrderWorkerComponent implements OnInit, AfterViewInit {
     ).subscribe((data) => {
       this.ngZone.run(() => {
         this.isLoadingList = false;
+        console.log(data);
         this.dataSource.next(data);
       });
     });

@@ -14,7 +14,7 @@ export class CardMasterComponent implements OnInit {
   constructor(public api: ApiService) { }
 
   ngOnInit(): void {
-
+    console.log(this.order);
   }
 
 
