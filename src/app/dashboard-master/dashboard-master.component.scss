@@ -57,3 +57,19 @@
 .spacer {
   width: 2%;
 }
+
+.card-generator {
+  margin-left: 35px;
+}
+
+@media only screen and (max-width: 920px) {
+  .card-generator {
+    margin-left: 25px;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .card-generator {
+    margin-left: 0px;
+  }
+}

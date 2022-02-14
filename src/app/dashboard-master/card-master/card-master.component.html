@@ -1,19 +1,32 @@
-<mat-card class="item-container mat-elevation-z4">
+<mat-card class="card-master-container mat-elevation-z4">
 
   <mat-card-content>
 
-    <mat-card-title>{{order.codigo}}</mat-card-title>
-    <p class="item-description">{{order.data}}</p>
+    <mat-card-title><mat-icon matSuffix>tag</mat-icon> {{order.codigo}}</mat-card-title>
 
     <mat-list>
 
       <mat-list-item>
+        <mat-icon class="item-tags-icon">category</mat-icon>
+        <strong>{{'crd_master_status' | zTranslate}}</strong>: {{ order.status }}
+      </mat-list-item>
+
+      <mat-list-item>
+        <mat-icon class="item-tags-icon">person</mat-icon>
+        <strong>{{'crd_master_user' | zTranslate}}</strong>: {{ order.usuario.nome }}
+      </mat-list-item>
+
+      <mat-list-item>
         <mat-icon class="item-tags-icon">credit_card</mat-icon>
-        <strong>{{'itn_category' | zTranslate}}</strong>: {{ order.metodoPagamento.descricao }}
+        <strong>{{'crd_master_payment' | zTranslate}}</strong>: {{ order.metodoPagamento.titulo }}
       </mat-list-item>
 
     </mat-list>
 
   </mat-card-content>
+
+  <mat-card-footer class="footer">
+    {{order.data}}
+  </mat-card-footer>
 
 </mat-card>

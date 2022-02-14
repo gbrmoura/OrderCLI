@@ -24,12 +24,14 @@
   </button>
 </div>
 
-<!-- Gera Items do Menu -->
-<div *ngFor="let order of orders" class="generator-itmes">
-  <card-master style="float: left" [order]="order"> </card-master>
-</div>
-
 <mat-paginator
   [length]="200"
   [pageSizeOptions]="[25, 50, 75, 100]"
 ></mat-paginator>
+
+<!-- Gera Items do Menu -->
+<div *ngFor="let order of orders" class="card-generator">
+  <card-master style="float: left; margin: 0.5rem;" [order]="order"> </card-master>
+</div>
+
+

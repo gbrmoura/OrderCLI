@@ -14,6 +14,7 @@ import { TShopping } from './TShopping';
 import { TUsers } from './TUsers';
 import { TCheckout } from './TCheckout';
 import { TOrderUser } from './TOrderUser';
+import { TDashboardMaster } from './TDashboardMaster';
 
 export const Translate: ZLanguageData = {
   pt: {
@@ -32,6 +33,7 @@ export const Translate: ZLanguageData = {
     ...TShoppingItem.pt,
     ...TCheckout.pt,
     ...TOrderUser.pt,
+    ...TDashboardMaster.pt,
   },
   en: {
     ...TGeneric.en,
@@ -48,6 +50,7 @@ export const Translate: ZLanguageData = {
     ...TShopping.en,
     ...TShoppingItem.en,
     ...TCheckout.en,
-    ...TOrderUser.en
+    ...TOrderUser.en,
+    ...TDashboardMaster.en,
   }
 };

@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { merge, of, Subject, Subscription } from 'rxjs';
 import { catchError, debounceTime, map, startWith, switchMap, tap } from 'rxjs/operators';
 import { ZModalService, ZTranslateService } from 'zmaterial';
+import { EApiCrud } from '../enum';
 import { IAPIResponse } from '../interfaces';
 import { ApiService } from '../services/api.service';
 import { AuthService } from '../services/auth.service';
@@ -54,7 +55,7 @@ export class DashboardMasterComponent implements OnInit {
     this.subscription = merge(changesEvent$, this.paginator.page, this.refreshTable).pipe(
       startWith({}),
       switchMap(() => {
-        return this.api.menu({ TamanhoPagina: 30, NumeroPagina: 1, CampoPesquisa: this.filterStr }).pipe(
+        return this.api.list({ TamanhoPagina: 30, NumeroPagina: 1, CampoPesquisa: this.filterStr }, EApiCrud.Pedido).pipe(
           catchError((err) => {
             this.modal.zModalTErrorLog({
               base: {
