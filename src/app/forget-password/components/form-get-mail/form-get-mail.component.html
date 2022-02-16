@@ -1,0 +1,14 @@
+<z-form-material
+  [title]="'frm_title_forget_password' | zTranslate"
+  [formProvider]="form"
+  [showLoading]="isLoading"
+  [showClearButton]="false"
+  [submitText]="'btn_forget_confirm' | zTranslate"
+  (submitValue)="sendValue($event)">
+
+
+  <ng-template #extraActions>
+    <button mat-raised-button color="accent" (click)="cancel()">{{'btn_forget_cancel' | zTranslate}}</button>
+  </ng-template>
+
+</z-form-material>

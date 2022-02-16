@@ -1,10 +1,8 @@
 import { Observable, of } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { ZFormInputBase, ZFormInputFile, ZFormInputNumber, ZFormInputSelect, ZFormInputText, ZFormInputTextArea, ZFormProvider, ZSearchResult, ZTranslateService } from 'zmaterial';
-import { EApiCrud } from '../enum';
-import { ApiService } from '../services/api.service';
+import { ApiService } from 'src/app/services/api.service';
+import { ZFormInputBase, ZFormInputText, ZFormProvider, ZTranslateService } from 'zmaterial';
 
-export class FormChange extends ZFormProvider {
+export class Form extends ZFormProvider {
 
   public constructor(private tService: ZTranslateService, private api: ApiService) { super(); }
 

@@ -1,26 +1,23 @@
-import { FormChange } from '../change-password/FormChange';
-import { ShoppingService } from './../services/shopping.service';
+
 import { Router } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { ZFormInputBase, ZFormInputText, ZFormProvider, ZModalService, ZTranslateService } from 'zmaterial';
-import { AuthService } from '../services/auth.service';
-import { IAPIResponse } from '../interfaces';
-import { ApiService } from '../services/api.service';
-import { FormForget } from './FormForget';
-import { ETabList } from '../enum';
-import { MatTabChangeEvent } from '@angular/material/tabs';
+import { Component, Input, OnInit, Output } from '@angular/core';
+import { ZModalService, ZTranslateService } from 'zmaterial';
+import { Form } from './Form';
+import { AuthService } from 'src/app/services/auth.service';
+import { ApiService } from 'src/app/services/api.service';
+import { IAPIResponse } from 'src/app/interfaces';
 
 @Component({
-  selector: 'app-forgot-password',
-  templateUrl: './forgot-password.component.html',
-  styleUrls: ['./forgot-password.component.scss']
+  selector: 'app-form-get-mail',
+  templateUrl: './form-get-mail.component.html',
+  styleUrls: ['./form-get-mail.component.scss']
 })
-export class ForgotPasswordComponent implements OnInit {
+export class FormGetMailComponent implements OnInit {
 
-  // Form Forget Password
-  public formForget = new FormForget(this.tService, this.api);
-  public isForgetLoading = false;
+  public form = new Form(this.tService, this.api);
+  public isLoading = false;
+
+  @Output() email: any;
 
   public constructor(
     private tService: ZTranslateService,
@@ -35,11 +32,11 @@ export class ForgotPasswordComponent implements OnInit {
   }
 
   public sendValue(value: any): void {
-    this.isForgetLoading = true;
+    this.isLoading = true;
 
     this.auth.forgetPassword(value).subscribe(() => {
-      this.formForget.resetForm();
-      this.isForgetLoading = false;
+      this.form.resetForm();
+      this.isLoading = false;
 
       this.modal.zModalTSuccess({
         title: this.tService.t('mdl_success'),
@@ -50,7 +47,7 @@ export class ForgotPasswordComponent implements OnInit {
       this.router.navigate(['/password/change']);
 
     }, (err) => {
-      this.isForgetLoading = false;
+      this.isLoading = false;
       this.modal.zModalTErrorLog({
         base: {
           title: this.tService.t('mdl_error'),

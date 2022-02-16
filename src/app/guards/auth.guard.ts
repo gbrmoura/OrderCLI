@@ -1,5 +1,3 @@
-import { ChangePasswordComponent } from './../change-password/change-password.component';
-import { ForgotPasswordComponent } from './../forgot-password/forgot-password.component';
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Route, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable, of } from 'rxjs';
@@ -10,6 +8,7 @@ import { getMenus } from '../functions';
 import { LoginComponent } from '../login/login.component';
 import { AuthService } from '../services/auth.service';
 import { UserComponent } from '../user/user.component';
+import { ForgetPasswordComponent } from '../forget-password/forget-password.component';
 
 @Injectable({
   providedIn: 'root'
@@ -26,8 +25,7 @@ export class AuthGuard implements CanActivate {
         route.component !== LoginComponent &&
         route.component !== FirstRegisterComponent &&
         route.component !== UserComponent &&
-        route.component !== ForgotPasswordComponent &&
-        route.component !== ChangePasswordComponent) {
+        route.component !== ForgetPasswordComponent) {
 
         console.log('Usuário Não Autenticado');
         window.location.href = '/login';
@@ -37,8 +35,7 @@ export class AuthGuard implements CanActivate {
          (route.component === LoginComponent ||
           route.component === FirstRegisterComponent ||
           route.component === UserComponent ||
-          route.component === ForgotPasswordComponent ||
-          route.component === ChangePasswordComponent)) {
+          route.component === ForgetPasswordComponent)) {
 
         console.log('Usuário Já Está Autenticado');
 
@@ -54,8 +51,7 @@ export class AuthGuard implements CanActivate {
         if (route.component !== LoginComponent &&
             route.component !== FirstRegisterComponent &&
             route.component !== UserComponent &&
-            route.component !== ForgotPasswordComponent &&
-            route.component !== ChangePasswordComponent &&
+            route.component !== ForgetPasswordComponent &&
             this.authService.session) {
 
           return this.authService.updateToken().pipe(

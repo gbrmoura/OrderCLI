@@ -1,26 +1,23 @@
-import { FormChange } from '../change-password/FormChange';
-import { ShoppingService } from './../services/shopping.service';
+
 import { Router } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { ZFormInputBase, ZFormInputText, ZFormProvider, ZModalService, ZTranslateService } from 'zmaterial';
-import { AuthService } from '../services/auth.service';
-import { IAPIResponse } from '../interfaces';
-import { ApiService } from '../services/api.service';
-import { ETabList } from '../enum';
-import { MatTabChangeEvent } from '@angular/material/tabs';
+import { Component, Input, OnInit } from '@angular/core';
+import { ZModalService, ZTranslateService } from 'zmaterial';
+import { Form } from './Form';
+import { AuthService } from 'src/app/services/auth.service';
+import { ApiService } from 'src/app/services/api.service';
+import { IAPIResponse } from 'src/app/interfaces';
 
 @Component({
-  selector: 'app-forgot-password',
-  templateUrl: './change-password.component.html',
-  styleUrls: ['./change-password.component.scss']
+  selector: 'app-form-get-password',
+  templateUrl: './form-get-password.component.html',
+  styleUrls: ['./form-get-password.component.scss']
 })
-export class ChangePasswordComponent implements OnInit {
+export class FormGetPasswordComponent implements OnInit {
 
-  // Form Change Password
-  public formChange = new FormChange(this.tService, this.api);
-  public isChangeLoading = false;
+  public form = new Form(this.tService, this.api);
+  public isLoading = false;
 
+  @Input() email: any;
 
   public constructor(
     private tService: ZTranslateService,
@@ -28,7 +25,6 @@ export class ChangePasswordComponent implements OnInit {
     private api: ApiService,
     private modal: ZModalService,
     private router: Router,
-    private shop: ShoppingService
     ) { }
 
   public ngOnInit(): void {
@@ -36,12 +32,12 @@ export class ChangePasswordComponent implements OnInit {
   }
 
   public sendValue(value: any): void {
-    this.isChangeLoading = true;
+    this.isLoading = true;
 
     // TODO: enviar novos parametros
     this.auth.changePassword({...value, email: ""}).subscribe(() => {
-      this.formChange.resetForm();
-      this.isChangeLoading = false;
+      this.form.resetForm();
+      this.isLoading = false;
 
       this.modal.zModalTSuccess({
         title: this.tService.t('mdl_success'),
@@ -50,7 +46,7 @@ export class ChangePasswordComponent implements OnInit {
       });
 
     }, (err) => {
-      this.isChangeLoading = false;
+      this.isLoading = false;
 
       this.modal.zModalTErrorLog({
         base: {
@@ -69,6 +65,5 @@ export class ChangePasswordComponent implements OnInit {
   public cancel(): void {
     this.router.navigate(['/login']);
   }
-
 
 }
