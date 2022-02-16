@@ -18,7 +18,7 @@ export class Form extends ZFormProvider {
       }),
       new ZFormInputText({
         label: this.tService.t('frm_input_password'),
-        key: 'senha',
+        key: 'novaSenha',
         type: 'password',
         icon: 'lock',
         minlength: 5,

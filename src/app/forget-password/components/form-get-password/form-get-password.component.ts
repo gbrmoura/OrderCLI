@@ -1,5 +1,5 @@
 
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Component, Input, OnInit } from '@angular/core';
 import { ZModalService, ZTranslateService } from 'zmaterial';
 import { Form } from './Form';
@@ -25,17 +25,19 @@ export class FormGetPasswordComponent implements OnInit {
     private api: ApiService,
     private modal: ZModalService,
     private router: Router,
+    private route: ActivatedRoute
     ) { }
 
   public ngOnInit(): void {
-
+    this.route.queryParams.subscribe(params => {
+      this.email = params['email'];
+    });
   }
 
   public sendValue(value: any): void {
     this.isLoading = true;
 
-    // TODO: enviar novos parametros
-    this.auth.changePassword({...value, email: ""}).subscribe(() => {
+    this.auth.changePassword({...value, email: this.email}).subscribe(() => {
       this.form.resetForm();
       this.isLoading = false;
 
@@ -44,6 +46,8 @@ export class FormGetPasswordComponent implements OnInit {
         description: this.tService.t('mdl_add_success_change_password'),
         btnCloseTitle: this.tService.t('btn_close')
       });
+
+      this.router.navigate(['/login']);
 
     }, (err) => {
       this.isLoading = false;
@@ -58,12 +62,12 @@ export class FormGetPasswordComponent implements OnInit {
         log: (err.error as IAPIResponse).message
       });
 
-      this.router.navigate(['/login']);
+      this.router.navigate(['/password/forget']);
     });
   }
 
   public cancel(): void {
-    this.router.navigate(['/login']);
+    this.router.navigate(['/password/forget']);
   }
 
 }

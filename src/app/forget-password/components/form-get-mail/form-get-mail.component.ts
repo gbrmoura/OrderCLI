@@ -37,6 +37,7 @@ export class FormGetMailComponent implements OnInit {
     this.auth.forgetPassword(value).subscribe(() => {
       this.form.resetForm();
       this.isLoading = false;
+      this.email = value.email;
 
       this.modal.zModalTSuccess({
         title: this.tService.t('mdl_success'),
@@ -44,7 +45,9 @@ export class FormGetMailComponent implements OnInit {
         btnCloseTitle: this.tService.t('btn_close')
       });
 
-      this.router.navigate(['/password/change']);
+      this.router.navigate(['/password/change'], {
+        queryParams: { email: value.email }
+      });
 
     }, (err) => {
       this.isLoading = false;
