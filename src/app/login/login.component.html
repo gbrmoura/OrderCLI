@@ -9,9 +9,11 @@
   [submitText]="'btn_login' | zTranslate"
   (submitValue)="sendValue($event)"
   >
-  <ng-template #extraActions>
-    <button mat-raised-button color="accent" (click)="register()">{{'btn_url_register' | zTranslate}}</button>
-  </ng-template>
+    <ng-template #extraActions>
+      <button mat-raised-button color="accent" (click)="register()">{{'btn_url_register' | zTranslate}}</button>
+    </ng-template>
 
-</z-form-material>
+  </z-form-material>
+
+  <button mat-raised-button color="accent" (click)="forgotPassword()">{{'btn_url_forget_password' | zTranslate}}</button>
 </div>

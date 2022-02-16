@@ -49,7 +49,7 @@ export class AuthService {
     return this.http.post<IAPIResponse>(`${environment.url}Autenticacao/Login`, object);
   }
 
-  public firstRegister(object: { nome: string, login: string, senha: string }): Observable<IAPIResponse> {
+  public firstRegister(object: { nome: string, login: string, email:string, senha: string }): Observable<IAPIResponse> {
     return this.http.post<IAPIResponse>(`${environment.url}Autenticacao/PrimeiroRegistro`, object);
   }
 
@@ -59,7 +59,15 @@ export class AuthService {
     });
   }
 
-  public registerEmployee(object: { nome: string, login: string, senha: string, previlegio: number }): Observable<IAPIResponse> {
+  public forgetPassword(object: { email: string }): Observable<IAPIResponse> {
+    return this.http.post<IAPIResponse>(`${environment.url}Autenticacao/Recuperar/Senha`, object);
+  }
+
+  public changePassword(object: { email: string, token: string, password: string}): Observable<IAPIResponse> {
+    return this.http.post<IAPIResponse>(`${environment.url}Autenticacao/Recuperar/ConfirmarSenha`, object);
+  }
+
+  public registerEmployee(object: { nome: string, login: string, senha: string, email: string, previlegio: number }): Observable<IAPIResponse> {
     return this.http.post<IAPIResponse>(`${environment.url}Autenticacao/Funcionario/Registrar`, object, {
       headers: this.getAuthHeaders()
     });

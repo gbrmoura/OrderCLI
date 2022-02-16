@@ -1,3 +1,5 @@
+import { ChangePasswordComponent } from './../change-password/change-password.component';
+import { ForgotPasswordComponent } from './../forgot-password/forgot-password.component';
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Route, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable, of } from 'rxjs';
@@ -20,13 +22,24 @@ export class AuthGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
-      if (!this.authService.isAuthenticated && route.component !== LoginComponent && route.component !== FirstRegisterComponent && route.component !== UserComponent) {
-        console.log('Usuário Não Autenticado');
+      if (!this.authService.isAuthenticated &&
+        route.component !== LoginComponent &&
+        route.component !== FirstRegisterComponent &&
+        route.component !== UserComponent &&
+        route.component !== ForgotPasswordComponent &&
+        route.component !== ChangePasswordComponent) {
 
+        console.log('Usuário Não Autenticado');
         window.location.href = '/login';
 
         return false;
-      } else if (this.authService.isAuthenticated && (route.component === LoginComponent || route.component === FirstRegisterComponent || route.component === UserComponent)) {
+      } else if (this.authService.isAuthenticated &&
+         (route.component === LoginComponent ||
+          route.component === FirstRegisterComponent ||
+          route.component === UserComponent ||
+          route.component === ForgotPasswordComponent ||
+          route.component === ChangePasswordComponent)) {
+
         console.log('Usuário Já Está Autenticado');
 
         if (this.authService.session && (this.authService.session.email || this.authService.session.prontuario)) {
@@ -38,7 +51,12 @@ export class AuthGuard implements CanActivate {
         return false;
       } else {
 
-        if (route.component !== LoginComponent && route.component !== FirstRegisterComponent && route.component !== UserComponent && this.authService.session) {
+        if (route.component !== LoginComponent &&
+            route.component !== FirstRegisterComponent &&
+            route.component !== UserComponent &&
+            route.component !== ForgotPasswordComponent &&
+            route.component !== ChangePasswordComponent &&
+            this.authService.session) {
 
           return this.authService.updateToken().pipe(
             catchError((err) => {

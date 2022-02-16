@@ -15,6 +15,7 @@ import { TUsers } from './TUsers';
 import { TCheckout } from './TCheckout';
 import { TOrderUser } from './TOrderUser';
 import { TDashboardMaster } from './TDashboardMaster';
+import { TPasswordGeneral } from './TPasswordGeneral';
 
 export const Translate: ZLanguageData = {
   pt: {
@@ -34,6 +35,7 @@ export const Translate: ZLanguageData = {
     ...TCheckout.pt,
     ...TOrderUser.pt,
     ...TDashboardMaster.pt,
+    ...TPasswordGeneral.pt,
   },
   en: {
     ...TGeneric.en,
@@ -52,5 +54,6 @@ export const Translate: ZLanguageData = {
     ...TCheckout.en,
     ...TOrderUser.en,
     ...TDashboardMaster.en,
+    ...TPasswordGeneral.en,
   }
 };
