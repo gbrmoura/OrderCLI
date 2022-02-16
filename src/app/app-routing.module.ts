@@ -1,3 +1,5 @@
+import { FormGetPasswordComponent } from './forget-password/components/form-get-password/form-get-password.component';
+import { FormGetMailComponent } from './forget-password/components/form-get-mail/form-get-mail.component';
 import { ForgetPasswordComponent } from './forget-password/forget-password.component';
 import { UserComponent } from './user/user.component';
 import { NgModule } from '@angular/core';
@@ -39,7 +41,17 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     data: {
       hideSideBar: true
-    }
+    },
+    children: [
+      {
+        path: 'forget',
+        component: FormGetMailComponent,
+      },
+      {
+        path: 'change',
+        component: FormGetPasswordComponent
+      }
+    ]
   },
 
   // ? Layzloader Routers

@@ -85,7 +85,7 @@ export class LoginComponent extends ZFormProvider implements OnInit {
   }
 
   public forgotPassword(): void {
-    this.router.navigate(['/password']);
+    this.router.navigateByUrl('/password');
   }
 
 }

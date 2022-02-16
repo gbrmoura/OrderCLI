@@ -9,6 +9,8 @@ import { LoginComponent } from './login/login.component';
 import { FirstRegisterComponent } from './first-register/first-register.component';
 import { UserComponent } from './user/user.component';
 import { ForgetPasswordComponent } from './forget-password/forget-password.component';
+import { FormGetPasswordComponent } from './forget-password/components/form-get-password/form-get-password.component';
+import { FormGetMailComponent } from './forget-password/components/form-get-mail/form-get-mail.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +18,8 @@ import { ForgetPasswordComponent } from './forget-password/forget-password.compo
     LoginComponent,
     FirstRegisterComponent,
     UserComponent,
+    FormGetPasswordComponent,
+    FormGetMailComponent,
     ForgetPasswordComponent
   ],
   imports: [
