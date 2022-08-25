@@ -20,11 +20,14 @@
 .mat-card-actions {
   display: flex;
   flex-direction: row;
-  margin: 0;
-  margin-bottom: 0px !important;
+  justify-content: space-between;
 }
 .mat-card-actions span {
   font-size: x-large;
   color: #00c853;
 }
 
+.item-shop-card {
+  transform: scale(1.2);
+  margin-top: -10px;
+}

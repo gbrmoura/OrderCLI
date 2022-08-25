@@ -1,5 +1,4 @@
-
-<mat-card class="item-container" (click)="modal()">
+<mat-card class="item-container" >
 
   <img mat-card-image [src]="api.image(item.codigo, 'Produto')" height="300">
 
@@ -9,7 +8,16 @@
   </mat-card-content>
 
   <mat-card-actions>
-    <span>{{ item.valor | currency: 'BRL':true:'1.2-2' }}</span>
+    <div><span>{{ item.valor | currency: 'BRL':true:'1.2-2' }}</span></div>
+    <button 
+      mat-icon-button color="accent" 
+      class="item-shop-card"
+      [matTooltip]="'btn_add_cart' | zTranslate" 
+      [disabled]="item.quantidade <= 0 || badge === item.quantidade" 
+      (click)="addItem()"
+      >
+      <mat-icon [matBadge]="badge" [matBadgeHidden]="badge === 0" matBadgeSize="small">add_shopping_cart</mat-icon>
+    </button>
   </mat-card-actions>
 
 </mat-card>

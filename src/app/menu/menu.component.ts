@@ -29,7 +29,7 @@ export class MenuComponent implements OnInit, AfterViewInit, OnDestroy{
   public filterStr = '';
   public refreshTable = new EventEmitter();
 
-  public pageSize: number = 10;
+  public pageSize: number = 25;
   public pageIndex: number = 0;
   public length: number = 0;
 
@@ -126,10 +126,6 @@ export class MenuComponent implements OnInit, AfterViewInit, OnDestroy{
     });
   }
 
-  public modalCart(item: any) {
-
-  }
-
   public addCart(item: any): void {
     this.countAddItem++;
     this.sumItems += item.valor;
@@ -155,13 +151,10 @@ export class MenuComponent implements OnInit, AfterViewInit, OnDestroy{
     }
   }
 
-  handlePageEvent(event: PageEvent): void {
+  public handlePageEvent(event: PageEvent): void {
     this.length = event.length;
     this.pageSize = event.pageSize;
     this.pageIndex = event.pageIndex;
-
-    console.log('passou pela page')
-    console.log(event)
   }
 
   public ordering(): void {
