@@ -28,8 +28,10 @@
 </div>
 
 <mat-paginator
-  [length]="200"
-  [pageSizeOptions]="[25, 50, 75, 100]"
+  (page)="handlePageEvent($event)"
+  [length]="length"
+  [pageSizeOptions]="[10, 50, 75, 100]"
+  [showFirstLastButtons]="true"
 ></mat-paginator>
 
 <!-- Gera Items do Menu -->

@@ -2,7 +2,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { iShopping } from './../interfaces/iShopping';
 import { ShoppingService } from './../services/shopping.service';
 import { AfterViewInit, Component, EventEmitter, OnInit, ViewChild, OnDestroy, NgZone } from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { merge, of, Subject, Subscription } from 'rxjs';
 import { catchError, debounceTime, map, startWith, switchMap, tap } from 'rxjs/operators';
 import { ApiService } from '../services/api.service';
@@ -29,6 +29,10 @@ export class MenuComponent implements OnInit, AfterViewInit, OnDestroy{
   public filterStr = '';
   public refreshTable = new EventEmitter();
 
+  public pageSize: number = 10;
+  public pageIndex: number = 0;
+  public length: number = 0;
+
   public isLoading = false;
 
   private subscription = new Subscription();
@@ -40,7 +44,8 @@ export class MenuComponent implements OnInit, AfterViewInit, OnDestroy{
     private ngZone: NgZone,
     private router: Router,
     private shopp: ShoppingService,
-    private auth: AuthService) { }
+    private auth: AuthService
+  ) { }
 
 
   ngOnInit(): void {
@@ -71,7 +76,7 @@ export class MenuComponent implements OnInit, AfterViewInit, OnDestroy{
       startWith({}),
       switchMap(() => {
         this.isLoading = true;
-        return this.api.menu({ TamanhoPagina: 30, NumeroPagina: 1, CampoPesquisa: this.filterStr }).pipe(
+        return this.api.menu({ TamanhoPagina: this.pageSize, NumeroPagina: this.pageIndex + 1, CampoPesquisa: this.filterStr }).pipe(
           catchError((err) => {
             this.modal.zModalTErrorLog({
               base: {
@@ -93,6 +98,8 @@ export class MenuComponent implements OnInit, AfterViewInit, OnDestroy{
         if (!data.response) {
           return [];
         }
+
+        this.length = data.response.numeroRegistros;
 
         return data.response.dados;
       }),
@@ -146,6 +153,15 @@ export class MenuComponent implements OnInit, AfterViewInit, OnDestroy{
     } else {
       this.router.navigateByUrl('shopping');
     }
+  }
+
+  handlePageEvent(event: PageEvent): void {
+    this.length = event.length;
+    this.pageSize = event.pageSize;
+    this.pageIndex = event.pageIndex;
+
+    console.log('passou pela page')
+    console.log(event)
   }
 
   public ordering(): void {
