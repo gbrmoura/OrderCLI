@@ -119,6 +119,10 @@ export class MenuComponent implements OnInit, AfterViewInit, OnDestroy{
     });
   }
 
+  public modalCart(item: any) {
+
+  }
+
   public addCart(item: any): void {
     this.countAddItem++;
     this.sumItems += item.valor;

@@ -107,7 +107,6 @@ export class OrderWorkerComponent implements OnInit, AfterViewInit {
     ).subscribe((data) => {
       this.ngZone.run(() => {
         this.isLoadingList = false;
-        console.log(data);
         this.dataSource.next(data);
       });
     });
@@ -160,12 +159,7 @@ export class OrderWorkerComponent implements OnInit, AfterViewInit {
   public viewRow(value: any): void {
     this.isLoadingView = true;
 
-    console.log(value.codigo);
-
     this.api.get(value.codigo, EApiCrud.Pedido).subscribe((data) => {
-
-      console.log(data.response);
-
       this.ngZone.run(() => {
         this.isLoadingView = false;
         this.orderData = data.response;

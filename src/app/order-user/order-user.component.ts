@@ -116,8 +116,6 @@ export class OrderUserComponent implements OnInit, AfterViewInit {
     this.isLoadingView = true;
     this.api.get(value.codigo, EApiCrud.Pedido).subscribe((data) => {
 
-      console.log(data.response);
-
       this.ngZone.run(() => {
         this.isLoadingView = false;
         this.orderData = data.response;

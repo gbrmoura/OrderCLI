@@ -1,51 +1,3 @@
-.container-header {
-  width: 90%;
-  margin: 10px auto;
-  display: block;
-}
-
-.header-menu {
-  width: 98%;
-  display: block;
-  margin: 25px auto;
-}
-
-.header-div-order {
-  width: 10%;
-  display: inline-block;
-  margin-left: 2%;
-}
-
-.btn-floating {
-  transform: scale(1.2);
-  position: fixed;
-  bottom: 25px;
-  right: 25px;
-  z-index: 200;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-
-.generator-itmes {
-  margin-left: 35px;
-}
-
-@media only screen and (max-width: 920px) {
-  .generator-itmes {
-    margin-left: 25px;
-  }
-}
-
-@media only screen and (max-width: 600px) {
-  .generator-itmes {
-    margin-left: 0px;
-  }
-}
-
-// new
-
 .loading-shade {
   position: fixed;
   top: 0;
@@ -59,25 +11,63 @@
   justify-content: center;
 }
 
-.input-search {
-  width: 100%;
-  margin-right: 20px;
-}
-
-.button-order {
-  width: 10%;
-  margin-bottom: 22px;
-  margin-top: 4px;
-}
-
 .container-header {
-  width: 70vw;
+  width: 95vw;
   display: flex;
   margin: auto;
   margin-top: 2%;
 }
 
+.input-search {
+  width: 100%;
+  margin-right: 0.8em;
+}
 
-.spacer {
-  width: 2%;
+.button-order {
+  width: 10%;
+  margin-bottom: 1.2em;
+  margin-top: 4px;
+  margin-right: 0.4em;
+  height: 52px;
+}
+
+.btn-floating {
+  transform: scale(1.2);
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.menu-items-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(100px, 1fr));
+  margin-top: 1rem;
+}
+
+@media (max-width: 1800px) {
+  .menu-items-grid {
+    grid-template-columns: repeat(4, minmax(208px, 1fr));
+  }
+}
+
+@media (max-width: 1550px) {
+  .menu-items-grid {
+    grid-template-columns: repeat(3, minmax(208px, 1fr));
+  }
+}
+
+@media (max-width: 1075px) {
+  .menu-items-grid {
+    grid-template-columns: repeat(2, minmax(208px, 1fr));
+  }
+}
+
+@media (max-width: 720px) {
+  .menu-items-grid {
+    grid-template-columns: repeat(1, minmax(208px, 1fr));
+  }
 }

@@ -98,7 +98,6 @@ export class DashboardMasterComponent implements OnInit {
       this.ngZone.run(() => {
         this.isLoading = false;
         this.orders = data;
-        console.log(this.orders);
       });
 
     });

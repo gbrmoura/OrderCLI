@@ -41,7 +41,7 @@
     "rxjs": "~6.6.0",
     "tslib": "^2.3.0",
     "xlsx": "^0.17.3",
-    "zmaterial": "^0.3.4",
+    "zmaterial": "^0.3.12",
     "zone.js": "~0.11.4"
   },
   "devDependencies": {

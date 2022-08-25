@@ -1,98 +1,30 @@
-.mat-card-image {
-  margin-top: 0px !important;
-}
-
-.item-container {
-  width: 400px;
-  max-width: 400px;
-  min-width: 400px;
-  height: 650px;
-  min-height: 650px;
-  max-height: 650px;
+.mat-card {
+  min-width: 350px;
+  max-width: 350px;
+  min-height: 450px;
+  max-height: 450px;
   margin: 15px;
+  box-shadow: 0px 1px 3px 0px rgb(0 0 0 / 12%);
 }
 
-.item-description {
-  max-height: 20px;
-  min-height: 20px;
-  text-align: justify;
+.mat-card:hover {
+  box-shadow: 0px 3px 5px -1px rgb(0 0 0 / 20%), 0px 5px 8px 0px rgb(0 0 0 / 14%), 0px 1px 14px 0px rgb(0 0 0 / 12%);
+}
+
+.mat-card-subtitle {
+  min-height: 50px;
+  max-height: 50px;
   overflow: auto;
 }
 
-.item-tags-icon {
-  margin-right: 8px;
-  color: #1b5e20;
-  padding: 7px;
-  width: auto;
-  height: auto;
-  border-radius: 5px;
-  background-color: #e4f0e5;
+.mat-card-actions {
+  display: flex;
+  flex-direction: row;
+  margin: 0;
+  margin-bottom: 0px !important;
+}
+.mat-card-actions span {
+  font-size: x-large;
+  color: #00c853;
 }
 
-.item-tags-success {
-  color: #1b5e20;
-  background-color: #e4f0e5;
-}
-
-.item-tags-error {
-  color: red;
-  background-color: #ffc8c8;
-}
-
-.item-review-container {
-  width: 100%;
-  margin: 20px auto;
-}
-
-.item-review-title {
-  text-align: center;
-  font-size: 1.4em;
-  margin: 10px auto;
-  width: 100%;
-  display: block;
-}
-
-.item-review-container-star {
-  margin: auto;
-  width: fit-content;
-}
-
-.item-review-star {
-  line-height: 20px;
-}
-
-.item-shop-card {
-  transform: scale(1.5);
-  margin: auto;
-  display: block;
-}
-
-.item-price {
-  max-height: 35px;
-  min-height: 35px;
-  text-align: center;
-  font-size: 2.8rem;
-  display: block;
-  margin: 15px auto;
-  width: 100%;
-}
-
-@media only screen and (max-width: 920px) {
-  .item-container {
-    float: none;
-    margin: 20px auto;
-    width: 500px;
-    min-width: 500px;
-    max-width: 500px;
-  }
-}
-
-@media only screen and (max-width: 600px) {
-  .item-container {
-    float: none;
-    margin: 20px auto;
-    width: 300px;
-    min-width: 300px;
-    max-width: 300px;
-  }
-}

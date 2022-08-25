@@ -36,6 +36,10 @@ export class ItemComponent implements OnInit {
     }
   }
 
+  public modal(): void {
+    this.insertCart.next(this.item);
+  }
+
   public addItem(): void {
 
     if (this.badge < this.item.quantidade) {

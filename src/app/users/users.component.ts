@@ -182,8 +182,6 @@ export class UsersComponent implements OnInit {
   public updateEmployeen(value: any): void {
     this.isLoadingUpdate = true;
 
-    console.log(value);
-
     this.auth.update({...value, codigo: this.updateCode, previlegio: Number(value.previlegio.code)} ,EAuthCrud.Funcionario).subscribe(() => {
       this.isLoadingUpdate = false;
 

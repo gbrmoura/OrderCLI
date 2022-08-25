@@ -22,8 +22,6 @@
     <mat-icon>list_alt</mat-icon>
   </button>
 
-  <span class="spacer"></span>
-
   <button mat-fab (click)="refreshTable.next()">
     <mat-icon>refresh</mat-icon>
   </button>
@@ -35,15 +33,17 @@
 ></mat-paginator>
 
 <!-- Gera Items do Menu -->
-<div *ngFor="let category of items" class="generator-itmes">
-  <app-item
-    style="float: left"
-    [item]="category"
-    [category]="category.categoria"
-    (insertCart)="addCart($event)"
-  >
-  </app-item>
+<div class="menu-items-grid">
+  <div *ngFor="let category of items" style="margin: auto;">
+    <app-item
+      [item]="category"
+      [category]="category.categoria"
+      (insertCart)="addCart($event)"
+    >
+    </app-item>
+  </div>
 </div>
+
 
 <!-- Floating Button Cart -->
 <button

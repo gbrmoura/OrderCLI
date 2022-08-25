@@ -16,9 +16,7 @@ export class CardMasterComponent implements OnInit {
     public api: ApiService,
     private tService: ZTranslateService) { }
 
-  ngOnInit(): void {
-    console.log(this.order);
-  }
+  ngOnInit(): void { }
 
 
 
