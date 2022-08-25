@@ -23,13 +23,10 @@ export class AuthGuard implements CanActivate {
 
       if (!this.authService.isAuthenticated && route.component !== LoginComponent && route.component !== FirstRegisterComponent && route.component !== UserComponent && route.component !== ForgetPasswordComponent) {
 
-        console.log('Usuário Não Autenticado');
         window.location.href = '/login';
 
         return false;
       } else if (this.authService.isAuthenticated && (route.component === LoginComponent || route.component === FirstRegisterComponent || route.component === UserComponent || route.component === ForgetPasswordComponent)) {
-
-        console.log('Usuário Já Está Autenticado');
 
         if (this.authService.session && (this.authService.session.email || this.authService.session.prontuario)) {
           window.location.href = '/menu';
@@ -44,7 +41,6 @@ export class AuthGuard implements CanActivate {
 
           return this.authService.updateToken().pipe(
             catchError((err) => {
-              console.log('Falha ao Atualizar Token: ', err.error);
 
               this.authService.destroySession();
               return of(false);
@@ -54,14 +50,10 @@ export class AuthGuard implements CanActivate {
                 return of(false);
               }
 
-              console.log(this.authService.session);
-
               return getMenus(this.authService.session.previlegio, this.authService.session, this.tService).pipe(
                 map((menus) => {
 
                   const blockRouter = menus.find((m) => m.itens.find((i) => i.link === (route.routeConfig as Route).path));
-                  console.log(blockRouter);
-
 
                   if (!blockRouter) {
 

@@ -88,7 +88,6 @@ export class CheckoutComponent extends ZFormProvider implements OnInit {
 
   public finalize(event: any): void {
     this.isLoading = true;
-    console.log('deu submit');
 
     // montar objeto
     var payload: any = {
@@ -133,7 +132,6 @@ export class CheckoutComponent extends ZFormProvider implements OnInit {
   }
 
   public cancel(): void {
-    console.log('navegou');
     this.router.navigateByUrl('/menu');
   }
 
