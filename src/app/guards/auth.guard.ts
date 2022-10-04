@@ -3,12 +3,12 @@ import { ActivatedRouteSnapshot, CanActivate, Route, RouterStateSnapshot, UrlTre
 import { Observable, of } from 'rxjs';
 import { catchError, map, switchMap } from 'rxjs/operators';
 import { ZTranslateService } from 'zmaterial';
-import { FirstRegisterComponent } from '../first-register/first-register.component';
+import { FirstRegisterComponent } from '../pages/first-register/first-register.component';
 import { getMenus } from '../functions';
-import { LoginComponent } from '../login/login.component';
+import { LoginComponent } from '../pages/login/login.component';
 import { AuthService } from '../services/auth.service';
-import { UserComponent } from '../user/user.component';
-import { ForgetPasswordComponent } from '../forget-password/forget-password.component';
+import { UserComponent } from '../pages/user/user.component';
+import { ForgetPasswordComponent } from '../pages/forget-password/forget-password.component';
 
 @Injectable({
   providedIn: 'root'

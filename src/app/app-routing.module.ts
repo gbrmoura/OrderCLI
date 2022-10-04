@@ -1,12 +1,12 @@
-import { FormGetPasswordComponent } from './forget-password/components/form-get-password/form-get-password.component';
-import { FormGetMailComponent } from './forget-password/components/form-get-mail/form-get-mail.component';
-import { ForgetPasswordComponent } from './forget-password/forget-password.component';
-import { UserComponent } from './user/user.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { FirstRegisterComponent } from './first-register/first-register.component';
+import { FirstRegisterComponent } from './pages/first-register/first-register.component';
 import { AuthGuard } from './guards/auth.guard';
-import { LoginComponent } from './login/login.component';
+import { LoginComponent } from './pages/login/login.component';
+import { UserComponent } from './pages/user/user.component';
+import { ForgetPasswordComponent } from './pages/forget-password/forget-password.component';
+import { FormGetMailComponent } from './pages/forget-password/components/form-get-mail/form-get-mail.component';
+import { FormGetPasswordComponent } from './pages/forget-password/components/form-get-password/form-get-password.component';
 
 const routes: Routes = [
 
@@ -58,32 +58,32 @@ const routes: Routes = [
   {
     path: 'register/users',
     canActivate: [AuthGuard],
-    loadChildren: () => import('./users/users.module').then(m => m.UsersModule)
+    loadChildren: () => import('./pages/users/users.module').then(m => m.UsersModule)
   },
   {
     path: 'register/category',
     canActivate: [AuthGuard],
-    loadChildren: () => import('./category/category.module').then(m => m.CategoryModule)
+    loadChildren: () => import('./pages/category/category.module').then(m => m.CategoryModule)
   },
   {
     path: 'register/product',
     canActivate: [AuthGuard],
-    loadChildren: () => import('./product/product.module').then(m => m.ProductModule)
+    loadChildren: () => import('./pages/product/product.module').then(m => m.ProductModule)
   },
   {
     path: 'register/methodPayment',
     canActivate: [AuthGuard],
-    loadChildren: () => import('./method-payment/method-payment.module').then(m => m.MethodPaymentModule)
+    loadChildren: () => import('./pages/method-payment/method-payment.module').then(m => m.MethodPaymentModule)
   },
   {
     path: 'register/inventory',
     canActivate: [AuthGuard],
-    loadChildren: () => import('./inventory/inventory.module').then(m => m.InventoryModule)
+    loadChildren: () => import('./pages/inventory/inventory.module').then(m => m.InventoryModule)
   },
   {
     path: 'dashboard',
     canActivate: [AuthGuard],
-    loadChildren: () => import('./dashboard-master/dashboard-master.module').then(m => m.DashboardMasterModule)
+    loadChildren: () => import('./pages/dashboard-master/dashboard-master.module').then(m => m.DashboardMasterModule)
   },
   {
     path: 'menu',
@@ -91,7 +91,7 @@ const routes: Routes = [
     data: {
       hideSideBar: true
     },
-    loadChildren: () => import('./menu/menu.module').then(m => m.MenuModule)
+    loadChildren: () => import('./pages/menu/menu.module').then(m => m.MenuModule)
   },
   {
     path: 'shopping',
@@ -99,7 +99,7 @@ const routes: Routes = [
     data: {
       hideSideBar: true
     },
-    loadChildren: () => import('./shopping/shopping.module').then(m => m.ShoppingModule)
+    loadChildren: () => import('./pages/shopping/shopping.module').then(m => m.ShoppingModule)
   },
   {
     path: 'shopping/checkout',
@@ -107,7 +107,7 @@ const routes: Routes = [
     data: {
       hideSideBar: true
     },
-    loadChildren: () => import('./checkout/checkout.module').then(m => m.CheckoutModule)
+    loadChildren: () => import('./pages/checkout/checkout.module').then(m => m.CheckoutModule)
   },
   {
     path: 'order/user',
@@ -115,12 +115,12 @@ const routes: Routes = [
     data: {
       hideSideBar: true
     },
-    loadChildren: () => import('./order-user/order-user.module').then(m => m.OrderUserModule)
+    loadChildren: () => import('./pages/order-user/order-user.module').then(m => m.OrderUserModule)
   },
   {
     path: 'order/worker',
     canActivate: [AuthGuard],
-    loadChildren: () => import('./order-worker/order-worker.module').then(m => m.OrderWorkerModule)
+    loadChildren: () => import('./pages/order-worker/order-worker.module').then(m => m.OrderWorkerModule)
   },
 
 
