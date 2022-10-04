@@ -19,63 +19,66 @@ export class AuthGuard implements CanActivate {
 
   canActivate(
     route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+    state: RouterStateSnapshot
+  ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
-      if (!this.authService.isAuthenticated && route.component !== LoginComponent && route.component !== FirstRegisterComponent && route.component !== UserComponent && route.component !== ForgetPasswordComponent) {
+    console.log(this.authService.session)
 
-        window.location.href = '/login';
+    if (!this.authService.isAuthenticated && route.component !== LoginComponent && route.component !== FirstRegisterComponent && route.component !== UserComponent && route.component !== ForgetPasswordComponent) {
+      
+      window.location.href = '/login';
 
-        return false;
-      } else if (this.authService.isAuthenticated && (route.component === LoginComponent || route.component === FirstRegisterComponent || route.component === UserComponent || route.component === ForgetPasswordComponent)) {
+      return false;
+    } else if (this.authService.isAuthenticated && (route.component === LoginComponent || route.component === FirstRegisterComponent || route.component === UserComponent || route.component === ForgetPasswordComponent)) {
 
-        if (this.authService.session && (this.authService.session.email || this.authService.session.prontuario)) {
-          window.location.href = '/menu';
-        } else {
-          window.location.href = '/dashboard';
-        }
-
-        return false;
+      if (this.authService.session && (this.authService.session.prontuario)) {
+        window.location.href = '/menu';
       } else {
+        window.location.href = '/dashboard';
+      }
 
-        if (route.component !== LoginComponent && route.component !== FirstRegisterComponent && route.component !== UserComponent && route.component !== ForgetPasswordComponent && this.authService.session) {
+      return false;
+    } else {
 
-          return this.authService.updateToken().pipe(
-            catchError((err) => {
+      if (route.component !== LoginComponent && route.component !== FirstRegisterComponent && route.component !== UserComponent && route.component !== ForgetPasswordComponent && this.authService.session) {
 
-              this.authService.destroySession();
+        return this.authService.updateToken().pipe(
+          catchError((err) => {
+
+            this.authService.destroySession();
+            return of(false);
+          }),
+          switchMap(() => {
+            if (!route.routeConfig || !route.routeConfig.path || !this.authService.session) {
               return of(false);
-            }),
-            switchMap(() => {
-              if (!route.routeConfig || !route.routeConfig.path || !this.authService.session) {
-                return of(false);
-              }
+            }
 
-              return getMenus(this.authService.session.previlegio, this.authService.session, this.tService).pipe(
-                map((menus) => {
+            return getMenus(this.authService.session.previlegio, this.authService.session, this.tService).pipe(
+              map((menus) => {
 
-                  const blockRouter = menus.find((m) => m.itens.find((i) => i.link === (route.routeConfig as Route).path));
+                const blockRouter = menus.find((m) => m.itens.find((i) => i.link === (route.routeConfig as Route).path));
 
-                  if (!blockRouter) {
+                if (!blockRouter) {
 
-                    if (this.authService.session && (this.authService.session.email || this.authService.session.prontuario)) {
-                      window.location.href = '/menu';
-                    } else {
-                      window.location.href = '/dashboard';
-                    }
-
-                    return false;
+                  if (this.authService.session && (this.authService.session.prontuario)) {
+                    window.location.href = '/menu';
+                  } else {
+                    window.location.href = '/dashboard';
                   }
 
-                  return true;
-                })
-              );
+                  return false;
+                }
 
-            }),
-          );
-        }
+                return true;
+              })
+            );
 
-        return true;
+          }),
+        );
       }
+
+      return true;
+    }
   }
 
 }
